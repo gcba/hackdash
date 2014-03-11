@@ -6,5 +6,4 @@ src/
 keys.json
 config.json
 public/uploads/*
-
 *.sample
