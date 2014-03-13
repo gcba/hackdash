@@ -51,8 +51,9 @@ for(var strategy in keys) {
 
     var Strategy = require('passport-' + provider).Strategy;
     passport.use(new Strategy(keys[provider],
-    function(token, tokenSecret, profile, done) {
-      User.findOne({provider_id: profile.id, provider: provider}, function(err,
+    
+  function(identifier, profile, done) {
+      User.findOne({provider_id: profile.emails[0].value, provider: provider}, function(err,
 user){
 
         function setPicture(){
@@ -71,7 +72,7 @@ user){
         if(!user) {
           var user = new User();
           user.provider = provider;
-          user.provider_id = profile.id;
+          user.provider_id = profile.emails[0].value;
 
           if(profile.emails && profile.emails.length && profile.emails[0].value)
             user.email = profile.emails[0].value;
@@ -100,7 +101,10 @@ user){
 
         }
       });
-    }));
+    }
+
+
+    ));
 
   })(strategy);
 

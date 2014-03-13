@@ -19,6 +19,8 @@ module.exports = function(app, uri, common) {
   app.post(uri + '/dashboards', common.isAuth, validateSubdomain, createDashboard(app), sendDashboard);
   app.get(uri + '/dashboards', setQuery, setDashboards, sendDashboards);
 
+  app.get(uri + '/dashboards/:did', getDashboard, sendDashboard);
+
   app.get(uri + '/', getDashboard, sendDashboard);
   app.put(uri + '/', common.isAuth, getDashboard, isAdminDashboard, updateDashboard, sendDashboard);
 
@@ -90,18 +92,13 @@ var setDashboards = function(req, res, next){
 }
 
 var getDashboard = function(req, res, next){
-  if (req.subdomains.length > 0) {
-    Dashboard.findOne({ domain: req.subdomains[0] })
+    Dashboard.findById(req.params.did)
       .exec(function(err, dashboard) {
         if(err) return res.send(500);
         if(!dashboard) return res.send(404);
         req.dashboard = dashboard;
         next();
       });
-  }
-  else {
-    res.send(400, "Expected to be called at a subdomain");
-  } 
 }
 
 var isAdminDashboard = function(req, res, next){

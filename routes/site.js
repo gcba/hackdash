@@ -57,6 +57,9 @@ module.exports = function(app) {
   // ?q=[query]
   app.get('/dashboards', hackdashFullStack);
 
+  // Project View - Always Read Only
+  app.get('/dashboards/:did', hackdashFullStack);
+
   // Collections search - ONLY without subdomain - redirects if any
   // ?q=[query]
   app.get('/collections', hackdashFullStack);
