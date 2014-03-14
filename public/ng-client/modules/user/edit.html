@@ -1,0 +1,14 @@
+<h1>Profile</h1>
+
+<form novalidate class="simple-form">
+	<p>ID {{user._id}}</p>
+	<p>Creado el {{user.created_at}}</p>
+	<p>Email {{user.email}}</p>
+	<p>Nombre: <input type="text" ng-model="user.name" /></p>
+	<p>Username: <input type="text" ng-model="user.username" /></p>
+	<button ng-click="update(user)">SAVE</button>
+</form>
+
+<img ng-src="{{user.picture}}"/>
+
+<a href="/#/profile/{{user._id}}">ver perfil</a>

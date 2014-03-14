@@ -24,7 +24,10 @@ html(ng-app="oc-project")
       p {{user.name}}
       p {{user.email}}
       img(ng-src="{{user.picture}}")
-      a(href="/logout") logout
+      p
+        a(href="/#/profile") editar perfil
+      p
+        a(href="/logout") logout
 
     .container#page(ng-view)
 
@@ -41,6 +44,8 @@ html(ng-app="oc-project")
     script(src="/ng-client/openChallengeApp.js")
     script(src="/ng-client/modules/home/homeCtrl.js")
     script(src="/ng-client/modules/challenge/challengeCtrl.js")
+    script(src="/ng-client/modules/user/editProfileCtrl.js")
+    script(src="/ng-client/modules/user/viewProfileCtrl.js")
 
     script.
       window.openchallenge = { 

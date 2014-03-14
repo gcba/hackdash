@@ -11,6 +11,14 @@ ocApp.config(function($routeProvider) {
 	    controller:'challengeCtrl', 
 	    templateUrl:'/ng-client/modules/challenge/view.html'
 	  })
+	  .when('/profile/:profileId', { //public user profile
+	    controller:'viewProfileCtrl', 
+	    templateUrl:'/ng-client/modules/user/view.html'
+	  })
+	  .when('/profile', { //edit profile for logged user
+	    controller:'editProfileCtrl', 
+	    templateUrl:'/ng-client/modules/user/edit.html'
+	  })
 	  .otherwise({redirectTo:'/'});
 });
 
