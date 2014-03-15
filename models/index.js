@@ -14,7 +14,8 @@ module.exports = function(app) {
     , "picture": String
     , "admin_in": { type: [String], default: [] }
     , "bio": String
-    , "created_at": {type: Date, default: Date.now },
+    , "created_at": {type: Date, default: Date.now }
+    , "role": { type: String, enum: app.get('roles'), default: app.get('roles')[0] }
   });
 
   mongoose.model('User', User);

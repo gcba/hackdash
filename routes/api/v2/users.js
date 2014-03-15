@@ -18,6 +18,7 @@ module.exports = function(app, uri, common) {
 
   app.get(uri + '/admins', getInstanceAdmins, sendUsers);
   app.get(uri + '/users/:uid', getUser, sendUser);
+  app.get(uri + '/users', common.isAuth, getUsers, sendUsers);
 
   app.get(uri + '/profiles/:uid', getUser, setCollections, setProjects, setContributions, setLikes, sendUser);
   app.put(uri + '/profiles/:uid', common.isAuth, getUser, canUpdate, updateUser);
@@ -29,6 +30,17 @@ var getInstanceAdmins = function(req, res, next){
 
   User
     .find({ "admin_in": domain })
+    .exec(function(err, users) {
+      if(err) return res.send(500);
+      req.users = users || [];
+      next();
+    });
+};
+
+var getUsers = function(req, res, next){
+
+  User
+    .find()
     .exec(function(err, users) {
       if(err) return res.send(500);
       req.users = users || [];

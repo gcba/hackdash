@@ -17,17 +17,23 @@ html(ng-app="oc-project")
   body
 
     header
-    
-    a(href="/auth/openid", ng-hide="user") Access with openid
+      a(href="/auth/openid", ng-hide="user") login con openID
 
-    div(ng-show="user") 
-      p {{user.name}}
-      p {{user.email}}
-      img(ng-src="{{user.picture}}")
-      p
-        a(href="/#/profile") editar perfil
-      p
-        a(href="/logout") logout
+      div(ng-show="user") 
+        p {{user.name}}
+        p {{user.email}}
+        img(ng-src="{{user.picture}}")
+        p
+          a(href="/#/profile") editar perfil
+        p
+          a(href="/logout") logout
+        ul
+          li
+            a(href="/#/profile") Mi Perfil
+          li
+            a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenges") Mis concursos
+          li
+            a(ng-show="user.role=='superadmin'" href="/#/admin/users") Usuarios 
 
     .container#page(ng-view)
 
@@ -46,6 +52,8 @@ html(ng-app="oc-project")
     script(src="/ng-client/modules/challenge/challengeCtrl.js")
     script(src="/ng-client/modules/user/editProfileCtrl.js")
     script(src="/ng-client/modules/user/viewProfileCtrl.js")
+
+    script(src="/ng-client/modules/admin/adminUsersCtrl.js")
 
     script.
       window.openchallenge = { 

@@ -20,6 +20,21 @@ ocApp.config(function($routeProvider) {
 	    templateUrl:'/ng-client/modules/user/edit.html'
 	  })
 	  .otherwise({redirectTo:'/'});
+
+	//SuperAdmin
+	$routeProvider.
+	  when('/admin', {
+	  	redirectTo:'/admin/challenges'
+	  })
+	  .when('/admin/users', {
+	    controller:'adminUsersCtrl', 
+	    templateUrl:'/ng-client/modules/admin/listUsers.html'
+	  })
+ 	 /* .when('/superadmin/challenges', {
+	    controller:'superAdminChallengesCtrl', 
+	    templateUrl:'/ng-client/superadmin/challenge/view.html'
+	  })*/
+	  .otherwise({redirectTo:'/'});
 });
 
 ocApp.run(function ($rootScope, Restangular) {

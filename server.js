@@ -57,6 +57,8 @@ app.get('config').db.url})
      res.render('500');
   });
   app.set('statuses',['brainstorming','wireframing','building','researching','prototyping','releasing']);
+  app.set('roles',['user','admin','superadmin']);
+
 	app.locals.title = config.title;
 });
 
