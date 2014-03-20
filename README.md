@@ -1,14 +1,14 @@
-HackDash
+Open Challenge
 ========
 
-Organize hackaton ideas into a dashboard
+Open and easy to configure challenge platform
 
-![HackDash Logo](http://i.imgur.com/XLQGF3y.png)
+![OpenChallenge Logo](http://i.imgur.com/x.png)
 
 Install
 ===========
 
-I wrote a [blog post](http://zajdband.com.ar/installing-hackdash) explaining the installation process.
+Work in progress!
 
 Config
 ======
@@ -29,8 +29,9 @@ In your `config.json`:
 Running instances
 =================
 
-* [HackDash platform](http://hackdash.org): Create your own Dashboard for free. Maintained by the HackDash Creators.
-* [Auth0 HackDash platform](http://safe-tor-9833.herokuapp.com/): Create a Dashboard for your company using Auth0 service.
-* [BAHackaton](http://bahackaton.herokuapp.com): Buenos Aires City hackaton ideas.
 
-Add your own Dashboard!
+Copyleft
+========
+
+Based in the [HackDash platform](http://hackdash.org)
+Developed by the Gobierno de la Ciudad de Buenos Aires
