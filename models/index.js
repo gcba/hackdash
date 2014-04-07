@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
@@ -14,6 +13,7 @@ module.exports = function(app) {
     , "picture": String
     , "admin_in": { type: [String], default: [] }
     , "bio": String
+    , "baid": String
     , "created_at": {type: Date, default: Date.now }
     , "role": { type: String, enum: app.get('roles'), default: app.get('roles')[0] }
   });
@@ -31,6 +31,12 @@ module.exports = function(app) {
     , "cover": String
     , "link": String
     , "tags": [String]
+    , "imageurl": String
+    , "videourl": String
+    , "text": String
+    , "fileurl": String
+    , "result": String
+    , "status": [String]
     , "active": { type: Boolean, default: true }
     , "created_at": { type: Date, default: Date.now }
   });
@@ -44,6 +50,9 @@ module.exports = function(app) {
     , "link": String
     , "open": { type: Boolean, default: true }
     , "showcase": [String]
+    , "type": [String]
+    , "status": [String]
+    , "parent": [String]
     , "created_at": { type: Date, default: Date.now }
   });
 
@@ -58,5 +67,6 @@ module.exports = function(app) {
   });
 
   mongoose.model('Collection', Collection);
+  
 
 };
