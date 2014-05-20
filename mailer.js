@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies
  */
@@ -27,9 +26,9 @@ var sendJoinMail = function(data) {
 	var mailOptions = {
     from: data.from.email,
     to: data.to.email,
-    subject: "[HackDash] " + data.from.email + " joined your project!",
+    subject: "[OpenChallenge] " + data.from.email + " joined your project!",
 		// TODO change this
-    html: "<h1>HackDash</h1><p>Hi there! "+data.from.name+" Joined your project <strong>"+data.project.title+"</strong>.</p>"
+    html: "<h1>OpenChallenge</h1><p>Hi there! "+data.from.name+" Joined your project <strong>"+data.project.title+"</strong>.</p>"
 	};
 	transport.sendMail(mailOptions);
 };

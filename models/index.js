@@ -1,4 +1,3 @@
-
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
@@ -14,6 +13,7 @@ module.exports = function(app) {
     , "picture": String
     , "admin_in": { type: [String], default: [] }
     , "bio": String
+    , "baid": String
     , "created_at": {type: Date, default: Date.now }
     , "role": { type: String, enum: app.get('roles'), default: app.get('roles')[0] }
   });
@@ -30,22 +30,31 @@ module.exports = function(app) {
     , "cover": String
     , "link": String
     , "tags": [String]
+    , "imageurl": String
+    , "videourl": String
+    , "text": String
+    , "fileurl": String
+    , "result": String
+    , "status": [String]
     , "active": { type: Boolean, default: true }
     , "created_at": { type: Date, default: Date.now }
   });
   mongoose.model('Project', Project);
 
   var Dashboard = new Schema({
-      "domain": { type: String, required: true, index: { unique: true } },
+      "domain": { type: String, required: true, index: { unique: true } }
     , "title": { type: String, required: true }
     , "description": { type: String, required: true }
     , "open": { type: Boolean, default: true }
+    , "showcase": [String]
+    , "type": [String]
+    , "status": [String]
     , "created_at": { type: Date, default: Date.now }
-    , "header_images" : [String],
-    , "pages" : [{ type: ObjectId, ref: 'Page'}],
-    , "contact": String,
-    , "submit_fields": [String],
-    , "categories": [String],
+    , "header_images" : [String]
+    , "pages" : [{ type: ObjectId, ref: 'Page'}]
+    , "contact": String
+    , "submit_fields": [String]
+    , "categories": [String]
     , "stages": [{ type: ObjectId, ref: 'Stage'}]
   });
   mongoose.model('Dashboard', Dashboard);
@@ -73,5 +82,19 @@ module.exports = function(app) {
     , "created_at": { type: Date, default: Date.now }
   });
   mongoose.model('Collection', Collection);
+  
+    var Pages = new Schema({
+      "owner": { type: ObjectId, required: true, ref: 'User' }
+    , "domain": String
+    , "type": String
+    , "title": String
+    , "description": String
+    , "descriptionbig": String
+    , "status": String
+    , "imageurl": String
+    , "dashboards": [{ type: ObjectId, ref: 'Dashboard' }]
+    , "created_at": { type: Date, default: Date.now }
+  });
 
+  mongoose.model('Pages', Pages);
 };
