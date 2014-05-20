@@ -6,11 +6,11 @@ html(ng-app="oc-project")
     link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
     link(rel="icon", href="/favicon.ico", type="image/x-icon")
     
-    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Lato:300,400,700')
+    link(rel='stylesheet', href='/styles/open-sans.css')
 
     link(rel='stylesheet', href='/styles/bootstrap.min.css')
     link(rel='stylesheet', href='/styles/bootstrap-responsive.min.css')
-    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css')
+    link(rel='stylesheet', href='/styles/font-awesome.css')
     
     link(rel='stylesheet', href='/styles/main.css?v=' + version)
 
@@ -27,31 +27,31 @@ html(ng-app="oc-project")
           a(href="/#/profile") editar perfil
         p
           a(href="/logout") logout
-        ul
-          li
-            a(href="/#/profile") Mi Perfil
-          li
-            a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenges") Mis concursos
-          li
-            a(ng-show="user.role=='superadmin'" href="/#/admin/users") Usuarios 
+        p
+          a(href="/#/profile") Mi Perfil
+        p
+          a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenges") Mis concursos
+        p
+          a(ng-show="user.role=='superadmin'" href="/#/admin/users") Usuarios 
 
     .container#page(ng-view)
 
     footer
     #modals-container
 
-    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js")
-    script(src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js")
+    script(src="/js/libs/jquery.min.js")
+    script(src="/js/libs/lodash.min.js")
 
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular-route.min.js")
-    script(src="http://cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min.js")
+    script(src="/js/libs/angular.min.js")
+    script(src="/js/libs/angular-route.min.js")
+    script(src="/js/libs/restangular.min.js")
 
     script(src="/ng-client/openChallengeApp.js")
     script(src="/ng-client/modules/home/homeCtrl.js")
     script(src="/ng-client/modules/challenge/challengeCtrl.js")
     script(src="/ng-client/modules/user/editProfileCtrl.js")
     script(src="/ng-client/modules/user/viewProfileCtrl.js")
+    script(src="/ng-client/modules/project/projectCtrl.js")
 
     script(src="/ng-client/modules/admin/adminUsersCtrl.js")
 

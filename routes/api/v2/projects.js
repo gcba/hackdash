@@ -73,22 +73,16 @@ var canChangeProject = function(req, res, next){
 // TODO: get dashboard from dashboards controllers 
 var canCreateProject = function(req, res, next){
 
-  if (req.subdomains.length > 0) {
-  
-    Dashboard.findOne({ domain: req.subdomains[0] })
-      .exec(function(err, dashboard) {
-        if(err) return res.send(500);
-        if(!dashboard) return res.send(404);
-        
-        if (!dashboard.open) 
-          return res.send(403, "Dashboard is closed for creating projects");
+  Dashboard.findOne({ _id: req.body.challenge_id })
+    .exec(function(err, dashboard) {
+      if(err) return res.send(500);
+      if(!dashboard) return res.send(404);
+      
+      if (!dashboard.open) 
+        return res.send(403, "Dashboard is closed for creating projects");
 
-        next();
-      });
-  }
-  else {
-    res.send(400, "Cannot create a project outside a dashboard");
-  }
+      next();
+    });
 
 };
 

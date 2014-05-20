@@ -39,7 +39,7 @@ app.configure(function(){
   app.use(express.session({
       secret: app.get('config').session
     , store: new MongoStore({db: app.get('config').db.name, url:
-app.get('config').db.url}) 
+      app.get('config').db.url}) 
     , cookie: { maxAge: 365 * 24 * 60 * 60 * 1000, path: '/', domain: '.' + app.get('config').host }
   }));
   app.use(passport.initialize());
@@ -58,6 +58,13 @@ app.get('config').db.url})
   });
   app.set('statuses',['brainstorming','wireframing','building','researching','prototyping','releasing']);
   app.set('roles',['user','admin','superadmin']);
+  app.set('page_contents_type',['text','faq','rules','jury','prizes']);
+  app.set('permissions',[{
+     'public-vote'
+    ,'submit'
+    ,''
+  }]);
+
 
 	app.locals.title = config.title;
 });

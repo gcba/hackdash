@@ -17,7 +17,6 @@ module.exports = function(app) {
     , "created_at": {type: Date, default: Date.now }
     , "role": { type: String, enum: app.get('roles'), default: app.get('roles')[0] }
   });
-
   mongoose.model('User', User);
 
   var Project = new Schema({
@@ -34,20 +33,37 @@ module.exports = function(app) {
     , "active": { type: Boolean, default: true }
     , "created_at": { type: Date, default: Date.now }
   });
-
   mongoose.model('Project', Project);
 
   var Dashboard = new Schema({
-      "domain": String
-    , "title": String
-    , "description": String
-    , "link": String
+      "domain": { type: String, required: true, index: { unique: true } },
+    , "title": { type: String, required: true }
+    , "description": { type: String, required: true }
     , "open": { type: Boolean, default: true }
-    , "showcase": [String]
     , "created_at": { type: Date, default: Date.now }
+    , "header_images" : [String],
+    , "pages" : [{ type: ObjectId, ref: 'Page'}],
+    , "contact": String,
+    , "submit_fields": [String],
+    , "categories": [String],
+    , "stages": [{ type: ObjectId, ref: 'Stage'}]
   });
-
   mongoose.model('Dashboard', Dashboard);
+
+  var Page = new Schema({
+      "title": { type: String, required: true }
+    , "text": { type: String, required: true }
+    , "content_type": { type: String, enum: app.get('page_contents_type'), default: app.get('page_contents_type')[0] }
+  });
+  mongoose.model('Page', Page);
+
+  var Stage = new Schema({
+      "name": { type: String, required: true }
+    , "start": { type: Date, required: true }
+    , "end": { type: Date, required: true }
+    , "permissions": [ { type: String, enum: app.get('permissions') } ]
+  });
+  mongoose.model('Stage', Stage);
 
   var Collection = new Schema({
       "owner": { type: ObjectId, required: true, ref: 'User' }
@@ -56,7 +72,6 @@ module.exports = function(app) {
     , "dashboards": [{ type: ObjectId, ref: 'Dashboard' }]
     , "created_at": { type: Date, default: Date.now }
   });
-
   mongoose.model('Collection', Collection);
 
 };

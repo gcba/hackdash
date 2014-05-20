@@ -11,6 +11,10 @@ ocApp.config(function($routeProvider) {
 	    controller:'challengeCtrl', 
 	    templateUrl:'/ng-client/modules/challenge/view.html'
 	  })
+	 .when('/challenge/:challengeId/add', {
+	    controller:'projectCtrl', 
+	    templateUrl:'/ng-client/modules/project/add.html'
+	  })
 	  .when('/profile/:profileId', { //public user profile
 	    controller:'viewProfileCtrl', 
 	    templateUrl:'/ng-client/modules/user/view.html'
