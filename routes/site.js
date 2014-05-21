@@ -31,6 +31,9 @@ module.exports = function(app) {
     setViewVar('host', appHost),
     setViewVar('version', app.get('clientVersion')),
     setViewVar('statuses', app.get('statuses')),
+    setViewVar('permissions', app.get('permissions')),
+    setViewVar('page_contents_type', app.get('page_contents_type')),
+    setViewVar('roles', app.get('roles')),
     setViewVar('disqus_shortname', config.disqus_shortname),
     render('hackdashApp')
   ];

@@ -7,6 +7,10 @@ ocApp.config(function($routeProvider) {
 	    controller:'homeCtrl', 
 	    templateUrl:'/ng-client/modules/home/home.html'
 	  })
+	  .when('/challenge/add', {
+	    controller:'challengeCtrl', 
+	    templateUrl:'/ng-client/modules/challenge/add.html'
+	  })
 	  .when('/challenge/:challengeId', {
 	    controller:'challengeCtrl', 
 	    templateUrl:'/ng-client/modules/challenge/view.html'
@@ -45,6 +49,6 @@ ocApp.run(function ($rootScope, Restangular) {
 
 	Restangular.setBaseUrl('/api/v2');
 
-	$rootScope.user = window.openchallenge.user;
+	angular.extend($rootScope,window.openchallenge);
 
 });

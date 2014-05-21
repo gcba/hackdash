@@ -30,7 +30,9 @@ html(ng-app="oc-project")
         p
           a(href="/#/profile") Mi Perfil
         p
-          a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenges") Mis concursos
+          a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenge") Mis concursos
+        p
+          a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/challenge/add") Nuevo concurso
         p
           a(ng-show="user.role=='superadmin'" href="/#/admin/users") Usuarios 
 
@@ -61,7 +63,10 @@ html(ng-app="oc-project")
         baseURL: "!{host}",
         disqus_shortname: "!{disqus_shortname}",
         statuses: "!{statuses}",
-        providers: "!{providers}"
+        providers: "!{providers}",
+        roles: "!{roles}".split(','),
+        page_contents_type: "!{page_contents_type}".split(','),
+        permissions: "!{permissions}".split(',')
       };
 
     if ("undefined" == typeof user)

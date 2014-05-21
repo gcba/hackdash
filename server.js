@@ -59,11 +59,11 @@ app.configure(function(){
   app.set('statuses',['brainstorming','wireframing','building','researching','prototyping','releasing']);
   app.set('roles',['user','admin','superadmin']);
   app.set('page_contents_type',['text','faq','rules','jury','prizes']);
-  app.set('permissions',[{
+  app.set('permissions',[
      'public-vote'
     ,'submit'
-    ,''
-  }]);
+    ,'otro'
+  ]);
 
 
 	app.locals.title = config.title;
