@@ -16,16 +16,21 @@ var Project = mongoose.model('Project')
 
 module.exports = function(app, uri, common) {
 
-  app.post(uri + '/dashboards', common.isAuth, validateSubdomain, createDashboard(app), sendDashboard);
+  //LIST
   app.get(uri + '/dashboards', setQuery, setDashboards, sendDashboards);
+  
+  //NEW
+  app.post(uri + '/dashboards', common.isAuth, /*validateSubdomain,*/ createDashboard(app), sendDashboard);
 
+  //GET ONE
   app.get(uri + '/dashboards/:did', getDashboard, sendDashboard);
 
-  app.get(uri + '/', getDashboard, sendDashboard);
-  app.put(uri + '/', common.isAuth, getDashboard, isAdminDashboard, updateDashboard, sendDashboard);
+  //UPDATE
+  app.put(uri + '/dashboards/:did', common.isAuth, getDashboard, isAdminDashboard, updateDashboard, sendDashboard);
 
+/*  app.get(uri + '/', getDashboard, sendDashboard);
   app.post(uri + '/', common.notAllowed);
-  app.del(uri + '/', common.notAllowed);
+  app.del(uri + '/', common.notAllowed);*/
 
   app.get(uri + '/csv', common.isAuth, getDashboard, isAdminDashboard, sendDashboardCSV);
 };
@@ -49,11 +54,9 @@ var createDashboard =  function(app){
 
       var dash = new Dashboard({ domain: req.body.domain});
       dash.save(function(err){
-        
-        User.findById(req.user.id, function(err, user) {
-          
-          user.admin_in.push(req.body.domain);
 
+        User.findById(req.user.id, function(err, user) {
+          user.admin_in.push(dash._id);
           user.save(function(){
             req.dashboard = dash;
             next();
@@ -102,7 +105,7 @@ var getDashboard = function(req, res, next){
 }
 
 var isAdminDashboard = function(req, res, next){
-  var isAdmin = (req.user.admin_in.indexOf(req.dashboard.domain) >= 0);
+  var isAdmin = (req.user.admin_in.indexOf(req.dashboard._id) >= 0);
 
   if (!isAdmin) {
     return res.send(403, "Only Administrators are allowed for this action.");
@@ -126,11 +129,12 @@ var updateDashboard = function(req, res, next) {
   dashboard.description = getValue("description");
   dashboard.link = getValue("link");
   dashboard.open = getValue("open");
-
-  var showcase = getValue("showcase");
-  if (Array.isArray(showcase)){
-    dashboard.showcase = showcase;
-  }
+  dashboard.contact = getValue("contact");
+  dashboard.pages = getValue("pages");
+  dashboard.stages = getValue("stages");
+  dashboard.categories = getValue("categories");
+  dashboard.submit_fields = getValue("submit_fields");
+  dashboard.header_images = getValue("header_images");
   
   dashboard.save(function(err, dashboard){
     if(err) return res.send(500);

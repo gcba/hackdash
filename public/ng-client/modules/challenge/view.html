@@ -1,4 +1,6 @@
-<h1>Concurso {{challenge.domain}}</h1>
-<p>{{challenge.created_at}}</p>
+<h1>Concurso {{challenge.title}}</h1>
+<a ng-show="userCanEdit" href="/#/challenge/{{challenge._id}}/edit">Editar</a>
+<p>Domain: {{challenge.domain}}</p>
+<p>Create: {{challenge.created_at}}</p>
 <p>Abierto: {{challenge.open}}</p>
 <a href="/#/challenge/{{challenge._id}}/add">Participar</p>

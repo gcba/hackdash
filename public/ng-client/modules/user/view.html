@@ -11,12 +11,7 @@
 
 <h2>admin in</h2>
 <div ng-repeat="e in user.admin_in">
-	<p>{{e}}</p>
-</div>
-
-<h2>collections</h2>
-<div ng-repeat="e in user.collections">
-	<p>{{e.title}}</p>
+	<a href="/#/challenge/{{e}}">{{e}}</a>
 </div>
 
 <h2>projects</h2>

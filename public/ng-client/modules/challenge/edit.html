@@ -1,0 +1,88 @@
+<h1>Editar Concurso</h1>
+
+<form novalidate class="simple-form">
+	<p>title <input type="text" ng-model="challenge.title" /></p>
+	<p>domain <input type="text" ng-model="challenge.domain" /></p>
+	<p>description <input type="text" ng-model="challenge.description" /></p>
+	<p>open <input type="text" ng-model="challenge.open" /></p>
+	<p>contact <input type="text" ng-model="challenge.contact" /></p>
+
+	<div>
+		<h2>Pages
+			<span>
+			  [<a href ng-click="challenge.pages.push({})">add</a>]
+			</span>
+		</h2>
+		<div ng-repeat="page in challenge.pages">
+		  	<p>title <input type="text" ng-model="page.title" /></p>
+		  	<p>text <input type="text" ng-model="page.text" /></p>
+		  	<select ng-model="page.content_type" ng-options="content for content in $parent.page_contents_type">
+			  <option value="">-- select --</option>
+			</select>
+		    [<a href ng-click="challenge.pages.splice($index, 1)">X</a>]
+		</div>
+	</div>
+
+	<div>
+		<h2>Stages
+			<span>
+			  [<a href ng-click="challenge.stages.push({permissions:[]})">add</a>]
+			</span>
+		</h2>
+		<div ng-repeat="stage in challenge.stages">
+		  	<p>name <input type="text" ng-model="stage.name" /></p>
+		  	<p>start <input type="text" ng-model="stage.start" /></p>
+		  	<p>end <input type="text" ng-model="stage.end" /></p>
+		  	<p>permisos</p>
+		  	<p ng-repeat="perm in $parent.permissions">
+		  		<input type="checkbox" ng-model="stage.permissions[$index]" ng-true-value="{{$parent.permissions[$index]}}" ng-false-value="false" />
+		  		{{$parent.permissions[$index]}}
+		  	</p>
+		  	[<a href ng-click="challenge.stages.splice($index, 1)">X</a>]
+		</div>
+	</div>
+
+	<div>
+		<h2>Header Images
+			<span>
+			  [<a href ng-click="challenge.header_images.push('')">add</a>]
+			</span>
+		</h2>	
+		<p>TODO: hacer load file </p>
+		<div ng-repeat="header_image in challenge.header_images track by $index">
+		  	<p>img <input type="text" ng-model="challenge.header_images[$index]" /></p>
+		    [<a href ng-click="challenge.header_images.splice($index, 1)">X</a>]
+		</div>
+	</div>
+
+	<div>
+		<h2>Submit fields
+			<span>
+			  [<a href ng-click="challenge.submit_fields.push('')">add</a>]
+			</span>
+		</h2>
+		<div ng-repeat="field in challenge.submit_fields track by $index">
+
+			field
+		  	<select ng-model="challenge.submit_fields[$index]" ng-options="option for option in projectOptions">
+			  <option value="">-- select --</option>
+			</select>
+
+		    [<a href ng-click="challenge.submit_fields.splice($index, 1)">X</a>]
+		</div>
+	</div>
+
+	<div>
+		<h2>Categorías
+			<span>
+			  [<a href ng-click="challenge.categories.push('')">add</a>]
+			</span>
+		</h2>
+		<div ng-repeat="cat in challenge.categories track by $index">
+		  	<p>cat <input type="text" ng-model="challenge.categories[$index]" /></p>
+		    [<a href ng-click="challenge.categories.splice($index, 1)">X</a>]
+		</div>
+	</div>
+
+	<button ng-click="update()">grabar</button>
+</form>

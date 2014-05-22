@@ -25,6 +25,7 @@ module.exports = function(app, uri, common) {
       domain: req.project.domain
     });
   };
+  app.get(uri + '/projects/schema', common.isAuth, setSchema, sendSchema);
 
   app.get(uri + '/projects', setQuery, setProjects, sendProjects);
 
@@ -42,6 +43,22 @@ module.exports = function(app, uri, common) {
   app.post(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, addContributor);
   app.del(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, removeContributor);
 
+};
+
+var setSchema = function(req, res, next){
+  var options=[],
+      ignore = ['_id','__v','created_at','active','followers','domain','leader','status','contributors','followers','result'];
+  for (var prop in Project.schema.paths) {
+      if (Project.schema.paths.hasOwnProperty(prop) && ignore.indexOf(prop)==-1) {
+          options.push(prop);
+      }
+  }
+  req.schema = options;
+  next();
+};
+
+var sendSchema = function(req, res, next){
+  res.send(req.schema);
 };
 
 var getProject = function(req, res, next){

@@ -1,5 +1,5 @@
 /*
- * RESTfull API: Dashboard Resources
+ * RESTfull API: Users Resources
  * 
  * 
  */
