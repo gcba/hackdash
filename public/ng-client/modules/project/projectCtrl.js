@@ -1,25 +1,13 @@
-ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular) {
+ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $rootScope, $location) {
 
 	$scope.project = {};
 
-	Restangular.one('dashboards', $routeParams.projectId).get().then(function(challenge) {
-		$scope.challenge = challenge[0];
-	});
-
-	$scope.add = function(project) {
-
-		project.tags = project.tags.split(',');
-		project.challenge_id = $scope.challenge._id;
-
-		Restangular.all("projects")
-			.post(project)
-			.then(function(e){
-				console.log(e);
-				//$location.path('/profile/'+$rootScope.user._id);
+	if($routeParams.projectId){
+		Restangular.one('projects', $routeParams.projectId).get()
+			.then(function(project){
+				$scope.project = project;
+		  		$scope.challenge = Restangular.one('dashboards', project.challenge_id).get().$object;
 			});
-
-		//TODO hacer load de img
-
-    };
+	}
 
 });

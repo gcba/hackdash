@@ -20,9 +20,9 @@ module.exports = function(app) {
   mongoose.model('User', User);
 
   var Project = new Schema({
-      "title": { type: String, required: true }
-    , "domain": String
-    , "description": { type: String, required: true }
+      "title": { type: String }
+    , "challenge_id": String
+    , "description": { type: String }
     , "leader": { type: ObjectId, required: true, ref: 'User' }
     , "status": { type: String, enum: app.get('statuses'), default: app.get('statuses')[0] }
     , "contributors": [{ type: ObjectId, ref: 'User'}]
@@ -42,7 +42,7 @@ module.exports = function(app) {
   mongoose.model('Project', Project);
 
   var Dashboard = new Schema({
-      "domain": { type: String, required: true, index: { unique: true } }
+      "slug": { type: String, index: { unique: true } }
     , "title": { type: String }
     , "description": { type: String }
     , "open": { type: Boolean, default: false }
@@ -56,7 +56,7 @@ module.exports = function(app) {
       , "text": { type: String, required: true }
       , "content_type": { type: String, enum: app.get('page_contents_type'), default: app.get('page_contents_type')[0] }
     }]
-    , "contact": String
+    , "contact": { type: String, validate: /.+@.+\..+/ }
     , "submit_fields": [String]
     , "categories": [String]
     , "stages": [{
@@ -65,6 +65,12 @@ module.exports = function(app) {
       , "end": { type: Date, required: true }
       , "permissions": [ { type: String, enum: app.get('permissions') } ]
     }]
+    , "call_to_action": {
+        "label": { type: String, required: true, default: "Participar" }
+      , "help": { type: String, required: true, default: "" }
+      ,"color": { type: String, required: true}
+    }
+    , "link_color": {type: String, required: true}
   });
   mongoose.model('Dashboard', Dashboard);
 

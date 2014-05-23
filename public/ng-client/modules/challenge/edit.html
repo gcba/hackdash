@@ -1,11 +1,20 @@
 <h1>Editar Concurso</h1>
 
 <form novalidate class="simple-form">
+	<h2>Options</h2>
+	<p>slug {{challenge.slug}}</p>
 	<p>title <input type="text" ng-model="challenge.title" /></p>
-	<p>domain <input type="text" ng-model="challenge.domain" /></p>
 	<p>description <input type="text" ng-model="challenge.description" /></p>
 	<p>open <input type="text" ng-model="challenge.open" /></p>
 	<p>contact <input type="text" ng-model="challenge.contact" /></p>
+	<p>color links <input type="text" ng-model="challenge.link_color" /></p>
+
+	<div>
+		<h2>Button</h2>
+	  	<p>label <input type="text" ng-model="challenge.call_to_action.label" /></p>
+	  	<p>help <input type="text" ng-model="challenge.call_to_action.help" /></p>
+	  	<p>color <input type="text" ng-model="challenge.call_to_action.color" /></p>
+	</div>
 
 	<div>
 		<h2>Pages
@@ -84,5 +93,5 @@
 		</div>
 	</div>
 
-	<button ng-click="update()">grabar</button>
+	<button ng-click="update(challenge)">grabar</button>
 </form>

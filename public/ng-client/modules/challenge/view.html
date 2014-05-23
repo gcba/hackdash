@@ -1,6 +1,66 @@
 <h1>Concurso {{challenge.title}}</h1>
+<h2>actions</h2>
 <a ng-show="userCanEdit" href="/#/challenge/{{challenge._id}}/edit">Editar</a>
-<p>Domain: {{challenge.domain}}</p>
+<a href="javascript:;">{{challenge.call_to_action.label}}</a>
+
+<h2>data</h2>
+<p>Slug: {{challenge.slug}}</p>
 <p>Create: {{challenge.created_at}}</p>
 <p>Abierto: {{challenge.open}}</p>
-<a href="/#/challenge/{{challenge._id}}/add">Participar</p>
+<p>contact: {{challenge.contact}}</p>
+<p>link color: {{challenge.link_color}}</p>
+
+<h2>button call to action</h2>
+<div>
+	<p>Label: {{challenge.call_to_action.label}}</p>
+	<p>help: {{challenge.call_to_action.help}}</p>
+	<p>color: {{challenge.call_to_action.color}}</p>
+</div>
+
+<h2>images</h2>
+<div ng-repeat="img in challenge.header_images">
+	<img ng-src="{{img}}" width="100" />
+</div>
+
+<h2>stages</h2>
+<ul>
+	<li ng-repeat="s in challenge.stages">
+		Nombre: {{s.name}} | Desde: {{s.start}} | Hasta: {{s.end}}
+		<ul>
+			<li ng-repeat="p in s.permissions track by $index">
+				{{p}}
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<h2>pages</h2>
+<ul>
+	<li ng-repeat="p in challenge.pages">
+		titulo: {{p.title}} | texto: {{p.text}} | tipo: {{p.content_type}} |
+	</li>
+</ul>
+
+<h2>categories</h2>
+<ul>
+	<li ng-repeat="c in challenge.categories">
+		{{c}}
+	</li>
+</ul>
+
+<h2>SUBMITS ({{projects.length}})</h2>
+<div ng-repeat="c in projects">
+	<a href="/#/submit/{{c._id}}">
+		<p>{{c._id}}</p>
+	</a>
+</div>
+
+
+<h2>Campos para participar (meter en popup)</h2>
+<p>Participar en Concurso {{challenge.slug}}</p>
+
+<p ng-repeat="s in challenge.submit_fields">	
+	{{s}} <input type="text" ng-model="project[s]" />
+</p>
+<button ng-click="addProject(project)">grabar</button>
+	

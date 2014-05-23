@@ -1,0 +1,11 @@
+<h1>Concurso {{challenge.title}}</h1>
+<a href="/#/challenge/{{challenge._id}}">ver concurso</a>
+<h2>data</h2>
+<p>Slug: {{challenge.slug}}</p>
+<p>Abierto: {{challenge.open}}</p>
+
+<h2>Postulacion</h2>
+
+<p ng-repeat="s in challenge.submit_fields">	
+	{{s}} : {{project[s]}}
+</p>

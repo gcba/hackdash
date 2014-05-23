@@ -25,14 +25,23 @@ module.exports = function(app, uri, common) {
       domain: req.project.domain
     });
   };
+
+  //GET SCHEMA
   app.get(uri + '/projects/schema', common.isAuth, setSchema, sendSchema);
 
+  //LIST
   app.get(uri + '/projects', setQuery, setProjects, sendProjects);
 
+  //NEW
   app.post(uri + '/projects', common.isAuth, canCreateProject, createProject, sendProject);
   app.post(uri + '/projects/cover', common.isAuth, uploadCover);
-  
+
+  //GET ONE  
   app.get(uri + '/projects/:pid', getProject, sendProject);
+
+  //GET ALL from one dashboards  
+  app.get(uri + '/dashboards/:did/projects', setQuery, setProjects, sendProjects);
+
 
   app.del(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, removeProject);
   app.put(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
@@ -98,6 +107,8 @@ var canCreateProject = function(req, res, next){
       if (!dashboard.open) 
         return res.send(403, "Dashboard is closed for creating projects");
 
+      //TODO check stages roles
+
       next();
     });
 
@@ -125,16 +136,20 @@ var createProject = function(req, res, next){
     , followers: [req.user._id]
     , contributors: [req.user._id]
     , cover: req.body.cover
-    , domain: req.subdomains[0]
+    , challenge_id: req.body.challenge_id
+    , imageurl: req.body.imageurl
+    , videourl: req.body.videourl
+    , text: req.body.text
+    , file: req.body.file
   });
 
-  if (!project.title){
+  /*if (!project.title){
     return res.json(500, { error: "title_required" });
   }
 
   if (!project.description){
     return res.json(500, { error: "description_required" });
-  }
+  }*/
 
   project.save(function(err, project){
     if(err) return res.send(500); 
@@ -289,8 +304,8 @@ var setQuery = function(req, res, next){
 
   req.query = {};
 
-  if (req.subdomains.length > 0) {
-    req.query = { domain: req.subdomains[0] };
+  if (req.params.did) {
+    req.query = { challenge_id: req.params.did };
   }
 
   if (query.length === 0){

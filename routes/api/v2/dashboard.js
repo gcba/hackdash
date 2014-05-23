@@ -20,7 +20,7 @@ module.exports = function(app, uri, common) {
   app.get(uri + '/dashboards', setQuery, setDashboards, sendDashboards);
   
   //NEW
-  app.post(uri + '/dashboards', common.isAuth, /*validateSubdomain,*/ createDashboard(app), sendDashboard);
+  app.post(uri + '/dashboards', common.isAuth, validateSubdomain, createDashboard(app), sendDashboard);
 
   //GET ONE
   app.get(uri + '/dashboards/:did', getDashboard, sendDashboard);
@@ -37,7 +37,7 @@ module.exports = function(app, uri, common) {
 
 var validateSubdomain = function(req, res, next) {
   
-  if(!/^[a-z0-9]{5,10}$/.test(req.body.domain)) {
+  if(!/^[a-z0-9]{5,10}$/.test(req.body.slug)) {
     return res.json(500, { error: "subdomain_invalid" });
   }
 
@@ -47,14 +47,15 @@ var validateSubdomain = function(req, res, next) {
 var createDashboard =  function(app){
   return function(req, res, next) {
 
-    Dashboard.findOne({domain: req.body.domain}, function(err, dashboard){
+    console.log(req.body.slug);
+
+    Dashboard.findOne({slug: req.body.slug}, function(err, dashboard){
       if(err || dashboard) {
-        return res.json(409, { error: "subdomain_inuse" });
+        return res.json(409, { error: "slug_inuse" });
       }
 
-      var dash = new Dashboard({ domain: req.body.domain});
+      var dash = new Dashboard({ slug: req.body.slug});
       dash.save(function(err){
-
         User.findById(req.user.id, function(err, user) {
           user.admin_in.push(dash._id);
           user.save(function(){
@@ -78,7 +79,7 @@ var setQuery = function(req, res, next){
   }
 
   var regex = new RegExp(query, 'i');
-  req.search_query.$or = [ { domain: regex }, { title: regex }, { description: regex } ];
+  req.search_query.$or = [ { slug: regex }, { title: regex }, { description: regex } ];
 
   next();
 };
@@ -135,7 +136,9 @@ var updateDashboard = function(req, res, next) {
   dashboard.categories = getValue("categories");
   dashboard.submit_fields = getValue("submit_fields");
   dashboard.header_images = getValue("header_images");
-  
+  dashboard.link_color = getValue("link_color");
+  dashboard.call_to_action = getValue("call_to_action");
+
   dashboard.save(function(err, dashboard){
     if(err) return res.send(500);
     req.dashboard = dashboard;

@@ -1,14 +1,14 @@
 <h1>Challenges</h1>
 <div ng-repeat="c in challenges">
 	<a href="/#/challenge/{{c._id}}">
-		<p>{{c.domain}}</p>
+		<p>{{c.slug}}</p>
 		<p>{{c.created_at}}</p>
 	</a>
 </div>
 
 <h1>Projects</h1>
 <div ng-repeat="c in projects">
-	<a href="/#/project/{{c._id}}">
+	<a href="/#/submit/{{c._id}}">
 		<p>{{c.created_at}}</p>
 	</a>
 </div>

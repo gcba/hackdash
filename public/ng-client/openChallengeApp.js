@@ -9,14 +9,19 @@ ocApp.config(function($routeProvider) {
 	  })
 	  .when('/challenge/add', {
 	    controller:'challengeCtrl', 
-	    templateUrl:'/ng-client/modules/challenge/add.html'
+	    templateUrl:'/ng-client/modules/challenge/add.html',
+	    resolve: {
+          action: function(){
+            return 'add';
+          }
+        }
 	  })
 	  .when('/challenge/:challengeId/edit', {
 	    controller:'challengeCtrl', 
 	    templateUrl:'/ng-client/modules/challenge/edit.html',
 	    resolve: {
-          isEdit: function(){
-            return true;
+          action: function(){
+            return 'edit';
           }
         }
 	  })
@@ -24,14 +29,14 @@ ocApp.config(function($routeProvider) {
 	    controller:'challengeCtrl', 
 	    templateUrl:'/ng-client/modules/challenge/view.html',
 	    resolve: {
-          isEdit: function(){
-            return false;
+          action: function(){
+            return 'view';
           }
         }
 	  })
-	 .when('/challenge/:challengeId/add', {
+	 .when('/submit/:projectId', {
 	    controller:'projectCtrl', 
-	    templateUrl:'/ng-client/modules/project/add.html'
+	    templateUrl:'/ng-client/modules/project/view.html'
 	  })
 	  .when('/profile/:profileId', { //public user profile
 	    controller:'viewProfileCtrl', 
@@ -63,6 +68,19 @@ ocApp.run(function ($rootScope, Restangular) {
 
 	Restangular.setBaseUrl('/api/v2');
 
+	Restangular.setRestangularFields({
+	  id: "_id"
+	});
+
 	angular.extend($rootScope,window.openchallenge);
+
+	$rootScope.refreshUser = function(cb){
+		Restangular.one('profiles', $rootScope.user._id).get().then(function(user){
+			$rootScope.user = user;
+			if(cb){
+				cb();
+			}
+		});
+	} 
 
 });
