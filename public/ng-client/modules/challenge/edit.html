@@ -43,7 +43,6 @@
 		  	<p>start <input type="text" ng-model="stage.start" /></p>
 		  	<p>end <input type="text" ng-model="stage.end" /></p>
 		  	<p>permisos</p>
-		  	{{stage.permissionOptions}}
 		  	<select ng-show="stage.permissionOptions.length > 0" ng-model="stage.selectedPermission" ng-options="permission for permission in stage.permissionOptions">
 			  <option value="">-- select --</option>
 			</select>

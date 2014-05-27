@@ -53,14 +53,14 @@ ocApp.config(function($routeProvider) {
 	  when('/admin', {
 	  	redirectTo:'/admin/challenges'
 	  })
+ 	  .when('/admin/users/:userId', {
+	    controller:'adminUsersCtrl', 
+	    templateUrl:'/ng-client/modules/admin/editUser.html'
+	  })
 	  .when('/admin/users', {
 	    controller:'adminUsersCtrl', 
 	    templateUrl:'/ng-client/modules/admin/listUsers.html'
 	  })
- 	 /* .when('/superadmin/challenges', {
-	    controller:'superAdminChallengesCtrl', 
-	    templateUrl:'/ng-client/superadmin/challenge/view.html'
-	  })*/
 	  .otherwise({redirectTo:'/'});
 });
 

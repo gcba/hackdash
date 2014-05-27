@@ -39,6 +39,13 @@ var isAuth = function(req, res, next){
   (req.isAuthenticated()) ? next() : res.send(403);
 };
 
+/*
+ * Check if current user is authenticated
+ */
+
+var isSuperAdmin = function(req, res, next){
+  console.log(req.user);
+};
 
 /*
  * Add current user template variable

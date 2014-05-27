@@ -12,7 +12,8 @@ var passport = require('passport')
 
 var User = mongoose.model('User')
   , Project = mongoose.model('Project')
-  , Collection = mongoose.model('Collection');
+  , Collection = mongoose.model('Collection')
+  , Dashboard = mongoose.model('Dashboard');
 
 module.exports = function(app, uri, common) {
 
@@ -23,8 +24,11 @@ module.exports = function(app, uri, common) {
   app.get(uri + '/users/:uid', getUser, sendUser);
   app.get(uri + '/users', common.isAuth, getUsers, sendUsers);
 
-  app.get(uri + '/profiles/:uid', getUser, setCollections, setProjects, setContributions, setLikes, sendUser);
+  app.get(uri + '/profiles/:uid', getUser, setCollections, setProjects, setContributions, setDashboards, setLikes, sendUser);
   app.put(uri + '/profiles/:uid', common.isAuth, getUser, canUpdate, updateUser);
+
+  app.get(uri + '/admin_users/:uid', common.isAuth, getUser, setDashboards, sendUser);
+  app.put(uri + '/admin_users/:uid', common.isAuth, common.isSuperAdmin, updateUserBySuperAdmin);
 
 };
 
@@ -96,6 +100,31 @@ var updateUser = function(req, res){
     
     res.send(200);
   });
+};
+
+var updateUserBySuperAdmin = function(req, res){
+  var user = req.body;
+  
+  User.findByIdAndUpdate(user._id, { bio: user.bio, admin_in: user.admin_in, role: user.role })
+    .exec(function(err, data){
+      if(err) return res.send(500);
+
+      res.send(data);
+    });
+
+};
+
+var setDashboards = function(req, res, next){
+
+  Dashboard
+    .find({
+        '_id': { $in: req.user_profile.admin_in }
+    }, function(err, dashboards) {
+      if(err) return res.send(500);
+      req.user_profile.dashboards = dashboards || [];
+      next();
+    });
+
 };
 
 var setCollections = function(req, res, next){

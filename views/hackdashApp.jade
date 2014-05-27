@@ -30,11 +30,9 @@ html(ng-app="oc-project")
         p
           a(href="/#/profile") Mi Perfil
         p
-          a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenge") Mis concursos
-        p
           a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/challenge/add") Nuevo concurso
         p
-          a(ng-show="user.role=='superadmin'" href="/#/admin/users") Usuarios 
+          a(ng-show="user.role=='superadmin'" href="/#/admin/users") Admin - Usuarios 
 
     .container#page(ng-view)
 

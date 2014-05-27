@@ -33,6 +33,15 @@ var common = {
     }
 
     next();
+  },
+
+  isSuperAdmin: function(req, res, next){
+    if(req.user.role!='superadmin'){
+      return res.send(403, "Not enough roles");
+    }
+
+    next();
   }
+
 
 };

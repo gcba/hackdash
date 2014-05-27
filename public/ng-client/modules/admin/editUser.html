@@ -1,0 +1,38 @@
+<h1>Profile</h1>
+
+<img ng-src="{{user.picture}}"/>
+<a href="/#/profile/{{user._id}}">ver perfil</a>
+
+<form novalidate class="simple-form">
+	<p>ID {{user._id}}</p>
+	<p>Creado el {{user.created_at}}</p>
+	<p>Nombre: {{user.name}}</p>
+	<p>Email: {{user.email}}</p>
+	<p>Bio <input type="text" ng-model="user.bio" /></p>
+	<p>Role:
+		<select ng-model="user.role" ng-options="o for o in $parent.roles">
+			<option value="">-- select --</option>
+		</select>
+	</p>
+	<h2>Admin in ({{user.admin_in.length}})</h2>
+	<p ng-show="challenges.length > 0">Agregar como admin de:
+		<select ng-model="selectedChallenge" ng-options="o.title for o in challenges track by o._id">
+			<option value="">-- select --</option>
+		</select>
+		[<a href ng-click="addChallengeToAdmin()">add</a>]
+	</p>
+	<table class="table">
+		<tr>
+			<th>Título</th>
+			<th>Descripción</th>
+			<th>action</th>
+		</tr>
+		<tr ng-repeat="d in user.dashboards">
+			<td>{{d.title}}</td>
+			<td>{{d.description}}</td>
+			<td><a href ng-click="removeChallengeToAdmin(d)">quitar permisos admin</a></td>
+		</tr>
+	</table>
+	<button ng-click="update(user)">grabar</button>
+</form>
+

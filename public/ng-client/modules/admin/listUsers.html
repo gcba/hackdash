@@ -1,6 +1,17 @@
 <h1>Admin - Users</h1>
-<div ng-repeat="u in users">
-	<p>{{u.name}}</p>
-	<p>{{u.email}}</p>
-	<p>{{u.role}}</p>
-</div>
+<table class="table">
+	<tr>
+		<th>Nombre</th>
+		<th>Email</th>
+		<th>Role</th>
+		<th>admin in</th>
+		<th>Actions</th>
+	</tr>
+	<tr ng-repeat="u in users">
+		<td>{{u.name}}</td>
+		<td>{{u.email}}</td>
+		<td>{{u.role}}</td>
+		<td>Es admin de {{u.admin_in.length}} concursos</td>
+		<td><a href="/#/admin/users/{{u._id}}">edit</a></td>
+	</tr>
+</table>
