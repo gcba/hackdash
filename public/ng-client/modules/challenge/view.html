@@ -10,6 +10,13 @@
 <p>contact: {{challenge.contact}}</p>
 <p>link color: {{challenge.link_color}}</p>
 
+<h2>admins ({{admins.length}})</h2>
+<p ng-repeat="v in admins">	
+	<a href="/#/profile/{{v._id}}">
+		<img ng-src="{{v.picture}}" />
+	</a>
+</p>
+
 <h2>button call to action</h2>
 <div>
 	<p>Label: {{challenge.call_to_action.label}}</p>

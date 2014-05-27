@@ -66,11 +66,11 @@ module.exports = function(app) {
       , "permissions": [ { type: String, enum: app.get('permissions') } ]
     }]
     , "call_to_action": {
-        "label": { type: String, required: true, default: "Participar" }
-      , "help": { type: String, required: true, default: "" }
-      ,"color": { type: String, required: true}
+        "label": { type: String, default: "Participar" }
+      , "help": { type: String, default: "" }
+      ,"color": { type: String}
     }
-    , "link_color": {type: String, required: true}
+    , "link_color": {type: String}
   });
   mongoose.model('Dashboard', Dashboard);
 
@@ -83,18 +83,4 @@ module.exports = function(app) {
   });
   mongoose.model('Collection', Collection);
   
-  var Pages = new Schema({
-      "owner": { type: ObjectId, required: true, ref: 'User' }
-    , "domain": String
-    , "type": String
-    , "title": String
-    , "description": String
-    , "descriptionbig": String
-    , "status": String
-    , "imageurl": String
-    , "dashboards": [{ type: ObjectId, ref: 'Dashboard' }]
-    , "created_at": { type: Date, default: Date.now }
-  });
-  mongoose.model('Pages', Pages);
-
 };

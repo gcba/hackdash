@@ -10,4 +10,12 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 			});
 	}
 
+	$scope.vote = function(vote){
+		Restangular.one('projects', $scope.project._id)
+			.post('followers')
+			.then(function(updatedProject){
+				$scope.project = updatedProject;
+			});
+	}
+
 });

@@ -39,7 +39,7 @@ module.exports = function(app, uri, common) {
   //GET ONE  
   app.get(uri + '/projects/:pid', getProject, sendProject);
 
-  //GET ALL from one dashboards  
+  //GET ALL from one dashboard
   app.get(uri + '/dashboards/:did/projects', setQuery, setProjects, sendProjects);
 
 
@@ -47,7 +47,7 @@ module.exports = function(app, uri, common) {
   app.put(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
   
   app.post(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, addFollower);
-  app.del(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, removeFollower);
+  //app.del(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, removeFollower);
 
   app.post(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, addContributor);
   app.del(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, removeContributor);
@@ -249,16 +249,19 @@ var validate = function(req, res, next){
   next();
 };
 
-var addFollower = function(req, res){
+var addFollower = function(req, res, next){
   var projectId = req.params.pid;
   var userId = req.user.id;
 
-  Project.update({_id: projectId}, { $addToSet : { 'followers': userId }}, function(err){
-    if(err) return res.send(500);
+  Project.findByIdAndUpdate(projectId, { $addToSet : { 'followers': userId }})
+    .populate('followers')
+    .exec(function(err, data){
+      if(err) return res.send(500);
 
-    notify('project_follow', req);
-    res.send(200);
-  });  
+      notify('project_follow', req);
+      res.send(data);
+    });
+
 };
 
 var removeFollower = function(req, res){

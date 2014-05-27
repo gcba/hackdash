@@ -16,7 +16,10 @@ var User = mongoose.model('User')
 
 module.exports = function(app, uri, common) {
 
-  app.get(uri + '/admins', getInstanceAdmins, sendUsers);
+  //GET ALL admin users from one dashboard  
+  app.get(uri + '/dashboards/:did/admins', getInstanceAdmins, sendUsers);
+
+  //app.get(uri + '/admins', getInstanceAdmins, sendUsers);
   app.get(uri + '/users/:uid', getUser, sendUser);
   app.get(uri + '/users', common.isAuth, getUsers, sendUsers);
 
@@ -26,10 +29,8 @@ module.exports = function(app, uri, common) {
 };
 
 var getInstanceAdmins = function(req, res, next){
-  var domain = req.subdomains[0];
-
   User
-    .find({ "admin_in": domain })
+    .find({ "admin_in": req.params.did })
     .exec(function(err, users) {
       if(err) return res.send(500);
       req.users = users || [];

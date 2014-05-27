@@ -35,7 +35,7 @@
 	<div>
 		<h2>Stages
 			<span>
-			  [<a href ng-click="challenge.stages.push({permissions:[]})">add</a>]
+			  [<a href ng-click="addStage()">add</a>]
 			</span>
 		</h2>
 		<div ng-repeat="stage in challenge.stages">
@@ -43,9 +43,13 @@
 		  	<p>start <input type="text" ng-model="stage.start" /></p>
 		  	<p>end <input type="text" ng-model="stage.end" /></p>
 		  	<p>permisos</p>
-		  	<p ng-repeat="perm in $parent.permissions">
-		  		<input type="checkbox" ng-model="stage.permissions[$index]" ng-true-value="{{$parent.permissions[$index]}}" ng-false-value="false" />
-		  		{{$parent.permissions[$index]}}
+		  	{{stage.permissionOptions}}
+		  	<select ng-show="stage.permissionOptions.length > 0" ng-model="stage.selectedPermission" ng-options="permission for permission in stage.permissionOptions">
+			  <option value="">-- select --</option>
+			</select>
+			<a ng-show="stage.permissionOptions.length > 0" href="javascript:;" ng-click="addPermission(stage)">add permission</a>
+		  	<p ng-repeat="perm in stage.permissions">
+		  		{{perm}} [<a href ng-click="removePermission(stage,$index)">X</a>]
 		  	</p>
 		  	[<a href ng-click="challenge.stages.splice($index, 1)">X</a>]
 		</div>

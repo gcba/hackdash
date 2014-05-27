@@ -9,3 +9,17 @@
 <p ng-repeat="s in challenge.submit_fields">	
 	{{s}} : {{project[s]}}
 </p>
+
+<h2>Leader</h2>
+<a href="/#/profile/{{project.leader._id}}">
+	<img ng-src="{{project.leader.picture}}" />
+</a>
+
+<h2>VOTES ({{project.followers.length}})</h2>
+<p ng-repeat="v in project.followers">	
+	<a href="/#/profile/{{v._id}}">
+		<img ng-src="{{v.picture}}" />
+	</a>
+</p>
+
+<a ng-click="vote()" href="javascript:;">votar</a>

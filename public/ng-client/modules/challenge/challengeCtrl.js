@@ -28,6 +28,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		case 'view':
 			$scope.project = {}; //NEW
 			$scope.projects = Restangular.one('dashboards', $routeParams.challengeId).getList('projects').$object;
+			$scope.admins = Restangular.one('dashboards', $routeParams.challengeId).getList('admins').$object;
 			break;
 	}
 
@@ -36,8 +37,26 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		Restangular.one('dashboards', $routeParams.challengeId).get()
 			.then(function(challenge){
 		  		$scope.challenge = challenge;
+		  		$scope.preprocessStages();
 			});
 	}
+
+	$scope.addStage = function(){
+		$scope.challenge.stages.push({permissions:[], permissionOptions:$rootScope.permissions});
+	};
+
+	$scope.addPermission = function(stage){
+		if(stage.selectedPermission){
+			stage.permissions.push(stage.selectedPermission);
+			stage.selectedPermission = '';
+			stage.permissionOptions.splice(stage.permissionOptions.indexOf(stage.selectedPermission)+1,1);
+		}
+	};
+
+	$scope.removePermission = function(stage,index){
+		stage.permissionOptions.push(stage.permissions[index]);
+		stage.permissions.splice(index, 1);
+	};
 
 	$scope.addProject = function(project){
 		project.challenge_id = $scope.challenge._id;
@@ -57,16 +76,26 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			.post(challenge)
 			.then(function(e){
 				$rootScope.refreshUser(function(){
-
 					$location.path('/challenge/'+e._id+'/edit');
 				});
 			});
 	};
 
 	$scope.update = function(challenge){
+		angular.forEach(challenge.stages, function(s,k){
+			delete s.permissionOptions;
+		});
 		challenge.put().then(function(e){
-			console.log('pala');
 			$location.path('/challenge/'+e._id);
+		});
+	};
+
+	$scope.preprocessStages = function(){
+		angular.forEach($scope.challenge.stages, function(s,k){
+			s.permissionOptions = $rootScope.permissions;
+			s.permissionOptions = s.permissionOptions.filter(function(e){
+				return s.permissions.indexOf(e)<0;
+ 			});
 		});
 	};
 
