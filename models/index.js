@@ -69,6 +69,7 @@ module.exports = function(app) {
         "label": { type: String, default: "Participar" }
       , "help": { type: String, default: "" }
       ,"color": { type: String}
+      ,"bgcolor": { type: String}
     }
     , "link_color": {type: String}
   });
