@@ -70,19 +70,24 @@
 		</div>
 
 		<div>
-			<h2>Submit fields
-				<span>
-				  [<a href ng-click="challenge.submit_fields.push('')">add</a>]
-				</span>
-			</h2>
-			<div ng-repeat="field in challenge.submit_fields track by $index">
+			<h2>Submit fields</h2>
 
-				field
-			  	<select ng-model="challenge.submit_fields[$index]" ng-options="option for option in projectOptions">
-				  <option value="">-- select --</option>
+			<p> type
+				<select ng-model="challenge.selectedSubmit.type" ng-options="option for option in projectOptions">
+					<option value="">-- select --</option>
 				</select>
+			</p>
+			<p>label <input type="text" ng-model="challenge.selectedSubmit.label" /></p>
+			<p>help <input type="text" ng-model="challenge.selectedSubmit.help" /></p>
 
-			    [<a href ng-click="challenge.submit_fields.splice($index, 1)">X</a>]
+			<span>
+			  [<a href ng-click="addSubmitField(challenge.selectedSubmit)">add submit field</a>]
+			</span>
+			<div ng-repeat="field in challenge.submit_fields track by $index">
+				{{field.type}}
+				{{field.label}}
+				{{field.help}}
+			    [<a href ng-click="removeSubmitField($index)">X</a>]
 			</div>
 		</div>
 

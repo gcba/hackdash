@@ -7,7 +7,10 @@
 <h2>Postulacion</h2>
 
 <p ng-repeat="s in challenge.submit_fields">	
-	{{s}} : {{project[s]}}
+	{{s.label}} |
+	{{s.type}} |
+	{{s.help}} |
+	{{project[s.type]}}
 </p>
 
 <h2>Leader</h2>

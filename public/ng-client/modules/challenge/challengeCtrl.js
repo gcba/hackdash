@@ -14,7 +14,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		if(!$rootScope.user || !$scope.userCanEdit){
 			$location.path('/challenge/'+$routeParams.challengeId);
 		}
-		$scope.loadChallenge();
+		$scope.loadChallenge(false);
 	};
 
 	$scope.checkCanEdit = function(){
@@ -28,7 +28,8 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		if(!$rootScope.user || !$scope.userCanEdit){
 			$location.path('/challenge/'+$routeParams.challengeId);
 		}
-		$scope.loadChallenge();
+		$scope.projectOptionsAll = Restangular.allUrl('projects/schema').getList().$object;
+		$scope.loadChallenge(true);
 	};
 
 	$scope.addInit = function(){
@@ -39,30 +40,41 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.viewInit = function(){
 		$scope.checkCanEdit();
-		$scope.loadChallenge();
+		$scope.loadChallenge(false);
 		$scope.project = {}; //NEW
 	};
 
 	//Common
-	$scope.loadChallenge = function(){
+	$scope.loadChallenge = function(isEdit){
 		if($routeParams.challengeId){
 			Restangular.one('dashboards', $routeParams.challengeId).get()
 				.then(function(challenge){
 			  		$scope.challenge = challenge;
-			  		$scope.preprocessStages();
+			  		if(isEdit){
+			  			$scope.preprocessCollections();
+			  		}
 				});
 			$scope.projects = Restangular.one('dashboards', $routeParams.challengeId).getList('projects').$object;
 			$scope.admins = Restangular.one('dashboards', $routeParams.challengeId).getList('admins').$object;
 		}
 	};
 
-	$scope.preprocessStages = function(){
+	$scope.preprocessCollections = function(){
+		
+		//permissions
 		angular.forEach($scope.challenge.stages, function(s,k){
 			s.permissionOptions = $rootScope.permissions;
 			s.permissionOptions = s.permissionOptions.filter(function(e){
 				return s.permissions.indexOf(e)<0;
  			});
 		});
+
+		$scope.projectOptions = $scope.projectOptionsAll;
+
+		angular.forEach($scope.challenge.submit_fields, function(s,k){
+			$scope.projectOptions.splice($scope.projectOptions.indexOf(s.type),1);
+		});
+
 	};
 
 	//Interaction
@@ -73,9 +85,25 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	$scope.addPermission = function(stage){
 		if(stage.selectedPermission){
 			stage.permissions.push(stage.selectedPermission);
+			stage.permissionOptions.splice(stage.permissionOptions.indexOf(stage.selectedPermission),1);
 			stage.selectedPermission = '';
-			stage.permissionOptions.splice(stage.permissionOptions.indexOf(stage.selectedPermission)+1,1);
 		}
+	};
+
+	$scope.addSubmitField = function(submitField){
+		if(submitField.type && submitField.label && submitField.help){
+			$scope.challenge.submit_fields.push({type:submitField.type,help:submitField.help,label:submitField.label});
+			$scope.projectOptions.splice($scope.projectOptions.indexOf(submitField.type),1);
+			submitField.type = '';
+			submitField.help = '';
+			submitField.label ='';
+		}
+	};
+
+	$scope.removeSubmitField = function(index){
+		$scope.challenge.submit_fields[index];
+		$scope.projectOptions.push($scope.challenge.submit_fields[index].type);
+		$scope.challenge.submit_fields.splice(index, 1);
 	};
 
 	$scope.removePermission = function(stage,index){

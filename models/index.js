@@ -57,7 +57,11 @@ module.exports = function(app) {
       , "content_type": { type: String, enum: app.get('page_contents_type'), default: app.get('page_contents_type')[0] }
     }]
     , "contact": { type: String, validate: /.+@.+\..+/ }
-    , "submit_fields": [String]
+    , "submit_fields":  [{
+        "type": { type: String, required: true }
+      , "label": { type: String, required: true }
+      , "help": { type: String, required: true }
+    }]
     , "categories": [String]
     , "stages": [{
         "name": { type: String, required: true }

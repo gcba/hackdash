@@ -69,7 +69,8 @@
 	<p>Participar en Concurso {{challenge.slug}}</p>
 
 	<p ng-repeat="s in challenge.submit_fields">	
-		{{s}} <input type="text" ng-model="project[s]" />
+		{{s.label}} <input type="text" ng-model="project[s.type]" />
+		<small>{{s.help}}</small>
 	</p>
 	<button ng-click="addProject(project)">grabar</button>
 </div>	

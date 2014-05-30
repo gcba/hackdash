@@ -56,7 +56,7 @@ module.exports = function(app, uri, common) {
 
 var setSchema = function(req, res, next){
   var options=[],
-      ignore = ['_id','__v','created_at','active','followers','domain','leader','status','contributors','followers','result'];
+      ignore = ['_id','__v','created_at','active','followers','domain','leader','status','contributors','followers','result','challenge_id'];
   for (var prop in Project.schema.paths) {
       if (Project.schema.paths.hasOwnProperty(prop) && ignore.indexOf(prop)==-1) {
           options.push(prop);
