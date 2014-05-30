@@ -6,11 +6,23 @@
 
 <h2>Postulacion</h2>
 
-<p ng-repeat="s in challenge.submit_fields">	
+<p ng-repeat="s in challenge.submit_fields">
+
 	{{s.label}} |
 	{{s.type}} |
 	{{s.help}} |
 	{{project[s.type]}}
+
+	{{(s.type == 'title')}}
+
+	TODO
+	<div ng-show="(s.type == 'title')">
+		<h1>{{project[s.type]}}</h1>
+	</div>
+	<div ng-show="(s.type == 'description')">
+		<p>{{project[s.type]}}</p>
+	</div>
+
 </p>
 
 <h2>Leader</h2>
