@@ -1,0 +1,16 @@
+<h1>Admin - Challenges</h1>
+<table class="table">
+	<tr>
+		<th>Title</th>
+		<th>Descripcion</th>
+		<th>Abierto</th>
+		<th>Submits</th>
+	</tr>
+	<tr ng-repeat="c in challenges">
+		<td>{{c.title}}</td>
+		<td>{{c.description}}</td>
+		<td>{{c.open}}</td>
+		<td>n</td>
+		<td><a href="/#/challenge/{{c._id}}">ver</a> | <a href="/#/challenge/{{c._id}}/edit">edit</a> | <a href="/#/challenge/{{c._id}}/edit/projects">ver submits</a></td>
+	</tr>
+</table>

@@ -28,6 +28,9 @@ module.exports = function(app, uri, common) {
   //UPDATE
   app.put(uri + '/dashboards/:did', common.isAuth, getDashboard, isAdminDashboard, updateDashboard, sendDashboard);
 
+  //GET MY dashboards
+  app.get(uri + '/admin_dashboards', common.isAuth, setMyDashboards, sendDashboards);
+
 /*  app.get(uri + '/', getDashboard, sendDashboard);
   app.post(uri + '/', common.notAllowed);
   app.del(uri + '/', common.notAllowed);*/
@@ -46,8 +49,6 @@ var validateSubdomain = function(req, res, next) {
 
 var createDashboard =  function(app){
   return function(req, res, next) {
-
-    console.log(req.body.slug);
 
     Dashboard.findOne({slug: req.body.slug}, function(err, dashboard){
       if(err || dashboard) {
@@ -87,6 +88,17 @@ var setQuery = function(req, res, next){
 var setDashboards = function(req, res, next){
   Dashboard.find(req.search_query || {})
     .limit(30)
+    .sort( { "created_at" : -1 } )
+    .exec(function(err, dashboards) {
+      if(err) return res.send(500);
+      req.dashboards = dashboards || [];
+      next();
+    });
+}
+
+
+var setMyDashboards = function(req, res, next){
+  Dashboard.find( { _id : { $in : req.user.admin_in } })
     .sort( { "created_at" : -1 } )
     .exec(function(err, dashboards) {
       if(err) return res.send(500);

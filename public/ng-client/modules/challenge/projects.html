@@ -1,0 +1,18 @@
+<div ng-controller="challengeCtrl" ng-init="editProjectsInit()">
+	<h1>Concurso {{challenge.title}}</h1>
+	<h2>actions</h2>
+
+	<h2>data</h2>
+	<p>Slug: {{challenge.slug}}</p>
+	<p>Create: {{challenge.created_at}}</p>
+	<p>Abierto: {{challenge.open}}</p>
+	<p>contact: {{challenge.contact}}</p>
+
+	<div ng-repeat="c in projects">
+		<a href="/#/submit/{{c._id}}">
+			{{c._id}}
+		</a>
+	</div>
+</div>
+
+	

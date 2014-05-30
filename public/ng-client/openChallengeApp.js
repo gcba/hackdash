@@ -8,31 +8,17 @@ ocApp.config(function($routeProvider) {
 	    templateUrl:'/ng-client/modules/home/home.html'
 	  })
 	  .when('/challenge/add', {
-	    controller:'challengeCtrl', 
-	    templateUrl:'/ng-client/modules/challenge/add.html',
-	    resolve: {
-          action: function(){
-            return 'add';
-          }
-        }
-	  })
-	  .when('/challenge/:challengeId/edit', {
-	    controller:'challengeCtrl', 
-	    templateUrl:'/ng-client/modules/challenge/edit.html',
-	    resolve: {
-          action: function(){
-            return 'edit';
-          }
-        }
+	    templateUrl:'/ng-client/modules/challenge/add.html'
 	  })
 	  .when('/challenge/:challengeId', {
-	    controller:'challengeCtrl', 
 	    templateUrl:'/ng-client/modules/challenge/view.html',
-	    resolve: {
-          action: function(){
-            return 'view';
-          }
-        }
+	  })
+	  .when('/challenge/:challengeId/edit', {
+	    templateUrl:'/ng-client/modules/challenge/edit.html',
+	  })
+	  .when('/challenge/:challengeId/edit/projects', {
+	    controller:'challengeCtrl', 
+	    templateUrl:'/ng-client/modules/challenge/projects.html',
 	  })
 	 .when('/submit/:projectId', {
 	    controller:'projectCtrl', 
@@ -60,6 +46,10 @@ ocApp.config(function($routeProvider) {
 	  .when('/admin/users', {
 	    controller:'adminUsersCtrl', 
 	    templateUrl:'/ng-client/modules/admin/listUsers.html'
+	  })
+	  .when('/admin/challenges', {
+	    controller:'adminChallengesCtrl', 
+	    templateUrl:'/ng-client/modules/admin/listChallenges.html'
 	  })
 	  .otherwise({redirectTo:'/'});
 });
