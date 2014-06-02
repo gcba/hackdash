@@ -139,6 +139,7 @@ var createProject = function(req, res, next){
     , challenge_id: req.body.challenge_id
     , imageurl: req.body.imageurl
     , videourl: req.body.videourl
+    , fileurl: req.body.fileurl
     , text: req.body.text
     , file: req.body.file
   });

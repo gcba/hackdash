@@ -2,7 +2,6 @@
 	<h1>Concurso {{challenge.title}}</h1>
 	<h2>actions</h2>
 	<a ng-show="userCanEdit" href="/#/challenge/{{challenge._id}}/edit">Editar</a>
-	<a href="javascript:;">{{challenge.call_to_action.label}}</a>
 
 	<h2>data</h2>
 	<p>Slug: {{challenge.slug}}</p>
@@ -24,6 +23,7 @@
 		<p>help: {{challenge.call_to_action.help}}</p>
 		<p>color: {{challenge.call_to_action.color}}</p>
 		<p>bgcolor: {{challenge.call_to_action.bgcolor}}</p>
+		<a ng-click="openParticipatePopup()" href="javascript:;">{{challenge.call_to_action.label}}</a>
 	</div>
 
 	<h2>images</h2>
@@ -65,12 +65,29 @@
 	</div>
 
 
-	<h2>Campos para participar (meter en popup)</h2>
-	<p>Participar en Concurso {{challenge.slug}}</p>
+		<div class="modal fade bs-example-modal-lg" id="participate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">Campos para participar</h4>
+		      </div>
+		      <div class="modal-body">
 
-	<p ng-repeat="s in challenge.submit_fields">	
-		{{s.label}} <input type="text" ng-model="project[s.type]" />
-		<small>{{s.help}}</small>
-	</p>
-	<button ng-click="addProject(project)">grabar</button>
+				<p>Participar en Concurso {{challenge.slug}}</p>
+
+				<p ng-repeat="s in challenge.submit_fields | orderBy:'order'">	
+					{{s.label}} <input type="text" ng-model="project[s.type]" />
+					<small>{{s.help}}</small>
+				</p>
+
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" ng-click="addProject(project)" class="btn btn-primary">Participar</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 </div>	

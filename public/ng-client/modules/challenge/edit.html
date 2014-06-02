@@ -79,14 +79,20 @@
 			</p>
 			<p>label <input type="text" ng-model="challenge.selectedSubmit.label" /></p>
 			<p>help <input type="text" ng-model="challenge.selectedSubmit.help" /></p>
+			<p> order
+				<select ng-model="challenge.selectedSubmit.order" ng-options="option for option in fieldOrders">
+					<option value="">-- select --</option>
+				</select>
+			</p>
 
 			<span>
 			  [<a href ng-click="addSubmitField(challenge.selectedSubmit)">add submit field</a>]
 			</span>
-			<div ng-repeat="field in challenge.submit_fields track by $index">
-				{{field.type}}
-				{{field.label}}
-				{{field.help}}
+			<div ng-repeat="field in challenge.submit_fields | orderBy:'order' track by $index">
+				{{field.type}} | 
+				{{field.label}} | 
+				{{field.help}} | 
+				{{field.order}} | 
 			    [<a href ng-click="removeSubmitField($index)">X</a>]
 			</div>
 		</div>

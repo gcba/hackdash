@@ -8,6 +8,8 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		categories: []
 	};
 
+	$scope.fieldOrders = [0,1,2,3,4,5,6,7,8,9];
+
 	//Inits
 	$scope.editProjectsInit = function(){
 		$scope.checkCanEdit();
@@ -91,12 +93,13 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.addSubmitField = function(submitField){
-		if(submitField.type && submitField.label && submitField.help){
-			$scope.challenge.submit_fields.push({type:submitField.type,help:submitField.help,label:submitField.label});
+		if(submitField.type && submitField.label && submitField.help && submitField.order){
+			$scope.challenge.submit_fields.push({type:submitField.type,help:submitField.help,label:submitField.label,order:submitField.order});
 			$scope.projectOptions.splice($scope.projectOptions.indexOf(submitField.type),1);
 			submitField.type = '';
 			submitField.help = '';
-			submitField.label ='';
+			submitField.label = '';
+			submitField.order = '';
 		}
 	};
 
@@ -122,6 +125,14 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 				console.log("Error with status code", response.status);
 			});
 
+	};
+
+	$scope.openParticipatePopup = function(id){
+		$('#participate').modal('show');
+	};
+
+	$scope.openProjectPopup = function(id){
+		$('#project-'+id).modal('show');
 	};
 
 	//Submits

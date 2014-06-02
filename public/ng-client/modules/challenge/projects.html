@@ -8,11 +8,82 @@
 	<p>Abierto: {{challenge.open}}</p>
 	<p>contact: {{challenge.contact}}</p>
 
-	<div ng-repeat="c in projects">
-		<a href="/#/submit/{{c._id}}">
-			{{c._id}}
-		</a>
-	</div>
-</div>
+	<table class="table">
+      <thead>
+        <tr>
+          <th>Leader</th>
+          <th>Creado</th>
+          <th>Votes</th>
+          <th>#</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="c in projects">
+          <td><a ng-href="/#/profile/{{c.leader._id}}">{{c.leader.name}}</a></td>
+          <td>{{c.created_at}}</td>
+          <td>{{c.followers.length}}</td>
+          <td><a href="javascript:;" ng-click="openProjectPopup(c._id)">ver</a></td>
+        </tr>
+      </tbody>
+    </table>
 
-	
+	<div ng-repeat="project in projects">
+
+		<div class="modal fade bs-example-modal-lg" id="project-{{project._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+		      </div>
+		      <div class="modal-body">
+
+				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
+
+					<h4>{{s.label}}</h4>
+
+					<div ng-if="(s.type == 'title')">
+						<h1>{{project[s.type]}}</h1>
+					</div>
+					<div ng-if="(s.type == 'description')">
+						<p>{{project[s.type]}}</p>
+					</div>
+					<div ng-if="(s.type == 'link')">
+						<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
+					</div>
+					<div ng-if="(s.type == 'imageurl')">
+						<img ng-src="{{project[s.type]}}" />
+					</div>
+					<div ng-if="(s.type == 'cover')">
+						<img ng-src="{{project[s.type]}}" />
+					</div>	
+					<div ng-if="(s.type == 'videourl')">
+						<iframe width="560" height="315" src="//www.youtube.com/embed/VMl0GbiVEyA?rel=0" frameborder="0" allowfullscreen="false"></iframe>
+						{{project[s.type]}}
+					</div>
+					<div ng-if="(s.type == 'text')">
+						<p>{{project[s.type]}}</p>
+					</div>
+					<div ng-if="(s.type == 'fileurl')">
+						<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
+					</div>
+					<div ng-if="(s.type == 'tags')">
+						<p>{{project[s.type]}}</p>
+					</div>
+
+				</div>
+
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+
+    </div>
+
+</div>

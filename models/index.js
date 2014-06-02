@@ -32,6 +32,7 @@ module.exports = function(app) {
     , "tags": [String]
     , "imageurl": String
     , "videourl": String
+    , "videourl": String
     , "text": String
     , "fileurl": String
     , "result": String
@@ -61,6 +62,7 @@ module.exports = function(app) {
         "type": { type: String, required: true }
       , "label": { type: String, required: true }
       , "help": { type: String, required: true }
+      , "order": { type: String, required: true }
     }]
     , "categories": [String]
     , "stages": [{
