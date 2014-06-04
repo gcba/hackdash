@@ -54,6 +54,7 @@ html(ng-app="oc-project")
     script(src="/ng-client/modules/user/editProfileCtrl.js")
     script(src="/ng-client/modules/user/viewProfileCtrl.js")
     script(src="/ng-client/modules/project/projectCtrl.js")
+    script(src="/ng-client/modules/login/loginCtrl.js")
 
     script(src="/ng-client/modules/admin/adminUsersCtrl.js")
     script(src="/ng-client/modules/admin/adminChallengesCtrl.js")
@@ -63,7 +64,7 @@ html(ng-app="oc-project")
         subdomain: "!{subdomain}",
         baseURL: "!{host}",
         disqus_shortname: "!{disqus_shortname}",
-        statuses: "!{statuses}",
+        statuses: "!{statuses}".split(','),
         providers: "!{providers}",
         roles: "!{roles}".split(','),
         page_contents_type: "!{page_contents_type}".split(','),

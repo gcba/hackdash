@@ -56,7 +56,7 @@ app.configure(function(){
      res.status(500);
      res.render('500');
   });
-  app.set('statuses',['brainstorming','wireframing','building','researching','prototyping','releasing']);
+  app.set('statuses',['submited','finals', 'winner','1st-price','2nd-price','3rd-price','special-mention']);
   app.set('roles',['user','admin','superadmin']);
   app.set('page_contents_type',['text','faq','rules','jury','prizes']);
   app.set('permissions',[

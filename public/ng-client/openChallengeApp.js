@@ -32,13 +32,14 @@ ocApp.config(function($routeProvider) {
 	    controller:'editProfileCtrl', 
 	    templateUrl:'/ng-client/modules/user/edit.html'
 	  })
+	  .when('/login', {
+	    controller:'loginCtrl', 
+	    templateUrl:'/ng-client/modules/login/login.html'
+	  })
 	  .otherwise({redirectTo:'/'});
 
 	//SuperAdmin
-	$routeProvider.
-	  when('/admin', {
-	  	redirectTo:'/admin/challenges'
-	  })
+	$routeProvider
  	  .when('/admin/users/:userId', {
 	    controller:'adminUsersCtrl', 
 	    templateUrl:'/ng-client/modules/admin/editUser.html'
@@ -61,6 +62,11 @@ ocApp.run(function ($rootScope, Restangular) {
 	Restangular.setRestangularFields({
 	  id: "_id"
 	});
+
+	$rootScope.booleans = [
+		{key:true,label:'Verdadero'},
+		{key:false,label:'Falso'},
+	];
 
 	angular.extend($rootScope,window.openchallenge);
 

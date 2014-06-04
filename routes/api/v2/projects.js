@@ -42,21 +42,22 @@ module.exports = function(app, uri, common) {
   //GET ALL from one dashboard
   app.get(uri + '/dashboards/:did/projects', setQuery, setProjects, sendProjects);
 
+  //PUT SAVE SUMBIT FROM PROJECT
+  app.put(uri + '/dashboards/:did/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
 
   app.del(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, removeProject);
-  app.put(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
   
   app.post(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, addFollower);
   //app.del(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, removeFollower);
 
-  app.post(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, addContributor);
-  app.del(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, removeContributor);
+  //app.post(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, addContributor);
+  //app.del(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, removeContributor);
 
 };
 
 var setSchema = function(req, res, next){
   var options=[],
-      ignore = ['_id','__v','created_at','active','followers','domain','leader','status','contributors','followers','result','challenge_id'];
+      ignore = ['_id','__v','created_at','active','followers','domain','leader','status','contributors','followers','result','challenge_id','tags'];
   for (var prop in Project.schema.paths) {
       if (Project.schema.paths.hasOwnProperty(prop) && ignore.indexOf(prop)==-1) {
           options.push(prop);
@@ -76,6 +77,7 @@ var getProject = function(req, res, next){
     .populate('contributors')
     .populate('followers')
     .exec(function(err, project) {
+
       if (err) return res.send(500);
       if (!project) return res.send(404);
 
@@ -86,10 +88,12 @@ var getProject = function(req, res, next){
 
 var canChangeProject = function(req, res, next){
 
-  var isLeader = req.user.id === req.project.leader.id;
-  var isAdmin = (req.project.domain && req.user.admin_in.indexOf(req.project.domain) >= 0);
+  //var isLeader = req.user.id === req.project.leader.id;
+  var isAdmin = (req.project.challenge_id && req.user.admin_in.indexOf(req.project.challenge_id) >= 0);
 
-  if (!isLeader && !isAdmin) {
+  console.log(isAdmin);
+
+  if (!isAdmin) {
     return res.send(403, "Only Leader or Administrators can edit or remove this project.");
   }
 
@@ -204,18 +208,23 @@ var updateProject = function(req, res, next) {
   project.status = getValue("status");
   project.cover = getValue("cover");
   project.tags = tags;
+  project.imageurl = getValue("imageurl");
+  project.videourl = getValue("videourl");
+  project.fileurl = getValue("fileurl");
+  project.text = getValue("text");
+  project.file = getValue("file");
 
   //add trim
 
-  if (!project.title){
+ /* if (!project.title){
     return res.json(500, { error: "title_required" });
   }
 
   if (!project.description){
     return res.json(500, { error: "description_required" });
   }
-
-  var isAdmin = (req.project.domain && req.user.admin_in.indexOf(req.project.domain) >= 0);
+*/
+  var isAdmin = (req.project.challenge_id && req.user.admin_in.indexOf(req.project.challenge_id) >= 0);
   if (isAdmin){ 
     //only update active state if is the dashboard admin
     project.active = getValue("active");

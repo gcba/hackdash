@@ -115,6 +115,9 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.addProject = function(project){
+
+		$('#participate').modal('hide');
+
 		project.challenge_id = $scope.challenge._id;
 
 		Restangular.all("projects")
@@ -128,6 +131,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.openParticipatePopup = function(id){
+		console.log($rootScope.booleans);
 		$('#participate').modal('show');
 	};
 
@@ -153,6 +157,18 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		challenge.put().then(function(e){
 			$location.path('/challenge/'+e._id);
 		});
+	};
+
+	$scope.updateSubmit = function(submit){
+		submit.put().then(function(e){
+			$('#project-'+submit._id).modal('hide');
+		});
+	};
+
+	$scope.cancelSubmit = function(id){
+		console.log('cancel');
+		$('#project-'+id).modal('hide');
+		$scope.editProjectsInit();
 	};
 
 });
