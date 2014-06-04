@@ -1,5 +1,56 @@
 body {
   margin: 0; font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 13px;
-  line-height: 18px; color: #333333; background: #eeedee;
+  line-height: 18px; color: #333333; background: #FFF;
+  padding-top:50px;
+}
+.navbar {
+  background: #FFD300;
+  color:#000;
+  border-color: transparent;
+}
+.navbar img.avatar {
+  border-radius: 100px;
+  width:28px;
+  height: 28px;
+  display:inline-block;
+  margin-right: 10px
 }
 
+.navbar-nav > li > a {
+  padding:10px;
+}
+
+.navbar-nav  a {
+  color:#000!important;
+}
+
+.jumbotron {
+  background-image: url(../images/bg.jpg);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+  background-position: fixed;
+  color:#FFF;
+  text-align: center;
+  text-shadow: 0 2px 3px rgba(0,0,0,0.4);
+  line-height: 2.8em;
+  padding: 0!important
+}
+
+.jumbotron h1 {
+  font-family: 'Gotham Black';
+}
+
+
+.jumbotron .container  {
+  position: relative;
+    padding: 125px 0!important;
+
+}
+
+.jumbotron .nav {
+  position: absolute;
+  bottom:0;
+  width:100%;
+  background: rgba(0,0,0,0.4)
+}
