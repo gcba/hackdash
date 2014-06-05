@@ -36,7 +36,6 @@ module.exports = function(app) {
     , "text": String
     , "fileurl": String
     , "result": String
-    , "status": [String]
     , "active": { type: Boolean, default: true }
     , "created_at": { type: Date, default: Date.now }
   });

@@ -13,6 +13,8 @@
         <tr>
           <th>Leader</th>
           <th>Creado</th>
+          <th>Active</th>
+          <th>Status</th>
           <th>Votes</th>
           <th>#</th>
         </tr>
@@ -21,6 +23,8 @@
         <tr ng-repeat="c in projects">
           <td><a ng-href="/#/profile/{{c.leader._id}}">{{c.leader.name}}</a></td>
           <td>{{c.created_at}}</td>
+          <td>{{c.active}}</td>
+          <td>{{c.status}}</td>
           <td>{{c.followers.length}}</td>
           <td><a href="javascript:;" ng-click="openProjectPopup(c._id)">ver</a></td>
         </tr>
@@ -37,6 +41,20 @@
 		        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
 		      </div>
 		      <div class="modal-body">
+
+				<p>
+					status
+					<select ng-model="project.status" ng-options="status for status in $parent.statuses">
+					</select>
+				</p>
+
+				<p>
+					Activo {{project.active}}
+					<select ng-model="project.active" ng-options="status.key as status.label for status in $parent.booleans">
+					</select>
+				</p>
+
+				<p>followers {{project.followers.length}}</p>
 
 				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
 
@@ -75,8 +93,8 @@
 
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary">Save changes</button>
+		        <button type="button" class="btn btn-default" ng-click="cancelSubmit(project._id)">Close</button>
+		        <button type="button" class="btn btn-primary" ng-click="updateSubmit(project)">Save changes</button>
 		      </div>
 		    </div>
 		  </div>
