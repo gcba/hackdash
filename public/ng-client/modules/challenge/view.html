@@ -29,15 +29,6 @@
 					</a>
 				</p>
 
-				<h2>button call to action</h2>
-				<div>
-					<p>Label: {{challenge.call_to_action.label}}</p>
-					<p>help: {{challenge.call_to_action.help}}</p>
-					<p>color: {{challenge.call_to_action.color}}</p>
-					<p>bgcolor: {{challenge.call_to_action.bgcolor}}</p>
-					<a ng-click="openParticipatePopup()" href="javascript:;">{{challenge.call_to_action.label}}</a>
-				</div>
-
 				<h2>images</h2>
 				<div ng-repeat="img in challenge.header_images">
 					<img ng-src="{{img}}" width="100" />
@@ -112,6 +103,20 @@
 
 	    </div>
 	    <div class="col-md-4">
+
+	    	<h2>button call to action</h2>
+				<div>
+					<style>	
+						.nav a {
+							color:  {{challenge.call_to_action.color}} !important
+						}
+					</style>
+					<p>Label: {{challenge.call_to_action.label}}</p>
+					<a ng-click="openParticipatePopup()" href="javascript:;" style="background: {{challenge.call_to_action.bgcolor}} ; color: {{challenge.call_to_action.color}} !important" class="btn btn-lg btn-block">{{challenge.call_to_action.label}}</a>
+										<p>{{challenge.call_to_action.help}}</p>
+
+				</div>
+
 	      <h2>data</h2>
 				<p>Slug: {{challenge.slug}}</p>
 				<p>Create: {{challenge.created_at}}</p>

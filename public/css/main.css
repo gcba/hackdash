@@ -51,6 +51,16 @@ body {
 .jumbotron .nav {
   position: absolute;
   bottom:0;
-  width:100%;
-  background: rgba(0,0,0,0.4)
+  background: rgba(0,0,0,0.7);
+  font-size: 18px
+}
+
+.nav a {
+    padding: 10px 30px!important;
+    text-shadow:none;
+    color:#FFF;
+}
+
+.nav .active a {
+  color:#000;
 }
