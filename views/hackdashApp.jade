@@ -39,8 +39,8 @@ html(ng-app="oc-project")
                     a(href="/#/profile") Editar perfil
                   li
                     a(href="/#/profile") Mi Perfil
-                  li.divider
-                  li.dropdown-header Admin
+                  li.divider(ng-show="user.role=='admin' || user.role=='superadmin'")
+                  li.dropdown-header(ng-show="user.role=='admin' || user.role=='superadmin'") Admin
                   li
                     a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/challenge/add") Nuevo concurso
                   li

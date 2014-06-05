@@ -8,7 +8,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		categories: []
 	};
 
-	$scope.fieldOrders = [0,1,2,3,4,5,6,7,8,9];
+	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
 
 	//Inits
 	$scope.editProjectsInit = function(){
@@ -93,6 +93,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.addSubmitField = function(submitField){
+		console.log(submitField);
 		if(submitField.type && submitField.label && submitField.help && submitField.order){
 			$scope.challenge.submit_fields.push({type:submitField.type,help:submitField.help,label:submitField.label,order:submitField.order});
 			$scope.projectOptions.splice($scope.projectOptions.indexOf(submitField.type),1);
@@ -131,7 +132,6 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.openParticipatePopup = function(id){
-		console.log($rootScope.booleans);
 		$('#participate').modal('show');
 	};
 
@@ -166,7 +166,6 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.cancelSubmit = function(id){
-		console.log('cancel');
 		$('#project-'+id).modal('hide');
 		$scope.editProjectsInit();
 	};

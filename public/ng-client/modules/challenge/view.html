@@ -1,8 +1,8 @@
 <div ng-controller="challengeCtrl" ng-init="viewInit()">
 	<div class="jumbotron" style="background-image:url( {{challenge.header_images[0]}} )">
 	  <div class="container">
-	    <h1>Concurso {{challenge.title}}</h1>
-	    <p>Concurso {{challenge.description}}</p>
+	    <h1>{{challenge.title}}</h1>
+	    <p>{{challenge.description}}</p>
 	    <ul class="nav nav-tabs">
 	    	<li class="active">
 					<a href="">Inicio</a>
@@ -84,9 +84,16 @@
 					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					        <h4 class="modal-title" id="myModalLabel">Campos para participar</h4>
 					      </div>
+
 					      <div class="modal-body">
 
 							<p>Participar en Concurso {{challenge.slug}}</p>
+
+							<p ng-show="challenge.categories.length > 0">
+								<select ng-model="project.tags" ng-options="option for option in challenge.categories">
+									<option value="">-- select --</option>
+								</select>
+							</p>
 
 							<p ng-repeat="s in challenge.submit_fields | orderBy:'order'">	
 								{{s.label}} <input type="text" ng-model="project[s.type]" />
