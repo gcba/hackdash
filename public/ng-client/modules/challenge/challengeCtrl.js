@@ -8,6 +8,10 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		categories: []
 	};
 
+	$scope.filterObj = {
+		important: true
+	};
+
 	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
 
 	//Inits
@@ -44,6 +48,10 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		$scope.checkCanEdit();
 		$scope.loadChallenge(false);
 		$scope.project = {}; //NEW
+		$('#myTab').on('click', 'a', function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		});
 	};
 
 	//Common
@@ -93,14 +101,15 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.addSubmitField = function(submitField){
-		console.log(submitField);
 		if(submitField.type && submitField.label && submitField.help && submitField.order){
-			$scope.challenge.submit_fields.push({type:submitField.type,help:submitField.help,label:submitField.label,order:submitField.order});
+			submitField.important = (submitField.important == "true");
+			$scope.challenge.submit_fields.push(angular.copy(submitField));
 			$scope.projectOptions.splice($scope.projectOptions.indexOf(submitField.type),1);
 			submitField.type = '';
 			submitField.help = '';
 			submitField.label = '';
 			submitField.order = '';
+			submitField.important = false;
 		}
 	};
 
@@ -118,6 +127,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	$scope.addProject = function(project){
 
 		$('#participate').modal('hide');
+		$('body').removeClass('modal-open');
 
 		project.challenge_id = $scope.challenge._id;
 
@@ -154,6 +164,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		angular.forEach(challenge.stages, function(s,k){
 			delete s.permissionOptions;
 		});
+
 		challenge.put().then(function(e){
 			$location.path('/challenge/'+e._id);
 		});

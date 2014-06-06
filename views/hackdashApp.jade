@@ -29,8 +29,8 @@ html(ng-app="oc-project")
                 a(href="/auth/openid", ng-hide="user") login con openID
               li.dropdown(ng-show="user")
                 a.dropdown-toggle(href='', data-toggle='dropdown')
-                  img.avatar(ng-src="{{user.picture}}") 
-                  {{user.name}}
+                  img.avatar(ng-src="{{user.picture}}")
+                  span {{user.name}}
                   b.caret
                 ul.dropdown-menu
                   li

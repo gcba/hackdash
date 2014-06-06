@@ -62,6 +62,7 @@ module.exports = function(app) {
       , "label": { type: String, required: true }
       , "help": { type: String, required: true }
       , "order": { type: String, required: true }
+      , "important": { type: Boolean, default: false }
     }]
     , "categories": [String]
     , "stages": [{

@@ -1,134 +1,148 @@
 <div ng-controller="challengeCtrl" ng-init="viewInit()">
 	<div class="jumbotron" style="background-image:url( {{challenge.header_images[0]}} )">
-	  <div class="container">
-	    <h1>{{challenge.title}}</h1>
-	    <p>{{challenge.description}}</p>
-	    <ul class="nav nav-tabs">
-	    	<li class="active">
-					<a href="">Inicio</a>
+		<div class="container">
+			<h1>{{challenge.title}}</h1>
+			<p>{{challenge.description}}</p>
+			<ul id="myTab" class="nav nav-tabs">
+				<li class="active">
+					<a href="#home" data-toggle="tab">Inicio</a>
 				</li>
-			   <li ng-repeat="p in challenge.pages">
-						<a href="">{{p.title}}</a>
-					</li>
+			   	<li ng-repeat="p in challenge.pages">
+					<a href="#{{p.content_type}}-page" data-toggle="tab">{{p.title}}</a>
+				</li>
+				<li>
+					<a href="#stages" data-toggle="tab">Etapas</a>
+				</li>
+				<li>
+					<a href="#submissions" data-toggle="tab">Propuestas ({{projects.length}})</a>
+				</li>
 			</ul>
-
-	    <ul>
-		   
-			</ul>
-	  </div>
+		</div>
 	</div>
 
 	<div class="container">
 	  <div class="row">
 	    <div class="col-md-8">
 
-				<h2>admins ({{admins.length}})</h2>
-				<p ng-repeat="v in admins">	
-					<a href="/#/profile/{{v._id}}">
-						<img ng-src="{{v.picture}}" />
-					</a>
-				</p>
+				<div class="tab-content">
+				  
+					<div class="tab-pane active" id="home">
+						home
 
-				<h2>images</h2>
-				<div ng-repeat="img in challenge.header_images">
-					<img ng-src="{{img}}" width="100" />
-				</div>
+						<h2>images</h2>
+						<div ng-repeat="img in challenge.header_images">
+							<img ng-src="{{img}}" width="100" />
+						</div>
 
-				<h2>stages</h2>
-				<ul>
-					<li ng-repeat="s in challenge.stages">
-						Nombre: {{s.name}} | Desde: {{s.start}} | Hasta: {{s.end}}
+
+
+						<h2>categories</h2>
 						<ul>
-							<li ng-repeat="p in s.permissions track by $index">
-								{{p}}
+							<li ng-repeat="c in challenge.categories">
+								{{c}}
 							</li>
 						</ul>
-					</li>
-				</ul>
-
-				<h2>pages</h2>
-				<ul>
-					<li ng-repeat="p in challenge.pages">
-						titulo: {{p.title}} | texto: {{p.text}} | tipo: {{p.content_type}} |
-					</li>
-				</ul>
-
-				<h2>categories</h2>
-				<ul>
-					<li ng-repeat="c in challenge.categories">
-						{{c}}
-					</li>
-				</ul>
-
-				<h2>SUBMITS ({{projects.length}})</h2>
-				<div ng-repeat="c in projects">
-					<a href="/#/submit/{{c._id}}">
-						{{c._id}}
-					</a>
-				</div>
-
-
-					<div class="modal fade bs-example-modal-lg" id="participate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-lg">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					        <h4 class="modal-title" id="myModalLabel">Campos para participar</h4>
-					      </div>
-
-					      <div class="modal-body">
-
-							<p>Participar en Concurso {{challenge.slug}}</p>
-
-							<p ng-show="challenge.categories.length > 0">
-								<select ng-model="project.tags" ng-options="option for option in challenge.categories">
-									<option value="">-- select --</option>
-								</select>
-							</p>
-
-							<p ng-repeat="s in challenge.submit_fields | orderBy:'order'">	
-								{{s.label}} <input type="text" ng-model="project[s.type]" />
-								<small>{{s.help}}</small>
-							</p>
-
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					        <button type="button" ng-click="addProject(project)" class="btn btn-primary">Participar</button>
-					      </div>
-					    </div>
-					  </div>
 					</div>
 
+					<div class="tab-pane" id="stages">
+						<h2>stages</h2>
+						<ul>
+							<li ng-repeat="s in challenge.stages">
+								Nombre: {{s.name}} | Desde: {{s.start}} | Hasta: {{s.end}}
+								<ul>
+									<li ng-repeat="p in s.permissions track by $index">
+										{{p}}
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+					<div class="tab-pane" id="{{p.content_type}}-page" ng-repeat="p in challenge.pages">
+						{{p.text}}
+					</div>
+				
+					<div class="tab-pane" id="submissions">
+						<h2>SUBMITS ({{projects.length}})</h2>
+						<div ng-repeat="project in projects" ng-include="'ng-client/modules/project/card.html'">
+						</div>
+					</div>
+
+
+				</div>
 
 	    </div>
 	    <div class="col-md-4">
 
 	    	<h2>button call to action</h2>
-				<div>
-					<style>	
-						.nav a {
-							color:  {{challenge.call_to_action.color}} !important
-						}
-					</style>
-					<p>Label: {{challenge.call_to_action.label}}</p>
-					<a ng-click="openParticipatePopup()" href="javascript:;" style="background: {{challenge.call_to_action.bgcolor}} ; color: {{challenge.call_to_action.color}} !important" class="btn btn-lg btn-block">{{challenge.call_to_action.label}}</a>
-										<p>{{challenge.call_to_action.help}}</p>
+			<div>
+				<p>Label: {{challenge.call_to_action.label}}</p>
+				<a 	ng-click="openParticipatePopup()" 
+					href="javascript:;" 
+					style="background: {{challenge.call_to_action.bgcolor}}; 
+							color: {{challenge.call_to_action.color}} !important" 
+					class="btn btn-lg btn-block">
 
-				</div>
+					{{challenge.call_to_action.label}}
+				</a>
+				<p>{{challenge.call_to_action.help}}</p>
 
-	      <h2>data</h2>
-				<p>Slug: {{challenge.slug}}</p>
-				<p>Create: {{challenge.created_at}}</p>
-				<p>Abierto: {{challenge.open}}</p>
-				<p>contact: {{challenge.contact}}</p>
-				<p>link color: {{challenge.link_color}}</p>
+			</div>
+
+			<p>TODO: etapa actual</p>
+
+			<h2>admins ({{admins.length}})</h2>
+			<p ng-repeat="v in admins">	
+				<a href="/#/profile/{{v._id}}">
+					<img ng-src="{{v.picture}}" />
+				</a>
+			</p>
+
+	      	<h2>data</h2>
+			<p>Slug: {{challenge.slug}}</p>
+			<p>Create: {{challenge.created_at}}</p>
+			<p>Abierto: {{challenge.open}}</p>
+			<p>contact: {{challenge.contact}}</p>
+			<p>link color: {{challenge.link_color}}</p>
+
+			<h2>actions</h2>
+			<a ng-show="userCanEdit" href="/#/challenge/{{challenge._id}}/edit">Editar</a>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade bs-example-modal-lg" id="participate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Campos para participar</h4>
+	      </div>
+
+	      <div class="modal-body">
+
+			<p>Participar en Concurso {{challenge.slug}}</p>
+
+			<p ng-show="challenge.categories.length > 0">
+				<select ng-model="project.tags" ng-options="option for option in challenge.categories">
+					<option value="">-- select --</option>
+				</select>
+			</p>
+
+			<p ng-repeat="s in challenge.submit_fields | orderBy:'order'">	
+				{{s.label}} <input type="text" ng-model="project[s.type]" />
+				<small>{{s.help}}</small>
+			</p>
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" ng-click="addProject(project)" class="btn btn-primary">Participar</button>
+	      </div>
 	    </div>
 	  </div>
 	</div>
 
 
-	<h2>actions</h2>
-	<a ng-show="userCanEdit" href="/#/challenge/{{challenge._id}}/edit">Editar</a>
 
 	
