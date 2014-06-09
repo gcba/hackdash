@@ -64,3 +64,41 @@ body {
 .nav .active a {
   color:#000;
 }
+
+#challenge-container .panel {
+
+}
+
+#challenge-container .panel .img-container {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  text-align: center;
+  background-image: url('https://lh4.ggpht.com/MQsgWsIpedryB7kjzGGe_z5YW0eeK0K-bHLZhjONBJVKP95Fz9dSd24GjUR2rYo2xsY=w200');
+  background-position: center center;
+}
+
+.challenges-link {
+  display: block;
+}
+
+.challenges-link:hover {
+  text-decoration: none;
+}
+
+#project-container .panel .img-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  text-align: center;
+  background-image: url('https://lh4.ggpht.com/MQsgWsIpedryB7kjzGGe_z5YW0eeK0K-bHLZhjONBJVKP95Fz9dSd24GjUR2rYo2xsY=w200');
+  background-position: center center;
+}
+
+.project-link {
+  display: block;
+}
+
+.project-link:hover {
+  text-decoration: none;
+}

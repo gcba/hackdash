@@ -1,34 +1,58 @@
 <div class="jumbotron">
   <div class="container">
-    <h1>Hello, world!</h1>
-    <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-    <p><a class="btn btn-primary btn-lg" role="button">Learn more »</a></p>
+    <h1>Concursos y desafíos BA</h1>
+    <p>En este sitio podrás encontrar los concursos y desafíos que propone el Gobierno de la Ciudad de Buenos Aires.</p>
+    <p><a class="btn btn-primary btn-lg" role="button" ng-click="goToChallenges()">Ver concursos</a></p>
   </div>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
-      <div class="row">
-        <h1>Challenges</h1>
-        <div class="col-md-4">
-          <div ng-repeat="c in challenges">
-          	<a href="/#/challenge/{{c._id}}">
-          		<p>{{c.slug}}</p>
-          		<p>{{c.created_at}}</p>
-          	</a>
-          </div>
+    
+    <div id="challenge-container" class="col-md-8">
+        <h1>Concursos</h1>
+        <div class="panel panel-default" ng-repeat="c in challenges">
+        	<a class="challenges-link" href="/#/challenge/{{c._id}}">
+            <div class="media">
+              <span class="pull-left img-container">
+                <img class="media-object" ng-src="{{c.header_images[0]}}" height="200" />
+              </span>
+              <div class="media-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <h2 class="media-heading">{{c.title}}</h2>
+                    <p>{{c.description}}</p>
+                    <p ng-if="c.open"><span class="label label-success">ABIERTO</span></p>
+                    <p ng-if="!c.open"><span class="label label-danger">CERRADO</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        	</a>
         </div>
-      </div>
+    </div>
 
-      <h1>Projects</h1>
-      <div ng-repeat="c in projects">
-      	<a href="/#/submit/{{c._id}}">
-      		<p>{{c.created_at}}</p>
-      	</a>
+    <div id="project-container" class="col-md-4">
+      <h1>Participaciones</h1>
+      <div class="panel panel-default" ng-repeat="c in projects">
+          <a class="project-link" href="/#/submit/{{c._id}}">
+            <div class="media">
+              <span class="pull-left img-container">
+                <img class="media-object" ng-src="{{c.leader.picture}}" height="100" />
+              </span>
+              {{vo}}
+              <div class="media-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <h2 class="media-heading">{{c.leader.name}}</h2>
+                    <p>Enviado el: {{c.created_at | date:'dd-MM-yyyy'}}</p>
+                    <p>Votos: {{c.followers.length}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
       </div>
     </div>
-    <div class="col-md-4">
-      Hola
-    </div>
+  
   </div>
 </div>

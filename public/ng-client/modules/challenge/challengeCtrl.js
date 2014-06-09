@@ -142,7 +142,11 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.openParticipatePopup = function(id){
-		$('#participate').modal('show');
+		if($rootScope.user){
+			$('#participate').modal('show');
+		} else {
+			$location.path('/login');
+		}
 	};
 
 	$scope.openProjectPopup = function(id){
