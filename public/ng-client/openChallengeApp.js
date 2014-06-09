@@ -1,4 +1,4 @@
-var ocApp = angular.module('oc-project',['ngRoute','restangular']);
+var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular']);
 
 ocApp.config(function($routeProvider) {
 

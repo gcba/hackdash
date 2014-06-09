@@ -1,4 +1,4 @@
-ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope) {
+ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce) {
 
 	$scope.challenge = {
 		pages: [],
@@ -62,11 +62,26 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			  		$scope.challenge = challenge;
 			  		if(isEdit){
 			  			$scope.preprocessCollections();
+			  		}else{
+			  			$scope.allowHtmlInPages();
 			  		}
 				});
 			$scope.projects = Restangular.one('dashboards', $routeParams.challengeId).getList('projects').$object;
 			$scope.admins = Restangular.one('dashboards', $routeParams.challengeId).getList('admins').$object;
 		}
+	};
+
+	$scope.explicitlyTrustedHtml = $sce.trustAsHtml(
+      '<span onmouseover="this.textContent="Explicitly trusted HTML bypasses ' +
+      'sanitization."">Hover over this text.</span>');
+
+	$scope.allowHtmlInPages = function(){
+		
+		//permissions
+		angular.forEach($scope.challenge.pages, function(s,k){
+			s.text = $sce.trustAsHtml(s.text);
+		});
+
 	};
 
 	$scope.preprocessCollections = function(){

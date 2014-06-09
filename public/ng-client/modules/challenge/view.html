@@ -1,5 +1,12 @@
-<div ng-controller="challengeCtrl" ng-init="viewInit()">
-	<div class="jumbotron" style="background-image:url( {{challenge.header_images[0]}} )">
+<div id="view-challenge-container" ng-controller="challengeCtrl" ng-init="viewInit()">
+	
+	<style type="text/css">
+		#view-challenge-container a {
+			color: {{challenge.link_color}};
+		}
+	</style>
+
+	<div class="jumbotron" ng-style="{'background-image': 'url(' + challenge.header_images[0] + ')' }">
 		<div class="container">
 			<h1>{{challenge.title}}</h1>
 			<p>{{challenge.description}}</p>
@@ -59,7 +66,7 @@
 					</div>
 
 					<div class="tab-pane" id="{{p.content_type}}-page" ng-repeat="p in challenge.pages">
-						{{p.text}}
+						<p ng-bind-html="p.text"></p>
 					</div>
 				
 					<div class="tab-pane" id="submissions">
@@ -79,8 +86,9 @@
 				<p>Label: {{challenge.call_to_action.label}}</p>
 				<a 	ng-click="openParticipatePopup()" 
 					href="javascript:;" 
-					style="background: {{challenge.call_to_action.bgcolor}}; 
-							color: {{challenge.call_to_action.color}} !important" 
+					ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
+								'color': challenge.call_to_action.color + ' !important'
+								}" 
 					class="btn btn-lg btn-block">
 
 					{{challenge.call_to_action.label}}

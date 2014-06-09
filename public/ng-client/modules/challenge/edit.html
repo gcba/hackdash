@@ -1,14 +1,14 @@
-<div ng-controller="challengeCtrl" ng-init="editInit()">
+<div ng-controller="challengeCtrl" ng-init="editInit()" class="container">
 	<h1>Editar Concurso</h1>
 	<a href="/#/challenge/53835e12be68ff6215000004/edit/projects">Modificar postulaciones</a>
-	<form novalidate class="simple-form">
+	<form role="form" novalidate class="form-horizontal simple-form">
 		<h2>Options</h2>
-		<p>slug {{challenge.slug}}</p>
-		<p>title <input type="text" ng-model="challenge.title" /></p>
-		<p>description <input type="text" ng-model="challenge.description" /></p>
-		<p>open <input type="text" ng-model="challenge.open" /></p>
-		<p>contact <input type="text" ng-model="challenge.contact" /></p>
-		<p>color links <input type="text" ng-model="challenge.link_color" /></p>
+		<p>Slug {{challenge.slug}}</p>
+		<p>Título <input type="text" ng-model="challenge.title" /></p>
+		<p>Descripción <input type="text" ng-model="challenge.description" /></p>
+		<p>Abierto <input type="text" ng-model="challenge.open" /></p>
+		<p>Contacto <input type="text" ng-model="challenge.contact" /></p>
+		<p>Color de los links <input type="text" ng-model="challenge.link_color" /></p>
 
 		<div>
 			<h2>Button</h2>
@@ -26,7 +26,8 @@
 			</h2>
 			<div ng-repeat="page in challenge.pages">
 			  	<p>title <input type="text" ng-model="page.title" /></p>
-			  	<p>text <input type="text" ng-model="page.text" /></p>
+			  	<div text-angular ng-model="page.text"></div>
+			  	<p>text {{page.text}}</p>
 			  	<select ng-model="page.content_type" ng-options="content for content in $parent.page_contents_type">
 				  <option value="">-- select --</option>
 				</select>
