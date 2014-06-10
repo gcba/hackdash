@@ -1,5 +1,7 @@
-<div class="panel panel-default card">
-	<div ng-repeat="s in challenge.submit_fields | filter: filterObj | orderBy:'order' ">
+<div class="thumbnail">
+	<h4 ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</h4>
+
+	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'order' "></div>
 
 		<h4>{{s.label}}</h4>
 
@@ -12,12 +14,11 @@
 		<div ng-if="(s.type == 'link')">
 			<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
 		</div>
-		<div ng-if="(s.type == 'imageurl')">
-			<img ng-src="{{project[s.type]}}" />
-		</div>
-		<div ng-if="(s.type == 'cover')">
-			<img ng-src="{{project[s.type]}}" />
-		</div>	
+
+		<img ng-if="(s.type == 'imageurl')" ng-src="{{project[s.type]}}" />
+
+		<img ng-if="(s.type == 'cover')" ng-src="{{project[s.type]}}" />
+
 		<div ng-if="(s.type == 'videourl')">
 			<iframe width="560" height="315" src="//www.youtube.com/embed/VMl0GbiVEyA?rel=0" frameborder="0" allowfullscreen="false"></iframe>
 			{{project[s.type]}}
@@ -32,26 +33,25 @@
 			<p>{{project[s.type]}}</p>
 		</div>
 
-	</div>
+	<div ng-repeat-end></div>
 
-	<h2>Leader</h2>
-	<a href="/#/profile/{{project.leader._id}}">
-		<img ng-src="{{project.leader.picture}}" />
-	</a>
 
-	<h2>VOTES ({{project.followers.length}})</h2>
-	<p ng-repeat="v in project.followers">	
-		<a href="/#/profile/{{v._id}}">
-			<img ng-src="{{v.picture}}" />
+	<p>
+		<a class="pull-right" href="/#/profile/{{project.leader._id}}">
+			<img ng-src="{{project.leader.picture}}" width="25" />
+			{{project.leader.name}}
 		</a>
 	</p>
 
-	<a ng-href="/#/submit/{{project._id}}">
-		ver más
-	</a>
+	<p><strong>Votos:<strong> {{project.followers.length}}</p>
 
-	<br/>
-
-	<a ng-click="vote()" href="javascript:;">votar</a>
+	<p>
+		<div class="btn-group btn-group-justified">
+			<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
+				Ver más
+			</a>
+			<a ng-controller="projectCtrl" class="btn btn-default" ng-click="vote(projects[$index]._id)">Votar</a>
+		</div>
+	</p>
 
 </div>

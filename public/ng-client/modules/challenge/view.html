@@ -1,15 +1,9 @@
 <div id="view-challenge-container" ng-controller="challengeCtrl" ng-init="viewInit()">
 	
-	<style type="text/css">
-		#view-challenge-container a {
-			color: {{challenge.link_color}};
-		}
-	</style>
-
 	<div class="jumbotron" ng-style="{'background-image': 'url(' + challenge.header_images[0] + ')' }">
 		<div class="container">
 			<h1>{{challenge.title}}</h1>
-			<p>{{challenge.description}}</p>
+			<p>{{challenge.subtitle}}</p>
 			<ul id="myTab" class="nav nav-tabs">
 				<li class="active">
 					<a href="#home" data-toggle="tab">Inicio</a>
@@ -34,21 +28,7 @@
 				<div class="tab-content">
 				  
 					<div class="tab-pane active" id="home">
-						home
-
-						<h2>images</h2>
-						<div ng-repeat="img in challenge.header_images">
-							<img ng-src="{{img}}" width="100" />
-						</div>
-
-
-
-						<h2>categories</h2>
-						<ul>
-							<li ng-repeat="c in challenge.categories">
-								{{c}}
-							</li>
-						</ul>
+						<p ng-bind-html="challenge.description"></p>
 					</div>
 
 					<div class="tab-pane" id="stages">
@@ -70,32 +50,37 @@
 					</div>
 				
 					<div class="tab-pane" id="submissions">
-						<h2>SUBMITS ({{projects.length}})</h2>
-						<div ng-repeat="project in projects" ng-include="'ng-client/modules/project/card.html'">
-						</div>
+						<h2>Participaciones: ({{projects.length}})</h2>
+							<div class="row">
+								<p ng-show="challenge.categories.length > 0">
+									Filtro: 
+									<select ng-model="filter.cat" ng-options="option for option in challenge.categories">
+										<option value="">Todas</option>
+									</select>
+								</p>
+								{{filter.cat}}
+							</div>
+							<div class="row">
+								<div class="col-sm-6 col-md-6" ng-repeat="project in projects | filter: {tags:filter.cat}" ng-include="'ng-client/modules/project/card.html'">
+								</div>
+							</div>
 					</div>
-
 
 				</div>
 
 	    </div>
 	    <div class="col-md-4">
 
-	    	<h2>button call to action</h2>
-			<div>
-				<p>Label: {{challenge.call_to_action.label}}</p>
-				<a 	ng-click="openParticipatePopup()" 
+			<a 	ng-click="openParticipatePopup()" 
 					href="javascript:;" 
 					ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
-								'color': challenge.call_to_action.color + ' !important'
+								'color': challenge.call_to_action.color
 								}" 
 					class="btn btn-lg btn-block">
 
 					{{challenge.call_to_action.label}}
 				</a>
 				<p>{{challenge.call_to_action.help}}</p>
-
-			</div>
 
 			<p>TODO: etapa actual</p>
 
@@ -113,8 +98,10 @@
 			<p>contact: {{challenge.contact}}</p>
 			<p>link color: {{challenge.link_color}}</p>
 
-			<h2>actions</h2>
-			<a ng-show="userCanEdit" href="/#/challenge/{{challenge._id}}/edit">Editar</a>
+			<div ng-show="userCanEdit">
+				<h2>actions</h2>
+				<a href="/#/challenge/{{challenge._id}}/edit">Editar</a>
+	    	</div>
 	    </div>
 	  </div>
 	</div>
@@ -122,30 +109,40 @@
 	<div class="modal fade bs-example-modal-lg" id="participate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
-	      <div class="modal-header">
+	      <div class="modal-header" ng-style="{'background-image': 'url(' + challenge.header_images[0] + ')', 'background-size':'cover', 'background-position': 'center center' }">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title" id="myModalLabel">Campos para participar</h4>
+	        <h4 class="modal-title" id="myModalLabel">Participá ahora en: <strong>{{challenge.title}}</strong></h4>
 	      </div>
 
 	      <div class="modal-body">
 
-			<p>Participar en Concurso {{challenge.slug}}</p>
-
-			<p ng-show="challenge.categories.length > 0">
-				<select ng-model="project.tags" ng-options="option for option in challenge.categories">
-					<option value="">-- select --</option>
+			<form role="form">
+			  <div class="form-group">
+			    <label>Categoría:</label>
+				<select class="form-control" ng-show="challenge.categories.length > 0" ng-model="project.tags" ng-options="option for option in challenge.categories">
+					<option value="">-- seleccionar --</option>
 				</select>
-			</p>
-
-			<p ng-repeat="s in challenge.submit_fields | orderBy:'order'">	
-				{{s.label}} <input type="text" ng-model="project[s.type]" />
+				<small>Seleccione una categoría</small>
+			  </div>
+			<div class="form-group" ng-repeat="s in challenge.submit_fields | orderBy:'order'">
+			    <label>{{s.label}}</label>
+			    <input class="form-control" type="text" ng-model="project[s.type]" />
 				<small>{{s.help}}</small>
-			</p>
+			</div>
+			</form>
 
+
+			<p class="text-center">{{challenge.call_to_action.help}}</p>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" ng-click="addProject(project)" class="btn btn-primary">Participar</button>
+  			<a 	ng-click="addProject(project)"
+			href="javascript:;" 
+			ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
+						'color': challenge.call_to_action.color
+						}" 
+			class="btn btn-lg btn-block">
+				{{challenge.call_to_action.label}}
+			</a>
 	      </div>
 	    </div>
 	  </div>

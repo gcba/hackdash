@@ -12,6 +12,10 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		important: true
 	};
 
+	$scope.filter = {};
+
+	$scope.order = {};
+
 	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
 
 	//Inits

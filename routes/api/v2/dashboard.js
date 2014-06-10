@@ -139,6 +139,7 @@ var updateDashboard = function(req, res, next) {
   }
 
   dashboard.title = getValue("title");
+  dashboard.subtitle = getValue("subtitle");
   dashboard.description = getValue("description");
   dashboard.link = getValue("link");
   dashboard.open = getValue("open");

@@ -2,6 +2,8 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 
 	$scope.project = {};
 
+	$scope.votes = "gola";
+
 	if($routeParams.projectId){
 		Restangular.one('projects', $routeParams.projectId).get()
 			.then(function(project){
@@ -10,10 +12,10 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 			});
 	}
 
-	$scope.vote = function(vote){
+	$scope.vote = function(projectId){
 
 		if($rootScope.user){
-			Restangular.one('projects', $scope.project._id)
+			Restangular.one('projects', projectId)
 				.post('followers')
 				.then(function(updatedProject){
 					$scope.project = updatedProject;

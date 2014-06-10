@@ -44,6 +44,7 @@ module.exports = function(app) {
   var Dashboard = new Schema({
       "slug": { type: String, index: { unique: true } }
     , "title": { type: String }
+    , "subtitle": { type: String }
     , "description": { type: String }
     , "open": { type: Boolean, default: false }
     , "showcase": [String]
