@@ -21,7 +21,6 @@ ocApp.config(function($routeProvider) {
 	    templateUrl:'/ng-client/modules/challenge/projects.html',
 	  })
 	 .when('/submit/:projectId', {
-	    controller:'projectCtrl', 
 	    templateUrl:'/ng-client/modules/project/view.html'
 	  })
 	  .when('/profile/:profileId', { //public user profile
@@ -78,5 +77,26 @@ ocApp.run(function ($rootScope, Restangular) {
 			}
 		});
 	} 
+
+	//Permissions
+	$rootScope.isAbleTo = function(permi, challenge){
+	    var current = this.getCurrentStages(challenge);
+	    return current.permissions.indexOf(permi) != -1;
+	}
+
+	$rootScope.getCurrentStages = function(challenge){
+	    var today = new Date().getTime();
+	    var current = {stages:[],permissions:[]};
+	    angular.forEach(challenge.stages, function(e,i){
+	        var start = Date.parse(e.start);
+	        var end = Date.parse(e.end);
+	        if( start < today && today < end ){
+	            current.stages.push(e);
+	            current.permissions = current.permissions.concat(e.permissions);
+	        }
+	    });
+	    current.permissions = jQuery.unique( current.permissions );
+	    return current;
+	}
 
 });

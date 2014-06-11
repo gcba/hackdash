@@ -102,3 +102,11 @@ body {
 .project-link:hover {
   text-decoration: none;
 }
+
+#view-project-container .jumbotron .container {
+  padding: 0px !important;
+}
+
+.container img {
+  max-width: 100%;
+}

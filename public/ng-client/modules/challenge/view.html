@@ -32,15 +32,10 @@
 					</div>
 
 					<div class="tab-pane" id="stages">
-						<h2>stages</h2>
+						<h2>Etapas</h2>
 						<ul>
 							<li ng-repeat="s in challenge.stages">
-								Nombre: {{s.name}} | Desde: {{s.start}} | Hasta: {{s.end}}
-								<ul>
-									<li ng-repeat="p in s.permissions track by $index">
-										{{p}}
-									</li>
-								</ul>
+								<strong>{{s.name}}</strong> | Desde: {{s.start | date:'dd-MM-yyyy HH:mm'}} | Hasta: {{s.end | date:'dd-MM-yyyy HH:mm'}}
 							</li>
 						</ul>
 					</div>
@@ -80,16 +75,17 @@
 
 					{{challenge.call_to_action.label}}
 				</a>
-				<p>{{challenge.call_to_action.help}}</p>
+				<p class="text-center">{{challenge.call_to_action.help}}</p>
 
-			<p>TODO: etapa actual</p>
+			<div>
+                <p ng-show="challenge.open"><h2><span class="label label-success">ABIERTO</span></h2></p>
+                <p ng-show="!challenge.open"><span class="label label-danger">CERRADO</span></p>
 
-			<h2>admins ({{admins.length}})</h2>
-			<p ng-repeat="v in admins">	
-				<a href="/#/profile/{{v._id}}">
-					<img ng-src="{{v.picture}}" />
-				</a>
-			</p>
+				<h3>Etapa actual:</h3>
+				{{currentStages.stages}}
+
+
+			</div>
 
 	      	<h2>data</h2>
 			<p>Slug: {{challenge.slug}}</p>

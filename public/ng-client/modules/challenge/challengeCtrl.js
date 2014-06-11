@@ -15,6 +15,8 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	$scope.filter = {};
 
 	$scope.order = {};
+	
+	$scope.currentStages = [];
 
 	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
 
@@ -64,6 +66,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			Restangular.one('dashboards', $routeParams.challengeId).get()
 				.then(function(challenge){
 			  		$scope.challenge = challenge;
+			  		$scope.currentStages = $rootScope.getCurrentStages(challenge);
 			  		if(isEdit){
 			  			$scope.preprocessCollections();
 			  		}else{
