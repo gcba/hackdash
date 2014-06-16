@@ -50,8 +50,18 @@
 	    </div>
 	    <div class="col-md-4">
 			
+			<a ng-click="vote(project._id)" 
+				href="javascript:;" 
+				ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
+							'color': challenge.call_to_action.color
+							}" 
+				class="btn btn-lg btn-block">
+				Votar
+			</a>
+
 			<h2>Enviado por:</h2>
 			<p>{{project.leader.name}}</p>
+
 			<a href="/#/profile/{{project.leader._id}}">
 				<img ng-src="{{project.leader.picture}}" />
 			</a>
@@ -63,14 +73,7 @@
 				</a>
 			</p>
 
-			<a ng-click="vote(project._id)" 
-				href="javascript:;" 
-				ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
-							'color': challenge.call_to_action.color
-							}" 
-				class="btn btn-lg btn-block">
-				Votar
-			</a>
+			<p>Create: {{project.created_at}}</p>
 
 	      	<h2>data</h2>
 			<p>Slug: {{challenge.slug}}</p>

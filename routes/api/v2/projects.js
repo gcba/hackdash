@@ -318,7 +318,7 @@ var setQuery = function(req, res, next){
   req.query = {};
 
   if (req.params.did) {
-    req.query = { challenge_id: req.params.did };
+    req.query = { challenge_id: req.params.did, active: true };
   }
 
   if (query.length === 0){

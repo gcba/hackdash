@@ -1,7 +1,7 @@
 <div class="thumbnail">
 	<h4 ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</h4>
 
-	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'order' "></div>
+	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'status' "></div>
 
 		<h4>{{s.label}}</h4>
 
@@ -44,6 +44,8 @@
 	</p>
 
 	<p><strong>Votos:<strong> {{project.followers.length}}</p>
+	<p><strong>Status:<strong> {{project.status}}</p>
+	<p><strong>Active:<strong> {{project.active}}</p>
 
 	<p>
 		<div class="btn-group btn-group-justified">

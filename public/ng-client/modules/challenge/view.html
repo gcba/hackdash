@@ -35,7 +35,7 @@
 						<h2>Etapas</h2>
 						<ul>
 							<li ng-repeat="s in challenge.stages">
-								<strong>{{s.name}}</strong> | Desde: {{s.start | date:'dd-MM-yyyy HH:mm'}} | Hasta: {{s.end | date:'dd-MM-yyyy HH:mm'}}
+								<strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.
 							</li>
 						</ul>
 					</div>
@@ -49,14 +49,14 @@
 							<div class="row">
 								<p ng-show="challenge.categories.length > 0">
 									Filtro: 
-									<select ng-model="filter.cat" ng-options="option for option in challenge.categories">
+									<select ng-model="filter.cat" ng-options="option for option in challenge.categories" ng-change="changeFilter()">
 										<option value="">Todas</option>
 									</select>
 								</p>
 								{{filter.cat}}
 							</div>
 							<div class="row">
-								<div class="col-sm-6 col-md-6" ng-repeat="project in projects | filter: {tags:filter.cat}" ng-include="'ng-client/modules/project/card.html'">
+								<div class="col-sm-6 col-md-6" ng-repeat="project in projects" ng-include="'ng-client/modules/project/card.html'">
 								</div>
 							</div>
 					</div>
@@ -80,22 +80,25 @@
 			<div>
                 <p ng-show="challenge.open"><h2><span class="label label-success">ABIERTO</span></h2></p>
                 <p ng-show="!challenge.open"><span class="label label-danger">CERRADO</span></p>
-
-				<h3>Etapa actual:</h3>
-				{{currentStages.stages}}
-
-
 			</div>
 
-	      	<h2>data</h2>
-			<p>Slug: {{challenge.slug}}</p>
-			<p>Create: {{challenge.created_at}}</p>
-			<p>Abierto: {{challenge.open}}</p>
-			<p>contact: {{challenge.contact}}</p>
-			<p>link color: {{challenge.link_color}}</p>
+			<p>
+				Creado el:
+				{{challenge.created_at | date:'dd-MM-yyyy'}}
+			</p>
+
+			<p>Contacto: {{challenge.contact}}</p>
+			<div ng-show="challenge.open && currentStages.stages.length>0">
+				<h3>Etapas actuales:</h3>
+				<ul>
+					<li ng-repeat="s in currentStages.stages">
+						<strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.
+					</li>
+				</ul>
+			</div>
 
 			<div ng-show="userCanEdit">
-				<h2>actions</h2>
+				<h4>Acciones de administrador</h4>
 				<a href="/#/challenge/{{challenge._id}}/edit">Editar</a>
 	    	</div>
 	    </div>
