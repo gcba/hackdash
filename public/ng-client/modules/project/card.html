@@ -1,16 +1,21 @@
 <div class="thumbnail">
-	<h4 ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</h4>
+
+	<div class="thumbnail-content">
+
+	<p ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</p>
 
 	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'order' "></div>
 
-		<h4>{{s.label}}</h4>
+		<p class="text-muted"><small>{{s.label}}</small></p>
 
 		<div ng-if="(s.type == 'title')">
-			<h1>{{project[s.type]}}</h1>
+			<h3>{{project[s.type]}}</h3>
 		</div>
+		
 		<div ng-if="(s.type == 'description')">
 			<p>{{project[s.type]}}</p>
 		</div>
+
 		<div ng-if="(s.type == 'link')">
 			<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
 		</div>
@@ -19,39 +24,51 @@
 
 		<img ng-if="(s.type == 'cover')" ng-src="{{project[s.type]}}" />
 
+<!--
 		<div ng-if="(s.type == 'videourl')">
 			<iframe width="560" height="315" src="//www.youtube.com/embed/VMl0GbiVEyA?rel=0" frameborder="0" allowfullscreen="false"></iframe>
 			{{project[s.type]}}
 		</div>
+-->
+
 		<div ng-if="(s.type == 'text')">
 			<p>{{project[s.type]}}</p>
 		</div>
+
 		<div ng-if="(s.type == 'fileurl')">
 			<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
 		</div>
+
 		<div ng-if="(s.type == 'tags')">
 			<p>{{project[s.type]}}</p>
 		</div>
 
 	<div ng-repeat-end></div>
 
-
+<!--
 	<p>
 		<a class="pull-right" href="/#/profile/{{project.leader._id}}">
 			<img ng-src="{{project.leader.picture}}" width="25" />
 			{{project.leader.name}}
 		</a>
 	</p>
+-->
 
-	<p><strong>Votos:<strong> {{project.followers.length}}</p>
+	</div>
 
-	<p>
-		<div class="btn-group btn-group-justified">
-			<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
-				Ver más
-			</a>
-			<a ng-controller="projectCtrl" class="btn btn-default" ng-click="vote(projects[$index]._id)">Votar</a>
-		</div>
-	</p>
+	<div class="thumbnail-footer">
+
+		<h4><strong>Votos:<strong> {{project.followers.length}}</h4>
+
+		<p>
+			<div class="btn-group btn-group-justified">
+				<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
+					Ver más
+				</a>
+				<a ng-controller="projectCtrl" class="btn btn-primary" ng-click="vote(projects[$index]._id)">Votar</a>
+			</div>
+		</p>
+
+	</div>
 
 </div>

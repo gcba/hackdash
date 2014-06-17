@@ -7,14 +7,15 @@ html(ng-app="oc-project")
     link(rel="icon", href="/favicon.ico", type="image/x-icon")
     
     link(rel='stylesheet', href='/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
-    link(rel='stylesheet', href='/css/open-sans.css')
+    //link(rel='stylesheet', href='/css/bootstrap-theme.min.css')
+    //link(rel='stylesheet', href='/css/open-sans.css')
     link(rel='stylesheet', href='/css/font-awesome.css')
     
+    link(rel='stylesheet', href='/bastrap/bastrap.css?v=' + version)
     link(rel='stylesheet', href='/css/main.css?v=' + version)
 
   body
-    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+    .navbar.navbar-primary.navbar-fixed-top(role='navigation')
       .container
           .navbar-header
             button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')

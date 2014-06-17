@@ -4,13 +4,13 @@
 		<div class="container">
 			<h1>{{challenge.title}}</h1>
 			<p>{{challenge.subtitle}}</p>
-			<p><a href="/#/challenge/{{challenge._id}}">volver al concurso</a></p>
+			<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a></p>
 		</div>
 	</div>
 
 	<div class="container">
 	  <div class="row">
-	    <div class="col-md-8">
+	    <div class="col-md-7">
 
 			<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
 
@@ -19,28 +19,36 @@
 				<div ng-if="(s.type == 'title')">
 					<h1>{{project[s.type]}}</h1>
 				</div>
+
 				<div ng-if="(s.type == 'description')">
 					<p>{{project[s.type]}}</p>
 				</div>
+
 				<div ng-if="(s.type == 'link')">
 					<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
 				</div>
+
 				<div ng-if="(s.type == 'imageurl')">
 					<img ng-src="{{project[s.type]}}" />
 				</div>
+
 				<div ng-if="(s.type == 'cover')">
 					<img ng-src="{{project[s.type]}}" />
 				</div>	
+
 				<div ng-if="(s.type == 'videourl')">
 					<iframe width="560" height="315" src="//www.youtube.com/embed/VMl0GbiVEyA?rel=0" frameborder="0" allowfullscreen="false"></iframe>
 					{{project[s.type]}}
 				</div>
+
 				<div ng-if="(s.type == 'text')">
 					<p>{{project[s.type]}}</p>
 				</div>
+
 				<div ng-if="(s.type == 'fileurl')">
 					<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
 				</div>
+
 				<div ng-if="(s.type == 'tags')">
 					<p>{{project[s.type]}}</p>
 				</div>
@@ -48,31 +56,36 @@
 			</div>
 
 	    </div>
-	    <div class="col-md-4">
+	    <div class="col-md-4 col-md-offset-1">
 			
-			<h2>Enviado por:</h2>
+
+	    	<div class="well">
+				<a ng-click="vote(project._id)" href="javascript:;" class="btn btn-lg btn-block btn-primary">
+				Votar
+				</a>
+			</div>
+
+
+			<h4>Enviado por:</h4>
 			<p>{{project.leader.name}}</p>
 			<a href="/#/profile/{{project.leader._id}}">
 				<img ng-src="{{project.leader.picture}}" />
 			</a>
 
-			<h2>Votos ({{project.followers.length}})</h2>
+			<h4>Votos ({{project.followers.length}})</h4>
 			<p>	
 				<a href="/#/profile/{{v._id}}" ng-repeat="v in project.followers">
 					<img ng-src="{{v.picture}}" width="25" />
 				</a>
 			</p>
 
-			<a ng-click="vote(project._id)" 
-				href="javascript:;" 
-				ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
-							'color': challenge.call_to_action.color
-							}" 
-				class="btn btn-lg btn-block">
-				Votar
-			</a>
 
-	      	<h2>data</h2>
+
+
+
+
+
+	      	<h4>data</h4>
 			<p>Slug: {{challenge.slug}}</p>
 			<p>Create: {{challenge.created_at}}</p>
 			<p>Abierto: {{challenge.open}}</p>
@@ -83,10 +96,14 @@
 			<p>Abierto: {{challenge.open}}</p>
 
 			<div ng-show="userCanEdit">
-				<h2>actions</h2>
+				<h4>actions</h4>
 				<a href="/#/challenge/{{challenge._id}}/edit">Editar</a>
 	    	</div>
 	    </div>
 	  </div>
 	</div>
 </div>
+
+<style type="text/css">
+	.jumbotron {border-bottom-color:#5c3692;}
+</style>

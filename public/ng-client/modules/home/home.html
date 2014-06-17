@@ -2,14 +2,14 @@
   <div class="container">
     <h1>Concursos y desafíos BA</h1>
     <p>En este sitio podrás encontrar los concursos y desafíos que propone el Gobierno de la Ciudad de Buenos Aires.</p>
-    <p><a class="btn btn-primary btn-lg" role="button" ng-click="goToChallenges()">Ver concursos</a></p>
+    <p><a class="btn btn-primary btn-xl" role="button" ng-click="goToChallenges()">Ver concursos</a></p>
   </div>
 </div>
 <div class="container">
   <div class="row">
     
-    <div id="challenge-container" class="col-md-8">
-        <h1>Concursos</h1>
+    <div id="challenge-container" class="col-md-7">
+        <h2>Concursos</h2>
         <div class="panel panel-default" ng-repeat="c in challenges">
         	<a class="challenges-link" href="/#/challenge/{{c._id}}">
             <div class="media">
@@ -19,7 +19,7 @@
               <div class="media-body">
                 <div class="container-fluid">
                   <div class="row">
-                    <h2 class="media-heading">{{c.title}}</h2>
+                    <h3 class="media-heading">{{c.title}}</h3>
                     <p>{{c.subtitle}}</p>
                     <p ng-if="c.open"><span class="label label-success">ABIERTO</span></p>
                     <p ng-if="!c.open"><span class="label label-danger">CERRADO</span></p>
@@ -31,8 +31,8 @@
         </div>
     </div>
 
-    <div id="project-container" class="col-md-4">
-      <h1>Participaciones</h1>
+    <div id="project-container" class="col-md-4 col-md-offset-1">
+      <h2>Participaciones</h2>
       <div class="panel panel-default" ng-repeat="c in projects">
           <a class="project-link" href="/#/submit/{{c._id}}">
             <div class="media">
@@ -43,7 +43,7 @@
               <div class="media-body">
                 <div class="container-fluid">
                   <div class="row">
-                    <h2 class="media-heading">{{c.leader.name}}</h2>
+                    <h4 class="media-heading">{{c.leader.name}}</h4>
                     <p>Enviado el: {{c.created_at | date:'dd-MM-yyyy'}}</p>
                     <p>Votos: {{c.followers.length}}</p>
                   </div>
@@ -56,3 +56,8 @@
   
   </div>
 </div>
+
+<style type="text/css">
+  body {background-color: #eee;}
+  .jumbotron {border:0 none;}
+</style>

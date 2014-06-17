@@ -19,11 +19,12 @@
 				</li>
 			</ul>
 		</div>
+
 	</div>
 
 	<div class="container">
 	  <div class="row">
-	    <div class="col-md-8">
+	    <div class="col-md-7">
 
 				<div class="tab-content">
 				  
@@ -47,16 +48,17 @@
 					<div class="tab-pane" id="submissions">
 						<h2>Participaciones: ({{projects.length}})</h2>
 							<div class="row">
-								<p ng-show="challenge.categories.length > 0">
-									Filtro: 
-									<select ng-model="filter.cat" ng-options="option for option in challenge.categories">
-										<option value="">Todas</option>
-									</select>
-								</p>
-								{{filter.cat}}
+								<div class="col-md-12">
+									<p ng-show="challenge.categories.length > 0">
+										<select ng-model="filter.cat" ng-options="option for option in challenge.categories" class="form-control input-lg">
+											<option value="">Todas las categorías</option>
+										</select>
+									</p>
+									{{filter.cat}}
+								</div>
 							</div>
 							<div class="row">
-								<div class="col-sm-6 col-md-6" ng-repeat="project in projects | filter: {tags:filter.cat}" ng-include="'ng-client/modules/project/card.html'">
+								<div class="col-md-6" ng-repeat="project in projects | filter: {tags:filter.cat}" ng-include="'ng-client/modules/project/card.html'">
 								</div>
 							</div>
 					</div>
@@ -64,30 +66,26 @@
 				</div>
 
 	    </div>
-	    <div class="col-md-4">
+	    <div class="col-md-4 col-md-offset-1">
 
-			<a 	ng-click="openParticipatePopup()" 
-					href="javascript:;" 
-					ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
-								'color': challenge.call_to_action.color
-								}" 
-					class="btn btn-lg btn-block">
-
-					{{challenge.call_to_action.label}}
-				</a>
-				<p class="text-center">{{challenge.call_to_action.help}}</p>
+	    	<div class="well">
+				<a 	ng-click="openParticipatePopup()" href="javascript:;" class="btn btn-lg btn-block btn-primary">
+						{{challenge.call_to_action.label}}
+					</a>
+					<p class="text-center">{{challenge.call_to_action.help}}</p>
+			</div>
 
 			<div>
-                <p ng-show="challenge.open"><h2><span class="label label-success">ABIERTO</span></h2></p>
+                <p ng-show="challenge.open"><h5><span class="label label-success">ABIERTO</span></h5></p>
                 <p ng-show="!challenge.open"><span class="label label-danger">CERRADO</span></p>
 
-				<h3>Etapa actual:</h3>
-				{{currentStages.stages}}
+				<h4>Etapa actual:</h4>
+				<p>{{currentStages.stages}}</p>
 
 
 			</div>
 
-	      	<h2>data</h2>
+	      	<h4>data</h4>
 			<p>Slug: {{challenge.slug}}</p>
 			<p>Create: {{challenge.created_at}}</p>
 			<p>Abierto: {{challenge.open}}</p>
@@ -95,8 +93,8 @@
 			<p>link color: {{challenge.link_color}}</p>
 
 			<div ng-show="userCanEdit">
-				<h2>actions</h2>
-				<a href="/#/challenge/{{challenge._id}}/edit">Editar</a>
+				<h4>actions</h4>
+				<p><a href="/#/challenge/{{challenge._id}}/edit">Editar</a></p>
 	    	</div>
 	    </div>
 	  </div>
@@ -105,7 +103,7 @@
 	<div class="modal fade bs-example-modal-lg" id="participate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-lg">
 	    <div class="modal-content">
-	      <div class="modal-header" ng-style="{'background-image': 'url(' + challenge.header_images[0] + ')', 'background-size':'cover', 'background-position': 'center center' }">
+	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	        <h4 class="modal-title" id="myModalLabel">Participá ahora en: <strong>{{challenge.title}}</strong></h4>
 	      </div>
@@ -133,10 +131,7 @@
 	      <div class="modal-footer">
   			<a 	ng-click="addProject(project)"
 			href="javascript:;" 
-			ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
-						'color': challenge.call_to_action.color
-						}" 
-			class="btn btn-lg btn-block">
+			class="btn btn-lg btn-block btn-primary">
 				{{challenge.call_to_action.label}}
 			</a>
 	      </div>
@@ -144,6 +139,11 @@
 	  </div>
 	</div>
 
-
+<style type="text/css">
+	.jumbotron {border-bottom-color:#5c3692;}
+	.tab-content .thumbnail {border-top-color:#5c3692;}
+	.tab-content h2, .tab-content h3 {color: #5c3692;}
+	.modal-header {background-color:#5c3692;}
+</style>
 
 	
