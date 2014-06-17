@@ -60,9 +60,9 @@ app.configure(function(){
   app.set('roles',['user','admin','superadmin']);
   app.set('page_contents_type',['text','faq','rules','jury','prizes']);
   app.set('permissions',[
-     'public-vote'
+     'edit-submit'
     ,'submit'
-    ,'otro'
+    ,'public-vote'
   ]);
 
 

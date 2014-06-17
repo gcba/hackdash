@@ -14,8 +14,6 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.filter = {};
 
-	$scope.order = {};
-	
 	$scope.currentStages = [];
 
 	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
@@ -174,6 +172,10 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	$scope.openProjectPopup = function(id){
 		$('#project-'+id).modal('show');
 	};
+
+	$scope.changeFilter = function() {
+      console.log($scope.filter);
+    };
 
 	//Submits
 	$scope.add = function(challenge){

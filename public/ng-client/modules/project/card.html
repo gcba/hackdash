@@ -4,7 +4,7 @@
 
 	<p ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</p>
 
-	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'order' "></div>
+	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'status' "></div>
 
 		<p class="text-muted"><small>{{s.label}}</small></p>
 
@@ -56,19 +56,25 @@
 
 	</div>
 
+
+
+
 	<div class="thumbnail-footer">
 
 		<h4><strong>Votos:<strong> {{project.followers.length}}</h4>
+
+			<p><strong>Status:<strong> {{project.status}}</p>
 
 		<p>
 			<div class="btn-group btn-group-justified">
 				<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
 					Ver más
 				</a>
-				<a ng-controller="projectCtrl" class="btn btn-primary" ng-click="vote(projects[$index]._id)">Votar</a>
+				<a ng-if="isAbleTo('public-vote',challenge)" ng-controller="projectCtrl" class="btn btn-primary" ng-click="vote(projects[$index]._id)">Votar</a>
 			</div>
 		</p>
 
 	</div>
+
 
 </div>

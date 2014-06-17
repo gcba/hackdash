@@ -36,7 +36,7 @@
 						<h2>Etapas</h2>
 						<ul>
 							<li ng-repeat="s in challenge.stages">
-								<strong>{{s.name}}</strong> | Desde: {{s.start | date:'dd-MM-yyyy HH:mm'}} | Hasta: {{s.end | date:'dd-MM-yyyy HH:mm'}}
+								<strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.
 							</li>
 						</ul>
 					</div>
@@ -48,9 +48,10 @@
 					<div class="tab-pane" id="submissions">
 						<h2>Participaciones: ({{projects.length}})</h2>
 							<div class="row">
+
 								<div class="col-md-12">
 									<p ng-show="challenge.categories.length > 0">
-										<select ng-model="filter.cat" ng-options="option for option in challenge.categories" class="form-control input-lg">
+										<select ng-model="filter.cat" ng-options="option for option in challenge.categories" ng-change="changeFilter()" class="form-control input-lg">
 											<option value="">Todas las categorías</option>
 										</select>
 									</p>
@@ -58,7 +59,8 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6" ng-repeat="project in projects | filter: {tags:filter.cat}" ng-include="'ng-client/modules/project/card.html'">
+								<div class="col-md-6" ng-repeat="project in projects" ng-include="'ng-client/modules/project/card.html'">
+=
 								</div>
 							</div>
 					</div>
@@ -66,24 +68,42 @@
 				</div>
 
 	    </div>
+
 	    <div class="col-md-4 col-md-offset-1">
 
-	    	<div class="well">
+
+	    	<div class="well" ng-show="isAbleTo('submit',challenge)">
 				<a 	ng-click="openParticipatePopup()" href="javascript:;" class="btn btn-lg btn-block btn-primary">
 						{{challenge.call_to_action.label}}
 					</a>
 					<p class="text-center">{{challenge.call_to_action.help}}</p>
 			</div>
 
-			<div>
+
+
+
                 <p ng-show="challenge.open"><h5><span class="label label-success">ABIERTO</span></h5></p>
                 <p ng-show="!challenge.open"><span class="label label-danger">CERRADO</span></p>
 
-				<h4>Etapa actual:</h4>
-				<p>{{currentStages.stages}}</p>
 
 
+			<div ng-show="challenge.open && currentStages.stages.length>0">
+				<h4>Etapas actuales:</h4>
+				<ul>
+					<li ng-repeat="s in currentStages.stages">
+						<strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.
+					</li>
+				</ul>
 			</div>
+
+			<p>
+				Creado el:
+				{{challenge.created_at | date:'dd-MM-yyyy'}}
+			</p>
+
+			<p>Contacto: {{challenge.contact}}</p>
+
+
 
 	      	<h4>data</h4>
 			<p>Slug: {{challenge.slug}}</p>
@@ -95,7 +115,15 @@
 			<div ng-show="userCanEdit">
 				<h4>actions</h4>
 				<p><a href="/#/challenge/{{challenge._id}}/edit">Editar</a></p>
-	    	</div>
+
+			</div>
+
+
+
+			
+
+
+
 	    </div>
 	  </div>
 	</div>
