@@ -52,7 +52,7 @@
 			<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
 				Ver más
 			</a>
-			<a ng-controller="projectCtrl" class="btn btn-default" ng-click="vote(projects[$index]._id)">Votar</a>
+			<a ng-show="isAbleTo('public-vote',challenge)" ng-controller="projectCtrl" class="btn btn-default" ng-click="vote(projects[$index]._id)">Votar</a>
 		</div>
 	</p>
 

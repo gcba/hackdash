@@ -73,9 +73,18 @@ var sendSchema = function(req, res, next){
 
 var getProject = function(req, res, next){
   Project.findById(req.params.pid)
-    .populate('leader')
-    .populate('contributors')
-    .populate('followers')
+    .populate({
+      path: 'leader',
+      select: 'name picture _id'
+    })
+    .populate({
+      path: 'contributors',
+      select: 'name picture _id'
+    })
+    .populate({
+      path: 'followers',
+      select: 'name picture _id'
+    })
     .exec(function(err, project) {
 
       if (err) return res.send(500);
@@ -90,8 +99,6 @@ var canChangeProject = function(req, res, next){
 
   //var isLeader = req.user.id === req.project.leader.id;
   var isAdmin = (req.project.challenge_id && req.user.admin_in.indexOf(req.project.challenge_id) >= 0);
-
-  console.log(isAdmin);
 
   if (!isAdmin) {
     return res.send(403, "Only Leader or Administrators can edit or remove this project.");
@@ -264,7 +271,10 @@ var addFollower = function(req, res, next){
   var userId = req.user.id;
 
   Project.findByIdAndUpdate(projectId, { $addToSet : { 'followers': userId }})
-    .populate('followers')
+    .populate({
+      path: 'followers',
+      select: 'name picture _id'
+    })
     .exec(function(err, data){
       if(err) return res.send(500);
 
@@ -333,9 +343,18 @@ var setQuery = function(req, res, next){
 
 var setProjects = function(req, res, next){
   Project.find(req.query || {})
-    .populate('leader')
-    .populate('contributors')
-    .populate('followers')
+    .populate({
+      path: 'leader',
+      select: 'name picture _id'
+    })
+    .populate({
+      path: 'contributors',
+      select: 'name picture _id'
+    })
+    .populate({
+      path: 'followers',
+      select: 'name picture _id'
+    })
     .limit(30)
     .sort( { "created_at" : -1 } )
     .exec(function(err, projects) {

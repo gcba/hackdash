@@ -27,14 +27,14 @@ module.exports = function(app, uri, common) {
   app.get(uri + '/profiles/:uid', getUser, setCollections, setProjects, setContributions, setDashboards, setLikes, sendUser);
   app.put(uri + '/profiles/:uid', common.isAuth, getUser, canUpdate, updateUser);
 
-  app.get(uri + '/admin_users/:uid', common.isAuth, getUser, setDashboards, sendUser);
+  app.get(uri + '/admin_users/:uid', common.isAuth, common.isSuperAdmin, getUser, setDashboards, sendUser);
   app.put(uri + '/admin_users/:uid', common.isAuth, common.isSuperAdmin, updateUserBySuperAdmin);
 
 };
 
 var getInstanceAdmins = function(req, res, next){
   User
-    .find({ "admin_in": req.params.did })
+    .find({ "admin_in": req.params.did },'_id name picture admin_in created_at')
     .exec(function(err, users) {
       if(err) return res.send(500);
       req.users = users || [];
@@ -43,7 +43,6 @@ var getInstanceAdmins = function(req, res, next){
 };
 
 var getUsers = function(req, res, next){
-
   User
     .find()
     .exec(function(err, users) {
@@ -54,10 +53,14 @@ var getUsers = function(req, res, next){
 };
 
 var getUser = function(req, res, next){
+
+  var fields = (req.user.id==req.params.uid)?null:'_id name picture admin_in created_at';
+
   User
-    .findById(req.params.uid, function(err, user){
+    .findById(req.params.uid, fields ,function(err, user){
       if(err) return res.send(500);
       req.user_profile = user.toObject();
+      console.log(req.user_profile);
       next();
     });
 };

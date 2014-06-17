@@ -65,8 +65,9 @@
 
 	    </div>
 	    <div class="col-md-4">
+	    	<div ng-show="isAbleTo('submit',challenge)">
 
-			<a 	ng-click="openParticipatePopup()" 
+				<a 	ng-click="openParticipatePopup()" 
 					href="javascript:;" 
 					ng-style="{ 'background-color': challenge.call_to_action.bgcolor ,
 								'color': challenge.call_to_action.color
@@ -76,6 +77,8 @@
 					{{challenge.call_to_action.label}}
 				</a>
 				<p class="text-center">{{challenge.call_to_action.help}}</p>
+
+			</div>
 
 			<div>
                 <p ng-show="challenge.open"><h2><span class="label label-success">ABIERTO</span></h2></p>
