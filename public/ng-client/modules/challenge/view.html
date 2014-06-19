@@ -123,7 +123,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title" id="myModalLabel">Participá ahora en: <strong>{{challenge.title}}</strong></h4>
+	        <h3 class="modal-title" id="myModalLabel">Participá ahora en: <strong>{{challenge.title}}</strong></h3>
 	      </div>
 
 	      <div class="modal-body">
@@ -162,11 +162,9 @@
 	.jumbotron {
 		border-bottom-color:#5c3692;
 	}
-	.tab-content .thumbnail {
-		border-top-color:#5c3692;
-	}
+	.tab-content .thumbnail,
 	.modal-header {
-		background-color:#5c3692;
+		border-top-color:#5c3692;
 	}
 	#view-challenge-container .btn-primary,
 	#view-challenge-container .btn-primary:hover,
@@ -182,7 +180,8 @@
 	#view-challenge-container h2,
 	#view-challenge-container h3,
 	#view-challenge-container h4,
-	#view-challenge-container h5 {
+	#view-challenge-container h5,
+	.modal-body label {
 		color: #5c3692;
 	}
 </style>

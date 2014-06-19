@@ -42,19 +42,19 @@
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			        <h3 class="modal-title" id="myModalLabel">Modal title</h3>
 			      </div>
 			      <div class="modal-body">
 
 					<p>
 						status
-						<select ng-model="project.status" ng-options="status for status in $parent.statuses">
+						<select ng-model="project.status" ng-options="status for status in $parent.statuses" class="form-control">
 						</select>
 					</p>
 
 					<p>
 						Activo {{project.active}}
-						<select ng-model="project.active" ng-options="status.key as status.label for status in $parent.booleans">
+						<select ng-model="project.active" ng-options="status.key as status.label for status in $parent.booleans" class="form-control">
 						</select>
 					</p>
 
@@ -65,7 +65,7 @@
 						<h4>{{s.label}}</h4>
 
 						<div ng-if="(s.type == 'title')">
-							<h1>{{project[s.type]}}</h1>
+							<h2>{{project[s.type]}}</h2>
 						</div>
 						<div ng-if="(s.type == 'description')">
 							<p>{{project[s.type]}}</p>
@@ -97,8 +97,8 @@
 
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" ng-click="cancelSubmit(project._id)">Close</button>
-			        <button type="button" class="btn btn-primary" ng-click="updateSubmit(project)">Save changes</button>
+			        <!--<button type="button" class="btn btn-default" ng-click="cancelSubmit(project._id)">Close</button>-->
+			        <button type="button" ng-click="updateSubmit(project)" class="btn btn-primary btn-block">Save changes</button>
 			      </div>
 			    </div>
 			  </div>
