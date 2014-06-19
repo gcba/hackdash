@@ -41,7 +41,16 @@ var common = {
     }
 
     next();
-  }
+  },
 
+  isAdminDashboard: function(req, res, next){
+    var isAdmin = ( req.params.did && (req.user.admin_in.indexOf(req.params.did) >= 0) );
+
+    if (!isAdmin) {
+      return res.send(403, "Only Administrators are allowed for this action.");
+    }
+
+    next();
+  }
 
 };

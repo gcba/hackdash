@@ -41,6 +41,7 @@ module.exports = function(app, uri, common) {
 
   //GET ALL from one dashboard
   app.get(uri + '/dashboards/:did/projects', setQuery, setProjects, sendProjects);
+  app.get(uri + '/admin_dashboards/:did/projects', common.isAuth, common.isAdminDashboard, ignoreActive, setQuery, setProjects, sendProjects);
 
   //PUT SAVE SUMBIT FROM PROJECT
   app.put(uri + '/dashboards/:did/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
@@ -322,13 +323,23 @@ var removeContributor = function(req, res){
 
 };
 
+var ignoreActive = function(req, res, next){
+  req.ignoreActive = true;
+  next();
+};
+
 var setQuery = function(req, res, next){
   var query = req.query.q || "";
 
   req.query = {};
 
   if (req.params.did) {
-    req.query = { challenge_id: req.params.did, active: true };
+    var ignoreActive = req.ignoreActive || false;
+    if(ignoreActive){
+      req.query = { challenge_id: req.params.did};
+    } else {
+      req.query = { challenge_id: req.params.did, active: true };      
+    }
   }
 
   if (query.length === 0){

@@ -26,7 +26,7 @@ module.exports = function(app, uri, common) {
   app.get(uri + '/dashboards/:did', getDashboard, sendDashboard);
 
   //UPDATE
-  app.put(uri + '/dashboards/:did', common.isAuth, getDashboard, isAdminDashboard, updateDashboard, sendDashboard);
+  app.put(uri + '/dashboards/:did', common.isAuth, getDashboard, common.isAdminDashboard, updateDashboard, sendDashboard);
 
   //GET MY dashboards
   app.get(uri + '/admin_dashboards', common.isAuth, setMyDashboards, sendDashboards);
@@ -35,7 +35,7 @@ module.exports = function(app, uri, common) {
   app.post(uri + '/', common.notAllowed);
   app.del(uri + '/', common.notAllowed);*/
 
-  app.get(uri + '/csv', common.isAuth, getDashboard, isAdminDashboard, sendDashboardCSV);
+  app.get(uri + '/csv', common.isAuth, getDashboard, common.isAdminDashboard, sendDashboardCSV);
 };
 
 var validateSubdomain = function(req, res, next) {
@@ -116,16 +116,6 @@ var getDashboard = function(req, res, next){
         next();
       });
 }
-
-var isAdminDashboard = function(req, res, next){
-  var isAdmin = (req.user.admin_in.indexOf(req.dashboard._id) >= 0);
-
-  if (!isAdmin) {
-    return res.send(403, "Only Administrators are allowed for this action.");
-  }
-
-  next();
-};
 
 var updateDashboard = function(req, res, next) {
   var dashboard = req.dashboard;

@@ -18,12 +18,15 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
 
+	$scope.isAdmin = false;
+
 	//Inits
 	$scope.editProjectsInit = function(){
 		$scope.checkCanEdit();
 		if(!$rootScope.user || !$scope.userCanEdit){
 			$location.path('/challenge/'+$routeParams.challengeId);
 		}
+		$scope.isAdmin = true;
 		$scope.loadChallenge(false);
 	};
 
@@ -71,7 +74,11 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			  			$scope.allowHtmlInPages();
 			  		}
 				});
-			$scope.projects = Restangular.one('dashboards', $routeParams.challengeId).getList('projects').$object;
+				if($scope.isAdmin){
+					$scope.projects = Restangular.one('admin_dashboards', $routeParams.challengeId).getList('projects').$object;
+				} else {
+					$scope.projects = Restangular.one('dashboards', $routeParams.challengeId).getList('projects').$object;
+				}
 			$scope.admins = Restangular.one('dashboards', $routeParams.challengeId).getList('admins').$object;
 		}
 	};
