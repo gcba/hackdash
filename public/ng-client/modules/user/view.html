@@ -1,30 +1,40 @@
-<h1>Profile</h1>
+<div id="view-user-container">
 
-<p>ID {{user._id}}</p>
-<p>Creado el {{user.created_at}}</p>
-<p>Email {{user.email}}</p>
-<p>Nombre {{user.name}}</p>
-<p>bio {{user.bio}}</p>
-<p>Provider {{user.provider}}</p>
+	<div ng-include="'ng-client/modules/partials/header-simple.html'"></div>
 
-<img ng-src="{{user.picture}}"/>
+	<div class="container">
 
-<h2>admin in</h2>
-<div ng-repeat="e in user.admin_in">
-	<a href="/#/challenge/{{e}}">{{e}}</a>
-</div>
+		<h1>Profile</h1>
 
-<h2>projects</h2>
-<div ng-repeat="e in user.projects">
-	<p>{{e}}</p>
-</div>
+		<p>ID {{user._id}}</p>
+		<p>Creado el {{user.created_at}}</p>
+		<p>Email {{user.email}}</p>
+		<p>Nombre {{user.name}}</p>
+		<p>bio {{user.bio}}</p>
+		<p>Provider {{user.provider}}</p>
 
-<h2>contributions</h2>
-<div ng-repeat="e in user.contributions">
-	<p>{{e}}</p>
-</div>
+		<img ng-src="{{user.picture}}"/>
 
-<h2>likes</h2>
-<div ng-repeat="e in user.likes">
-	<p>{{e}}</p>
+		<h2>admin in</h2>
+		<div ng-repeat="e in user.admin_in">
+			<a href="/#/challenge/{{e}}">{{e}}</a>
+		</div>
+
+		<h2>projects</h2>
+		<div ng-repeat="e in user.projects">
+			<p>{{e}}</p>
+		</div>
+
+		<h2>contributions</h2>
+		<div ng-repeat="e in user.contributions">
+			<p>{{e}}</p>
+		</div>
+
+		<h2>likes</h2>
+		<div ng-repeat="e in user.likes">
+			<p>{{e}}</p>
+		</div>
+
+	</div>
+
 </div>

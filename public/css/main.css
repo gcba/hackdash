@@ -12,7 +12,16 @@ h2 {
   margin-bottom: 20px;
 }
 
+.well .btn {
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
 /* Navbar */
+
+.navbar {
+  margin-bottom:0;
+}
 
 .navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
   margin-top:5px;
@@ -33,18 +42,21 @@ h2 {
   background-position: 50%;
   background-size: cover;
   background-position: fixed;
-  color:#FFF;
+  color:#fff;
   text-align: center;
   margin-bottom:50px;
   position: relative;
   -webkit-box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.2);
   border-bottom-style:solid;
-  border-bottom-width:20px;
+  border-bottom-width:10px;
   text-shadow: 0 1px 4px rgba(0,0,0,.6);
 }
+.jumbotron h1, .jumbotron h2, .jumbotron h3, .jumbotron h4, .jumbotron h5 {
+  color:#fff !important;
+}
 .jumbotron .container  {
-  padding: 150px 0 100px 0;
+  padding: 100px 0;
 }
 .jumbotron .btn {
   margin-top: 24px;
@@ -55,36 +67,29 @@ h2 {
 .jumbotron .nav-tabs {
   border-bottom: 0 none;
   position: relative;
-  bottom: -167px;
+  bottom: -157px;
 }
 
 @media (max-width: 767px) {
-.jumbotron .nav-tabs {bottom: -149px;margin-left:-15px;}
+.jumbotron .nav-tabs {bottom: -139px;margin-left:-15px;}
 .jumbotron .nav-tabs>li>a {padding-left: 4px;padding-right: 4px;}
 }
 
 
 .jumbotron .nav-tabs>li>a {
   border: 1px solid transparent;
-  background-color: #999;
-  color: #fff;
+  background-color: #ddd;
+  color: #555 !important;
   text-shadow: none;
 }
 .jumbotron .nav-tabs>li>a:hover {
   border: 1px solid transparent;
-  background-color: #aaa;
+  background-color: #ccc;
 }
 
 .jumbotron .nav-tabs>li.active>a {
-  color: #555;
   background-color: #fff;
   border: 1px solid transparent;
-}
-.tabs-bg {
-  width: 100%;
-  height: 50px;
-  background:#f00;
-  display:none;
 }
 
 /* HOME Challenges + Projects */
@@ -125,7 +130,7 @@ h2 {
   height: 200px;
   overflow: hidden;
   text-align: center;
-  background-image: url('https://lh4.ggpht.com/MQsgWsIpedryB7kjzGGe_z5YW0eeK0K-bHLZhjONBJVKP95Fz9dSd24GjUR2rYo2xsY=w200');
+  background-image: url('../images/bg-challenge.jpg');
   background-position: center center;
 }
 
@@ -142,7 +147,7 @@ h2 {
   height: 100px;
   overflow: hidden;
   text-align: center;
-  background-image: url('https://lh4.ggpht.com/MQsgWsIpedryB7kjzGGe_z5YW0eeK0K-bHLZhjONBJVKP95Fz9dSd24GjUR2rYo2xsY=w200');
+  background-image: url('../images/bg-project.jpg');
   background-position: center center;
 }
 
@@ -208,17 +213,7 @@ h2 {
   margin-bottom:0;
 }
 
-#view-challenge-container .col-md-4 .well .btn {
-  margin-top:10px;
-  margin-bottom:10px;
-}
-
 /* Sidebar */
-
-#view-challenge-container .col-md-4 .well .btn, #view-project-container .col-md-4 .well .btn {
-  margin-top:10px;
-  margin-bottom:10px;
-}
 
 #view-challenge-container .col-md-4 h4, #view-project-container .col-md-4 h4 {
   margin-top:40px;
@@ -226,7 +221,7 @@ h2 {
 
 #view-challenge-container .col-md-4 p, #view-project-container .col-md-4 p {
   color:#999;
-  margin-bottom:4px;
+  margin-bottom:0;
 }
 
 #view-challenge-container .col-md-4 h5 span {
@@ -234,10 +229,16 @@ h2 {
   padding:10px 0;
 }
 
+#view-challenge-container .col-md-4 ul {
+  padding-left: 25px;
+  padding-bottom: 15px;
+  border-bottom:solid 1px #ddd;
+}
+
 /* Project */
 
 #view-project-container .jumbotron .container {
-  padding: 30px 0 0 0;
+  padding: 0;
 }
 
 #view-project-container .col-md-7 h4 {
@@ -250,15 +251,81 @@ h2 {
   height:auto;
 }
 
-#view-project-container .col-md-4 img {
+.sidebar-data {
+  clear:both;
+}
+
+.sidebar-data img {
   border-radius: 100px;
+  float:left;
+  margin-right: 20px;
+  margin-bottom:40px;
+  display: block;
+}
+
+.sidebar-someone p {
+  margin-top:30px;
+}
+
+.sidebar-someone a:hover {
+  text-decoration: none;
 }
 
 
+/* Sidebar primary button */
 
+  #view-challenge-container .col-md-4 .btn-primary,
+  #view-project-container .col-md-4 .btn-primary {
+    -webkit-box-shadow: inset 0 24px 16px rgba(255, 255, 255, .1);
+    box-shadow: inset 0 24px 16px rgba(255, 255, 255, .1);
+    background-image: none;
+    background-repeat: repeat-x;
+  }
+  #view-challenge-container .col-md-4 .btn-primary:hover,
+  #view-challenge-project .col-md-4 .btn-primary:hover,
+  #view-challenge-container .col-md-4 .btn-primary:focus,
+  #view-challenge-project .col-md-4 .btn-primary:focus {
+    -webkit-box-shadow: inset 0 24px 16px rgba(255, 255, 255, .12);
+    box-shadow: inset 0 24px 16px rgba(255, 255, 255, .12);
+  }
+  #view-challenge-container .col-md-4 .btn-primary:active,
+  #view-challenge-project .col-md-4 .btn-primary:active,
+  #view-challenge-container .col-md-4 .btn-primary.active,
+  #view-challenge-project .col-md-4 .btn-primary.active {
+    -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, .125);
+  }
 
+/* buttons a fix */
 
+.btn-default {
+    color:#4e4e4e !important;
+}
+.btn-info, .btn-success, .btn-info, .btn-warning, .btn-danger, .btn-link {
+  color:#fff !important;
+}
 
+/* User tasks [profile, add challenge, ] */
+
+#view-user-container .jumbotron {
+  padding:0 0 15px 0;
+  border:0 none !important;
+}
+
+#view-user-container .jumbotron .container {
+  padding:30px 0 0 15px;
+  text-align:left;
+}
+
+#view-user-container > .container h2 {
+  margin-top:60px;
+}
+
+#view-user-container > .container h1 {
+  margin-bottom:40px;
+  padding-bottom:20px;
+  border-bottom:solid 1px #ddd;
+}
 
 
 

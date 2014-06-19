@@ -58,49 +58,64 @@
 	    </div>
 	    <div class="col-md-4 col-md-offset-1">
 			
-
 	    	<div class="well">
 				<a ng-click="vote(project._id)" href="javascript:;" class="btn btn-lg btn-block btn-primary">
 				Votar
 				</a>
 			</div>
 
-
-			<h4>Enviado por:</h4>
-
-
-			<p>{{project.leader.name}}</p>
-
-			<a href="/#/profile/{{project.leader._id}}">
-				<img ng-src="{{project.leader.picture}}" />
-			</a>
-
-			<h4>Votos ({{project.followers.length}})</h4>
-			<p>	
-				<a href="/#/profile/{{v._id}}" ng-repeat="v in project.followers">
-					<img ng-src="{{v.picture}}" width="25" />
+			<div class="sidebar-data sidebar-someone">
+				<h4>Enviado por:</h4>
+				<a href="/#/profile/{{project.leader._id}}">
+					<img ng-src="{{project.leader.picture}}" width="73" height="73" />
+					<p class="lead">{{project.leader.name}}</p>
 				</a>
-			</p>
+			</div>
 
+			<div class="sidebar-data sidebar-someone">
+				<h4>Votos ({{project.followers.length}})</h4>
+				<a href="/#/profile/{{v._id}}" ng-repeat="v in project.followers">
+					<img ng-src="{{v.picture}}" width="25" height="25" title="NOMBRE" />
+				</a>
+			</div>
 
-			<p>Create: {{project.created_at}}</p>
+			<div class="sidebar-data">
+				<h4>Creado:</h4>
+				<p>{{project.created_at}}</p>
+			</div>
 
-
-
-
-
-
-
-
-			<div ng-show="userCanEdit">
+			<div ng-show="userCanEdit" class="sidebar-data">
 				<h4>actions</h4>
 				<a href="/#/challenge/{{challenge._id}}/edit">Editar</a>
 	    	</div>
+
 	    </div>
 	  </div>
 	</div>
 </div>
 
 <style type="text/css">
-	.jumbotron {border-bottom-color:#5c3692;}
+	.jumbotron {
+		border-bottom-color:#5c3692;
+	}
+	.modal-header {
+		background-color:#5c3692;
+	}
+	#view-project-container .btn-primary,
+	#view-project-container .btn-primary:hover,
+	#view-project-container .btn-primary:focus,
+	#view-project-container .btn-primary:active,
+	#view-project-container .btn-primary.active {
+	  background-color: #5c3692;
+	  border-color: #5c3692;
+	  color:#fff;
+	}
+	#view-project-container a,
+	#view-project-container h1,
+	#view-project-container h2,
+	#view-project-container h3,
+	#view-project-container h4,
+	#view-project-container h5 {
+		color: #5c3692;
+	}
 </style>

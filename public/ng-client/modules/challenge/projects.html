@@ -1,107 +1,111 @@
-<div ng-controller="challengeCtrl" ng-init="editProjectsInit()">
-	<h1>Concurso {{challenge.title}}</h1>
-	<h2>actions</h2>
+<div id="view-user-container">
 
-	<h2>data</h2>
-	<p>Slug: {{challenge.slug}}</p>
-	<p>Create: {{challenge.created_at}}</p>
-	<p>Abierto: {{challenge.open}}</p>
-	<p>contact: {{challenge.contact}}</p>
+	<div ng-include="'ng-client/modules/partials/header-simple.html'"></div>
 
-	<table class="table">
-      <thead>
-        <tr>
-          <th>Leader</th>
-          <th>Creado</th>
-          <th>Active</th>
-          <th>Status</th>
-          <th>Votes</th>
-          <th>#</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="c in projects">
-          <td><a ng-href="/#/profile/{{c.leader._id}}">{{c.leader.name}}</a></td>
-          <td>{{c.created_at}}</td>
-          <td>{{c.active}}</td>
-          <td>{{c.status}}</td>
-          <td>{{c.followers.length}}</td>
-          <td><a href="javascript:;" ng-click="openProjectPopup(c._id)">ver</a></td>
-        </tr>
-      </tbody>
-    </table>
+	<div ng-controller="challengeCtrl" ng-init="editProjectsInit()" class="container">
+		<h1>Concurso {{challenge.title}}</h1>
+		<h2>actions</h2>
 
-	<div ng-repeat="project in projects">
+		<h2>data</h2>
+		<p>Slug: {{challenge.slug}}</p>
+		<p>Create: {{challenge.created_at}}</p>
+		<p>Abierto: {{challenge.open}}</p>
+		<p>contact: {{challenge.contact}}</p>
 
-		<div class="modal fade bs-example-modal-lg" id="project-{{project._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-lg">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-		      </div>
-		      <div class="modal-body">
+		<table class="table">
+	      <thead>
+	        <tr>
+	          <th>Leader</th>
+	          <th>Creado</th>
+	          <th>Active</th>
+	          <th>Status</th>
+	          <th>Votes</th>
+	          <th>#</th>
+	        </tr>
+	      </thead>
+	      <tbody>
+	        <tr ng-repeat="c in projects">
+	          <td><a ng-href="/#/profile/{{c.leader._id}}">{{c.leader.name}}</a></td>
+	          <td>{{c.created_at}}</td>
+	          <td>{{c.active}}</td>
+	          <td>{{c.status}}</td>
+	          <td>{{c.followers.length}}</td>
+	          <td><a href="javascript:;" ng-click="openProjectPopup(c._id)">ver</a></td>
+	        </tr>
+	      </tbody>
+	    </table>
 
-				<p>
-					status
-					<select ng-model="project.status" ng-options="status for status in $parent.statuses">
-					</select>
-				</p>
+		<div ng-repeat="project in projects">
 
-				<p>
-					Activo {{project.active}}
-					<select ng-model="project.active" ng-options="status.key as status.label for status in $parent.booleans">
-					</select>
-				</p>
+			<div class="modal fade bs-example-modal-lg" id="project-{{project._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-lg">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			      </div>
+			      <div class="modal-body">
 
-				<p>followers {{project.followers.length}}</p>
+					<p>
+						status
+						<select ng-model="project.status" ng-options="status for status in $parent.statuses">
+						</select>
+					</p>
 
-				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
+					<p>
+						Activo {{project.active}}
+						<select ng-model="project.active" ng-options="status.key as status.label for status in $parent.booleans">
+						</select>
+					</p>
 
-					<h4>{{s.label}}</h4>
+					<p>followers {{project.followers.length}}</p>
 
-					<div ng-if="(s.type == 'title')">
-						<h1>{{project[s.type]}}</h1>
+					<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
+
+						<h4>{{s.label}}</h4>
+
+						<div ng-if="(s.type == 'title')">
+							<h1>{{project[s.type]}}</h1>
+						</div>
+						<div ng-if="(s.type == 'description')">
+							<p>{{project[s.type]}}</p>
+						</div>
+						<div ng-if="(s.type == 'link')">
+							<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
+						</div>
+						<div ng-if="(s.type == 'imageurl')">
+							<img ng-src="{{project[s.type]}}" />
+						</div>
+						<div ng-if="(s.type == 'cover')">
+							<img ng-src="{{project[s.type]}}" />
+						</div>	
+						<div ng-if="(s.type == 'videourl')">
+							<iframe width="560" height="315" src="//www.youtube.com/embed/VMl0GbiVEyA?rel=0" frameborder="0" allowfullscreen="false"></iframe>
+							{{project[s.type]}}
+						</div>
+						<div ng-if="(s.type == 'text')">
+							<p>{{project[s.type]}}</p>
+						</div>
+						<div ng-if="(s.type == 'fileurl')">
+							<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
+						</div>
+						<div ng-if="(s.type == 'tags')">
+							<p>{{project[s.type]}}</p>
+						</div>
+
 					</div>
-					<div ng-if="(s.type == 'description')">
-						<p>{{project[s.type]}}</p>
-					</div>
-					<div ng-if="(s.type == 'link')">
-						<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
-					</div>
-					<div ng-if="(s.type == 'imageurl')">
-						<img ng-src="{{project[s.type]}}" />
-					</div>
-					<div ng-if="(s.type == 'cover')">
-						<img ng-src="{{project[s.type]}}" />
-					</div>	
-					<div ng-if="(s.type == 'videourl')">
-						<iframe width="560" height="315" src="//www.youtube.com/embed/VMl0GbiVEyA?rel=0" frameborder="0" allowfullscreen="false"></iframe>
-						{{project[s.type]}}
-					</div>
-					<div ng-if="(s.type == 'text')">
-						<p>{{project[s.type]}}</p>
-					</div>
-					<div ng-if="(s.type == 'fileurl')">
-						<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
-					</div>
-					<div ng-if="(s.type == 'tags')">
-						<p>{{project[s.type]}}</p>
-					</div>
 
-				</div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" ng-click="cancelSubmit(project._id)">Close</button>
+			        <button type="button" class="btn btn-primary" ng-click="updateSubmit(project)">Save changes</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
 
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" ng-click="cancelSubmit(project._id)">Close</button>
-		        <button type="button" class="btn btn-primary" ng-click="updateSubmit(project)">Save changes</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
+	    </div>
 
-
-
-    </div>
+	</div>
 
 </div>

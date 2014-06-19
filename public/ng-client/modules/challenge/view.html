@@ -60,7 +60,7 @@
 							</div>
 							<div class="row">
 								<div class="col-md-6" ng-repeat="project in projects" ng-include="'ng-client/modules/project/card.html'">
-=
+
 								</div>
 							</div>
 					</div>
@@ -71,7 +71,6 @@
 
 	    <div class="col-md-4 col-md-offset-1">
 
-
 	    	<div class="well" ng-show="isAbleTo('submit',challenge)">
 				<a 	ng-click="openParticipatePopup()" href="javascript:;" class="btn btn-lg btn-block btn-primary">
 						{{challenge.call_to_action.label}}
@@ -79,15 +78,10 @@
 					<p class="text-center">{{challenge.call_to_action.help}}</p>
 			</div>
 
-
-
-
                 <p ng-show="challenge.open"><h5><span class="label label-success">ABIERTO</span></h5></p>
                 <p ng-show="!challenge.open"><span class="label label-danger">CERRADO</span></p>
 
-
-
-			<div ng-show="challenge.open && currentStages.stages.length>0">
+			<div ng-show="challenge.open && currentStages.stages.length>0" class="sidebar-data">
 				<h4>Etapas actuales:</h4>
 				<ul>
 					<li ng-repeat="s in currentStages.stages">
@@ -96,33 +90,29 @@
 				</ul>
 			</div>
 
-			<p>
-				Creado el:
-				{{challenge.created_at | date:'dd-MM-yyyy'}}
-			</p>
-
-			<p>Contacto: {{challenge.contact}}</p>
-
-
-
-	      	<h4>data</h4>
-			<p>Slug: {{challenge.slug}}</p>
-			<p>Create: {{challenge.created_at}}</p>
-			<p>Abierto: {{challenge.open}}</p>
-			<p>contact: {{challenge.contact}}</p>
-			<p>link color: {{challenge.link_color}}</p>
-
-			<div ng-show="userCanEdit">
-				<h4>actions</h4>
-				<p><a href="/#/challenge/{{challenge._id}}/edit">Editar</a></p>
-
+			<div class="sidebar-data">
+				<h4>Creado:</h4>
+				<p>{{challenge.created_at | date:'dd-MM-yyyy'}}</p>
 			</div>
 
+			<div class="sidebar-data">
+				<h4>Contacto:</h4>
+				<p>{{challenge.contact}}</p>
+			</div>
 
+			<div class="sidebar-data">
+		      	<h4>data</h4>
+				<p>Slug: {{challenge.slug}}</p>
+				<p>Create: {{challenge.created_at}}</p>
+				<p>Abierto: {{challenge.open}}</p>
+				<p>contact: {{challenge.contact}}</p>
+				<p>link color: {{challenge.link_color}}</p>
+			</div>
 
-			
-
-
+			<div ng-show="userCanEdit" class="sidebar-data">
+				<h4>actions</h4>
+				<p><a href="/#/challenge/{{challenge._id}}/edit">Editar</a></p>
+			</div>
 
 	    </div>
 	  </div>
@@ -167,11 +157,34 @@
 	  </div>
 	</div>
 
+
 <style type="text/css">
-	.jumbotron {border-bottom-color:#5c3692;}
-	.tab-content .thumbnail {border-top-color:#5c3692;}
-	.tab-content h2, .tab-content h3 {color: #5c3692;}
-	.modal-header {background-color:#5c3692;}
+	.jumbotron {
+		border-bottom-color:#5c3692;
+	}
+	.tab-content .thumbnail {
+		border-top-color:#5c3692;
+	}
+	.modal-header {
+		background-color:#5c3692;
+	}
+	#view-challenge-container .btn-primary,
+	#view-challenge-container .btn-primary:hover,
+	#view-challenge-container .btn-primary:focus,
+	#view-challenge-container .btn-primary:active,
+	#view-challenge-container .btn-primary.active {
+	  background-color: #5c3692;
+	  border-color: #5c3692;
+	  color:#fff;
+	}
+	#view-challenge-container a,
+	#view-challenge-container h1,
+	#view-challenge-container h2,
+	#view-challenge-container h3,
+	#view-challenge-container h4,
+	#view-challenge-container h5 {
+		color: #5c3692;
+	}
 </style>
 
 	
