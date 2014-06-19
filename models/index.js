@@ -21,7 +21,7 @@ module.exports = function(app) {
 
   var Project = new Schema({
       "title": { type: String }
-    , "challenge_id": String
+    , "challenge_id": { type: ObjectId, required: true, ref: 'Dashboard' }
     , "description": { type: String }
     , "leader": { type: ObjectId, required: true, ref: 'User' }
     , "status": { type: String, enum: app.get('statuses'), default: app.get('statuses')[0] }

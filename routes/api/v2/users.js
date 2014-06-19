@@ -21,8 +21,8 @@ module.exports = function(app, uri, common) {
   app.get(uri + '/dashboards/:did/admins', getInstanceAdmins, sendUsers);
 
   //app.get(uri + '/admins', getInstanceAdmins, sendUsers);
-  app.get(uri + '/users/:uid', getUser, sendUser);
-  app.get(uri + '/users', common.isAuth, getUsers, sendUsers);
+  //app.get(uri + '/users/:uid', getUser, sendUser);
+  //app.get(uri + '/users', common.isAuth, getUsers, sendUsers);
 
   app.get(uri + '/profiles/:uid', getUser, setCollections, setProjects, setContributions, setDashboards, setLikes, sendUser);
   app.put(uri + '/profiles/:uid', common.isAuth, getUser, canUpdate, updateUser);
@@ -60,7 +60,6 @@ var getUser = function(req, res, next){
     .findById(req.params.uid, fields ,function(err, user){
       if(err) return res.send(500);
       req.user_profile = user.toObject();
-      console.log(req.user_profile);
       next();
     });
 };
@@ -154,7 +153,12 @@ var setContributions = function(req, res, next){
   var uid = req.user_profile._id;
 
   Project
-    .find({ "leader": { $ne: uid } , "contributors": uid }, function(err, projects) {
+    .find({ "leader": { $ne: uid } , "contributors": uid })
+    .populate({
+      path: 'challenge_id',
+      select: 'title'
+    })
+    .exec(function(err, projects) {
       if(err) return res.send(500);
       req.user_profile.contributions = projects || [];
       next();

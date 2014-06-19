@@ -148,7 +148,7 @@ var createProject = function(req, res, next){
     , followers: [req.user._id]
     , contributors: [req.user._id]
     , cover: req.body.cover
-    , challenge_id: req.body.challenge_id
+    , challenge_id: mongoose.Types.ObjectId(req.body.challenge_id)
     , imageurl: req.body.imageurl
     , videourl: req.body.videourl
     , fileurl: req.body.fileurl
