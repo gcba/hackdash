@@ -25,6 +25,13 @@ module.exports = function(app, uri, common) {
       domain: req.project.domain
     });
   };
+  
+  var loadCommon = function(common){
+    return function(req, res, next){
+      res.locals.common = common;
+      next();
+    }
+  };
 
   //GET SCHEMA
   app.get(uri + '/projects/schema', common.isAuth, setSchema, sendSchema);
@@ -33,7 +40,7 @@ module.exports = function(app, uri, common) {
   app.get(uri + '/projects', setQuery, setProjects, sendProjects);
 
   //NEW
-  app.post(uri + '/projects', common.isAuth, canCreateProject, createProject, sendProject);
+  app.post(uri + '/projects', common.isAuth, loadCommon(common), canCreateProject, createProject, sendProject);
   app.post(uri + '/projects/cover', common.isAuth, uploadCover);
 
   //GET ONE  
@@ -48,7 +55,7 @@ module.exports = function(app, uri, common) {
 
   app.del(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, removeProject);
   
-  app.post(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, addFollower);
+  app.post(uri + '/projects/:pid/followers', common.isAuth, getProject, loadCommon(common), validate, addFollower);
   //app.del(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, removeFollower);
 
   //app.post(uri + '/projects/:pid/contributors', common.isAuth, getProject, validate, addContributor);
@@ -116,10 +123,8 @@ var canCreateProject = function(req, res, next){
       if(err) return res.send(500);
       if(!dashboard) return res.send(404);
       
-      if (!dashboard.open) 
+      if (!dashboard.open || !res.locals.common.isAbleTo('submit',dashboard) ) 
         return res.send(403, "Dashboard is closed for creating projects");
-
-      //TODO check stages roles
 
       next();
     });
@@ -260,11 +265,23 @@ var validate = function(req, res, next){
   var user = req.user;
   var project = req.project;
 
-  if (user._id === project.leader.id ){
-    return res.send(406, "Leader of the project cannot leave or unfollow.");
-  }
+  Dashboard.findOne({ _id: req.project.challenge_id })
+    .exec(function(err, dashboard) {
+      if(err) return res.send(500);
+      if(!dashboard) return res.send(404);
+      
+      if (user._id === project.leader.id ){
+        return res.send(406, "Leader of the project cannot leave or unfollow.");
+      }
 
-  next();
+      if( !res.locals.common.isAbleTo('public-vote',dashboard) ){
+        return res.send(406, "Not available.");
+      }
+
+      next();
+
+    });
+
 };
 
 var addFollower = function(req, res, next){

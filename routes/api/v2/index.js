@@ -8,6 +8,7 @@
 
 var passport = require('passport')
   , mongoose = require('mongoose')
+  , _ = require('underscore')
   , config = require('../../../config.json');
 
 module.exports = function(app) {
@@ -51,6 +52,28 @@ var common = {
     }
 
     next();
+  },
+
+  //Permissions
+  isAbleTo: function(permi, dashboard){
+      var current = this.getCurrentStages(dashboard);
+      return current.permissions.indexOf(permi) != -1;
+  },
+
+  getCurrentStages: function(dashboard){
+      var today = new Date().getTime();
+      var current = {stages:[],permissions:[]};
+      _.each(dashboard.stages, function(e,i){
+          var start = Date.parse(e.start);
+          var end = Date.parse(e.end);
+          if( start < today && today < end ){
+              current.stages.push(e);
+              current.permissions = current.permissions.concat(e.permissions);
+          }
+      });
+      current.permissions = _.uniq( current.permissions );
+      return current;
   }
+
 
 };

@@ -20,7 +20,7 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 			Restangular.one('projects', projectId)
 				.post('followers')
 				.then(function(updatedProject){
-					$scope.project = updatedProject;
+					$scope.project.followers = updatedProject.followers;
 				});
 		} else {
 			$location.path('/login');
