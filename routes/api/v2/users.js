@@ -142,7 +142,12 @@ var setCollections = function(req, res, next){
 var setProjects = function(req, res, next){
 
   Project
-    .find({ "leader": req.user_profile._id }, function(err, projects) {
+    .find({ "leader": req.user_profile._id  })
+    .populate({
+      path: 'challenge_id',
+      select: 'title _id'
+    })
+    .exec( function(err, projects) {
       if(err) return res.send(500);
       req.user_profile.projects = projects || [];
       next();
@@ -156,7 +161,7 @@ var setContributions = function(req, res, next){
     .find({ "leader": { $ne: uid } , "contributors": uid })
     .populate({
       path: 'challenge_id',
-      select: 'title'
+      select: 'title _id'
     })
     .exec(function(err, projects) {
       if(err) return res.send(500);
