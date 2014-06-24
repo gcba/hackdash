@@ -144,7 +144,7 @@ ocApp.run(function ($rootScope, Restangular) {
 						+'#'+id+' h4,'
 						+'#'+id+' h5,'
 						+'.modal-body label';
-		angular.element(selector).css('color',challenge.link_color);
+		angular.element(selector).css('color',challenge.call_to_action.bgcolor);
 	}
 
 });
