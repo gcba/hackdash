@@ -80,8 +80,10 @@ ocApp.run(function ($rootScope, Restangular) {
 
 	//Permissions
 	$rootScope.isAbleTo = function(permi, challenge){
-	    var current = this.getCurrentStages(challenge);
-	    return current.permissions.indexOf(permi) != -1;
+		if(challenge && challenge.stages){
+		    var current = this.getCurrentStages(challenge);
+		    return current.permissions.indexOf(permi) != -1;
+		}
 	}
 
 	$rootScope.getCurrentStages = function(challenge){
@@ -97,6 +99,52 @@ ocApp.run(function ($rootScope, Restangular) {
 	    });
 	    current.permissions = jQuery.unique( current.permissions );
 	    return current;
+	}
+
+	$rootScope.getCssColor = function(challenge){
+		if(challenge && challenge.call_to_action && challenge.call_to_action.bgcolor){
+			return { color: challenge.call_to_action.bgcolor };
+		}
+	}
+
+	$rootScope.getCssBorderTop = function(challenge){
+		if(challenge && challenge.call_to_action && challenge.call_to_action.bgcolor){
+			return { "border-top-color": challenge.call_to_action.bgcolor };
+		}
+	}
+
+	//challenge.link_color
+
+	$rootScope.getCssJumbotron = function(challenge){
+		var s = {};
+		if(challenge && challenge.call_to_action && challenge.call_to_action.bgcolor){
+			s["border-bottom-color"] = challenge.call_to_action.bgcolor;
+		}
+		if(challenge && challenge.header_images && challenge.header_images[0]){
+			s["background-image"] = 'url(' + challenge.header_images[0] + ')';
+		}
+		return s;
+	}
+
+	$rootScope.getCssButtonColors = function(challenge){
+		if(challenge && challenge.call_to_action && challenge.call_to_action.bgcolor){
+			return { 
+				"background-color": challenge.call_to_action.bgcolor,
+				"border-color": challenge.call_to_action.bgcolor,
+				color: challenge.call_to_action.color
+				};
+		}
+	}
+
+	$rootScope.applyCssColor = function(challenge, id){
+		var selector = 	 '#'+id+' a,'
+						+'#'+id+' h1,'
+						+'#'+id+' h2,'
+						+'#'+id+' h3,'
+						+'#'+id+' h4,'
+						+'#'+id+' h5,'
+						+'.modal-body label';
+		angular.element(selector).css('color',challenge.link_color);
 	}
 
 });

@@ -1,6 +1,6 @@
 <div id="view-project-container" ng-controller="projectCtrl" ng-init="viewInit()">
 	
-	<div class="jumbotron" ng-style="{'background-image': 'url(' + challenge.header_images[0] + ')' }">
+	<div class="jumbotron" ng-style="getCssJumbotron(challenge)">
 		<div class="container">
 			<h1>{{challenge.title}}</h1>
 			<p>{{challenge.subtitle}}</p>
@@ -14,10 +14,10 @@
 
 			<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
 
-				<h4>{{s.label}}</h4>
+				<h4 ng-style="getCssColor(challenge)">{{s.label}}</h4>
 
 				<div ng-if="(s.type == 'title')">
-					<h1>{{project[s.type]}}</h1>
+					<h1 ng-style="getCssColor(challenge)">{{project[s.type]}}</h1>
 				</div>
 
 				<div ng-if="(s.type == 'description')">
@@ -25,7 +25,7 @@
 				</div>
 
 				<div ng-if="(s.type == 'link')">
-					<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
+					<a ng-style="getCssColor(challenge)" ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
 				</div>
 
 				<div ng-if="(s.type == 'imageurl')">
@@ -46,7 +46,7 @@
 				</div>
 
 				<div ng-if="(s.type == 'fileurl')">
-					<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
+					<a ng-style="getCssColor(challenge)" ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
 				</div>
 
 				<div ng-if="(s.type == 'tags')">
@@ -59,13 +59,13 @@
 	    <div class="col-md-4 col-md-offset-1">
 			
 	    	<div class="well" ng-if="isAbleTo('public-vote',challenge)">
-				<a ng-click="vote(project._id)" href="javascript:;" class="btn btn-lg btn-block btn-primary">
+				<a ng-click="vote(project._id)" href="javascript:;" class="btn btn-lg btn-block btn-primary" ng-style="getCssButtonColors(challenge)">
 				Votar
 				</a>
 			</div>
 
 			<div class="sidebar-data sidebar-someone">
-				<h4>Enviado por:</h4>
+				<h4 ng-style="getCssColor(challenge)">Enviado por:</h4>
 				<a href="/#/profile/{{project.leader._id}}">
 					<img ng-src="{{project.leader.picture}}" width="73" height="73" />
 					<p class="lead">{{project.leader.name}}</p>
@@ -73,19 +73,19 @@
 			</div>
 
 			<div class="sidebar-data sidebar-someone">
-				<h4>Votos ({{project.followers.length}})</h4>
+				<h4 ng-style="getCssColor(challenge)">Votos ({{project.followers.length}})</h4>
 				<a href="/#/profile/{{v._id}}" ng-repeat="v in project.followers">
 					<img ng-src="{{v.picture}}" width="25" height="25" title="NOMBRE" />
 				</a>
 			</div>
 
 			<div class="sidebar-data">
-				<h4>Creado:</h4>
+				<h4 ng-style="getCssColor(challenge)">Creado:</h4>
 				<p>{{project.created_at}}</p>
 			</div>
 
 			<div ng-show="userCanEdit" class="sidebar-data">
-				<h4>actions</h4>
+				<h4 ng-style="getCssColor(challenge)">Actions</h4>
 				<a href="/#/challenge/{{challenge._id}}/edit">Editar</a>
 	    	</div>
 
@@ -93,26 +93,3 @@
 	  </div>
 	</div>
 </div>
-
-<style type="text/css">
-	.jumbotron {
-		border-bottom-color:#5c3692;
-	}
-	#view-project-container .btn-primary,
-	#view-project-container .btn-primary:hover,
-	#view-project-container .btn-primary:focus,
-	#view-project-container .btn-primary:active,
-	#view-project-container .btn-primary.active {
-	  background-color: #5c3692;
-	  border-color: #5c3692;
-	  color:#fff;
-	}
-	#view-project-container a,
-	#view-project-container h1,
-	#view-project-container h2,
-	#view-project-container h3,
-	#view-project-container h4,
-	#view-project-container h5 {
-		color: #5c3692;
-	}
-</style>
