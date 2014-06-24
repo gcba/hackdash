@@ -128,7 +128,7 @@
 				<small>Seleccione una categoría</small>
 			  </div>
 			<div class="form-group" ng-repeat="s in challenge.submit_fields | orderBy:'order'">
-			    <label>{{s.label}}</label>
+			    <label ng-style="getCssColor(challenge)">{{s.label}}</label>
 			    <input class="form-control" type="text" ng-model="project[s.type]" />
 				<small>{{s.help}}</small>
 			</div>
