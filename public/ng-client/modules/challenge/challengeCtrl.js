@@ -14,6 +14,8 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.filter = {};
 
+	$scope.order = "";
+
 	$scope.currentStages = [];
 
 	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
@@ -181,7 +183,17 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.changeFilter = function() {
-      console.log($scope.filter);
+      $scope.projects = [];
+      Restangular.one('dashboards', $routeParams.challengeId).getList('projects',{cat:$scope.filter.cat,order:$scope.order})
+		.then(function(projects){
+			if($scope.order=='votes'){
+				$scope.projects = projects.sort(function(a,b){
+					return a.followers.length < b.followers.length;
+				});
+			}else{
+				$scope.projects = projects;
+			}
+		});
     };
 
 	//Submits

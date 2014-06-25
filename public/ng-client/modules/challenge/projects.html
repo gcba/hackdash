@@ -3,14 +3,10 @@
 	<div ng-include="'ng-client/modules/partials/header-simple.html'"></div>
 
 	<div ng-controller="challengeCtrl" ng-init="editProjectsInit()" class="container">
-		<h1>Concurso {{challenge.title}}</h1>
-		<h2>actions</h2>
-
-		<h2>data</h2>
-		<p>Slug: {{challenge.slug}}</p>
+		<h1>{{challenge.title}} <small>{{challenge.subtitle}}</small></h1>
 		<p>Create: {{challenge.created_at}}</p>
 		<p>Abierto: {{challenge.open}}</p>
-		<p>contact: {{challenge.contact}}</p>
+		<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a></p>
 
 		<table class="table">
 	      <thead>

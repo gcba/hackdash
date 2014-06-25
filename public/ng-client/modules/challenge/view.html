@@ -26,7 +26,7 @@
 	  <div class="row">
 	    <div class="col-md-7">
 
-				<div class="tab-content">
+				<div id="tab-content-container" class="tab-content">
 				  
 					<div class="tab-pane active" id="home">
 						<p ng-bind-html="challenge.description"></p>
@@ -41,23 +41,36 @@
 						</ul>
 					</div>
 
-					<div class="tab-pane" id="{{p.content_type}}-page" ng-repeat="p in challenge.pages" ng-init="applyCssColor(challenge,'view-challenge-container')">
-						<div ng-bind-html="p.text"></div>
+					<div class="tab-pane" id="{{p.content_type}}-page" ng-repeat="p in challenge.pages">
+						<div ng-bind-html="p.text" ng-init="applyCssColor(challenge,'tab-content-container')"></div>
 					</div>
-				
+
 					<div class="tab-pane" id="submissions">
 						<h2>Participaciones: ({{projects.length}})</h2>
 							<div class="row">
-
 								<div class="col-md-12">
 									<p ng-if="challenge.categories.length > 0">
 										<select ng-model="filter.cat" ng-options="option for option in challenge.categories" ng-change="changeFilter()" class="form-control input-lg">
 											<option value="">Todas las categorías</option>
 										</select>
 									</p>
-									{{filter.cat}}
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<select ng-model="order" ng-change="changeFilter()" class="form-control input-lg">
+										<option value="">Fecha de creación</option>
+										<option value="status">Premio</option>
+										<option value="votes">Votos</option>
+									</select>
+								</div>
+							</div>
+
+							<div ng-show="projects.length == 0" class="row">
+								<p>No hay participaciones con este filtro</p>
+							</div>
+
+
 							<div class="row">
 								<div class="col-md-6" ng-repeat="project in projects" ng-include="'ng-client/modules/project/card.html'">
 

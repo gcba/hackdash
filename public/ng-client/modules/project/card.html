@@ -63,7 +63,9 @@
 
 		<h4 ng-style="getCssColor(challenge)"><strong>Votos:<strong> {{project.followers.length}}</h4>
 
-			<p><strong>Status:<strong> {{project.status}}</p>
+		<p><strong>Status:<strong> {{project.status}}</p>
+
+		<p><strong>Enviado:<strong> {{project.created_at | date:'dd-MM-yyyy'}}</p>
 
 		<p>
 			<div class="btn-group btn-group-justified">

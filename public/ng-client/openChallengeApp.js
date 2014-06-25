@@ -54,7 +54,7 @@ ocApp.config(function($routeProvider) {
 	  .otherwise({redirectTo:'/'});
 });
 
-ocApp.run(function ($rootScope, Restangular) {
+ocApp.run(function ($rootScope, $timeout, Restangular) {
 
 	Restangular.setBaseUrl('/api/v2');
 
@@ -137,14 +137,17 @@ ocApp.run(function ($rootScope, Restangular) {
 	}
 
 	$rootScope.applyCssColor = function(challenge, id){
-		var selector = 	 '#'+id+' a,'
+		var selector = 	 '#'+id+' a:not(.btn),'
 						+'#'+id+' h1,'
 						+'#'+id+' h2,'
 						+'#'+id+' h3,'
 						+'#'+id+' h4,'
 						+'#'+id+' h5,'
+						+'#myModalLabel,'
 						+'.modal-body label';
-		angular.element(selector).css('color',challenge.call_to_action.bgcolor);
+		$timeout(function() {
+			angular.element(selector).css('color',challenge.call_to_action.bgcolor);
+    	}, 500);
 	}
 
 });

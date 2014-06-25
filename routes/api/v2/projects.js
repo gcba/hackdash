@@ -7,6 +7,7 @@
 
 var passport = require('passport')
   , mongoose = require('mongoose')
+  , _ = require('underscore')
   , fs = require('fs')
   , config = require('../../../config.json');
 
@@ -52,6 +53,7 @@ module.exports = function(app, uri, common) {
 
   //PUT SAVE SUMBIT FROM PROJECT
   app.put(uri + '/dashboards/:did/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
+  app.put(uri + '/admin_dashboards/:did/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, updateProject, sendProject);
 
   app.del(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, removeProject);
   
@@ -346,9 +348,11 @@ var ignoreActive = function(req, res, next){
 };
 
 var setQuery = function(req, res, next){
-  var query = req.query.q || "";
+  var cat = req.query.cat || "";
+  var order = req.query.order || "";
 
   req.query = {};
+  req.orderBy = {};
 
   if (req.params.did) {
     var ignoreActive = req.ignoreActive || false;
@@ -359,17 +363,26 @@ var setQuery = function(req, res, next){
     }
   }
 
-  if (query.length === 0){
+  if (cat.length === 0 && order.length === 0){
     return next();
+  } else {
+    if(cat!=""){
+      req.query['tags'] = cat;
+    }
+    if(order!=""){
+      req.orderBy[order] = 1;
+    }
   }
 
-  var regex = new RegExp(query, 'i');
-  req.query.$or = [ { title: regex }, { description: regex } ];
+ /* var regex = new RegExp(query, 'i');
+  req.query.$or = [ { title: regex }, { description: regex } ];*/
 
   next();
 };
 
 var setProjects = function(req, res, next){
+  req.orderBy = req.orderBy || { "created_at" : -1 }; 
+
   Project.find(req.query || {})
     .populate({
       path: 'leader',
@@ -384,7 +397,7 @@ var setProjects = function(req, res, next){
       select: 'name picture _id'
     })
     .limit(30)
-    .sort( { "created_at" : -1 } )
+    .sort( req.orderBy )
     .exec(function(err, projects) {
       if(err) return res.send(500);
       req.projects = projects;
