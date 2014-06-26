@@ -55,7 +55,7 @@ module.exports = function(app, uri, common) {
   app.put(uri + '/dashboards/:did/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
   app.put(uri + '/admin_dashboards/:did/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, updateProject, sendProject);
 
-  app.del(uri + '/projects/:pid', common.isAuth, getProject, canChangeProject, removeProject);
+  //app.del(uri + '/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, removeProject);
   
   app.post(uri + '/projects/:pid/followers', common.isAuth, getProject, loadCommon(common), validate, addFollower);
   //app.del(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, removeFollower);

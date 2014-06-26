@@ -81,9 +81,17 @@ user){
           
           user.name = profile.displayName;
           user.username = profile.username || profile.displayName;
-          user.save(function(err, user){  
-            done(null, user);
+
+          //FIRST USER only. Become the first logged user a GOD. MUAJAJAJA.
+          User.count().exec(function(err, count){
+            if(count===0){
+              user.role = 'superadmin';
+            }
+            user.save(function(err, user){  
+              done(null, user);
+            });
           });
+
         } else { 
 
           //Update user picture provider if url changed

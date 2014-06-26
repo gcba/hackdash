@@ -24,7 +24,7 @@ module.exports = function(app) {
     , "challenge_id": { type: ObjectId, required: true, ref: 'Dashboard' }
     , "description": { type: String }
     , "leader": { type: ObjectId, required: true, ref: 'User' }
-    , "status": { type: String, enum: app.get('statuses'), default: app.get('statuses')[0] }
+    , "status": { type: String, enum: app.get('statuses'), default: '5-submitted' }
     , "contributors": [{ type: ObjectId, ref: 'User'}]
     , "followers": [{ type: ObjectId, ref: 'User'}]
     , "cover": String

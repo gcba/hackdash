@@ -30,8 +30,9 @@ module.exports = function(app, uri, common) {
 
   //GET MY dashboards
   app.get(uri + '/admin_dashboards', common.isAuth, setMyDashboards, sendDashboards);
+  app.del(uri + '/admin_dashboards/:did', common.isAuth, common.isAdminDashboard, getDashboard, removeDashboard);
 
-/*  app.get(uri + '/', getDashboard, sendDashboard);
+/*app.get(uri + '/', getDashboard, sendDashboard);
   app.post(uri + '/', common.notAllowed);
   app.del(uri + '/', common.notAllowed);*/
 
@@ -227,4 +228,11 @@ var sendDashboardCSV = function(req, res){
       res.send(500, {err: err, msg: "Failed to get projects"});
     });
 
+};
+
+var removeDashboard = function(req, res){
+  req.dashboard.remove(function (err){
+    if (err) return res.send(500, "An error ocurred when removing this project");
+    res.send(204); //all good, no content
+  });
 };

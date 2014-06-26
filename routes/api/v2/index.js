@@ -16,7 +16,7 @@ module.exports = function(app) {
   var root = '/api/';
 
   require('./dashboard')(app, root + 'v2', common);
-  require('./collections')(app, root + 'v2', common);
+//  require('./collections')(app, root + 'v2', common);
   require('./projects')(app, root + 'v2', common);
   require('./users')(app, root + 'v2', common);
 
