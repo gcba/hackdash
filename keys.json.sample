@@ -1,23 +1,9 @@
 {
-    "twitter": {
-        "consumerKey" :   ""
-      , "consumerSecret" : ""
-      , "callbackURL":  "http://localhost/auth/twitter/callback"
-    } 
-  , "meetup": {
-        "consumerKey": ""
-      , "consumerSecret": ""
-      , "callbackURL": "http://local.host:3000/auth/meetup/callback"
+    "openid": {
+      "returnURL": "http://local.host:3000/auth/openid/callback",
+      "realm": "http://local.host:3000/auth/openid/callback",
+      "providerURL":"https://id.buenosaires.gob.ar/openid/",
+      "profile": true,
+      "stateless": true
     }
-  , "facebook": {
-        "clientID": ""
-      , "clientSecret": ""
-      , "callbackURL": "http://local.host:3000/auth/facebook/callback"
-    }
-  , "github": {
-        "clientID": ""
-      , "clientSecret": ""
-      , "callbackURL": "http://local.host:3000/auth/github/callback"
-    }
-
 }

@@ -24,12 +24,12 @@
 	<table class="table">
 		<tr>
 			<th>Título</th>
-			<th>Descripción</th>
+			<th>Subtitulo</th>
 			<th>action</th>
 		</tr>
 		<tr ng-repeat="d in user.dashboards">
 			<td>{{d.title}}</td>
-			<td>{{d.description}}</td>
+			<td>{{d.subtitle}}</td>
 			<td><a href ng-click="removeChallengeToAdmin(d)">quitar permisos admin</a></td>
 		</tr>
 	</table>

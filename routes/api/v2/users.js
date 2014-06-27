@@ -21,8 +21,8 @@ module.exports = function(app, uri, common) {
   app.get(uri + '/dashboards/:did/admins', getInstanceAdmins, sendUsers);
 
   //app.get(uri + '/admins', getInstanceAdmins, sendUsers);
-  //app.get(uri + '/users/:uid', getUser, sendUser);
-  //app.get(uri + '/users', common.isAuth, getUsers, sendUsers);
+  app.get(uri + '/users/:uid', common.isAuth, getUser, sendUser);
+  app.get(uri + '/users', common.isAuth, common.isSuperAdmin, getUsers, sendUsers);
 
   app.get(uri + '/profiles/:uid', getUser, setCollections, setProjects, setContributions, setDashboards, setLikes, sendUser);
   app.put(uri + '/profiles/:uid', common.isAuth, getUser, canUpdate, updateUser);
@@ -54,7 +54,7 @@ var getUsers = function(req, res, next){
 
 var getUser = function(req, res, next){
 
-  var fields = (req.user.id==req.params.uid)?null:'_id name picture admin_in created_at';
+  var fields = (req.user.id==req.params.uid || req.user.role == 'superadmin')?null:'_id name picture admin_in created_at';
 
   User
     .findById(req.params.uid, fields ,function(err, user){
@@ -107,6 +107,8 @@ var updateUser = function(req, res){
 var updateUserBySuperAdmin = function(req, res){
   var user = req.body;
   
+console.log(user);
+
   User.findByIdAndUpdate(user._id, { bio: user.bio, admin_in: user.admin_in, role: user.role })
     .exec(function(err, data){
       if(err) return res.send(500);

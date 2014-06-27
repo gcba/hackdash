@@ -6,9 +6,9 @@
   },  
   "host": "local.host",
   "port": 3000,
-  "session": "wefewfef",
+  "session": "gcba654gcba321gcba987",
   "disqus_shortname": null,
-	"title": "openchallenge",
-	"live": true,
-	"mailer": null
+  "title": "Concursos BA",
+  "live": false,
+  "mailer": null
 }
