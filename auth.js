@@ -30,6 +30,7 @@ var saveSubdomain = function(req, res, next) {
   next();
 };
 
+// TODO: Eliminar funcion 
 var redirectSubdomain = function(req, res) {
   var domain = app.get('config').host;
   if (req.session.subdomain !== '') {
@@ -47,7 +48,7 @@ for(var strategy in keys) {
 
     app.get('/auth/' + provider, saveSubdomain, passport.authenticate(provider));
     app.get('/auth/' + provider + '/callback', passport.authenticate(provider, {
-      failureRedirect: '/' }), redirectSubdomain);
+      failureRedirect: '/' }), '/');
 
     var Strategy = require('passport-' + provider).Strategy;
     passport.use(new Strategy(keys[provider],
