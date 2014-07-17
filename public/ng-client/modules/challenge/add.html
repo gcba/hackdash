@@ -1,29 +1,17 @@
 <div id="view-user-container">
-
 	<div ng-include="'ng-client/modules/partials/header-simple.html'"></div>
-
 	<div class="container">
-
 		<div ng-controller="challengeCtrl" ng-init="addInit()">
-
 			<h1>Nuevo Concurso</h1>
-
 			<div class="row">
-
 				<div class="col-md-4 col-md-offset-4 well">
-
-					<form novalidate class="simple-form" >
-						<p>Dominio <input type="text" ng-model="challenge.slug" class="form-control" /></p>
-						<p><small>Sólo números y letras de entre 5 y 10 caracteres, sin espacios.</small></p>
-						<button ng-click="add(challenge)" class="btn btn-block btn-primary">grabar</button>
+					<form novalidate name="formChallengeAdd" class="simple-form" >
+						<p>Dominio <input name="slug" type="text" ng-model="challenge.slug" class="form-control" ng-pattern="/^[a-zA-Z0-9]{5,10}$/"/></p>
+						<small ng-show="formChallengeAdd.slug.$error.pattern" class="form-error">Sólo números y letras de entre 5 y 10 caracteres, sin espacios.</small>
+						<button ng-click="add(challenge)" class="btn btn-block btn-primary">Grabar</button>
 					</form>
-
 				</div>
-
 			</div>
-
 		</div>
-
 	</div>
-
 </div>

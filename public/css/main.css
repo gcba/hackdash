@@ -76,7 +76,7 @@ h2 {
 .jumbotron .nav-tabs {
   border-bottom: 0 none;
   position: relative;
-  bottom: -157px;
+  bottom: -147px;
 }
 
 @media (max-width: 767px) {
@@ -353,8 +353,22 @@ h2 {
   border-bottom:solid 1px #ddd;
 }
 
+.form-error{
+  color: #ff0000;
+  padding-bottom: 15px;
+  padding-top: 7px;
+  display: block;
+}
 
+.remove-fieldset{
+  text-align: right;
+}
 
+fieldset{
+  margin-top: 30px;
+}
 
-
+a{
+  cursor: pointer;
+}
 

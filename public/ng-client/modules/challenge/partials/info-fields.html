@@ -1,0 +1,41 @@
+<legend>Datos básicos</legend>
+<div class="form-group">
+	<label>Url interna</label>
+	 /{{challenge.slug}}
+</div>
+<div class="form-group">
+	<label> Título</label>
+	<input name="title" type="text" ng-model="challenge.title" class="form-control" ng-maxlength="64" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\á\é\í\ó\ú\Á\É\Í\Ó\Ú\ñ\Ñ\s\-]+$/" required/>
+	<small ng-show="(formChallengeEdit.title.$dirty || submited) && formChallengeEdit.title.$error.pattern" class="form-error">Debe ingresar solo caracteres alfanuméricos.</small>
+	<small ng-show="(formChallengeEdit.title.$dirty || submited) && formChallengeEdit.title.$error.maxlength" class="form-error">El texto ingresado no debe superar los 64 caracteres.</small>
+	<small ng-show="(formChallengeEdit.title.$dirty || submited) && formChallengeEdit.title.$error.required" class="form-error">El campo título es requerido</small>
+</div>
+
+<div class="form-group">
+	<label>Subtítulo</label>
+	<input name="subtitle" ng-maxlength="280" type="text" ng-model="challenge.subtitle" class="form-control"/>
+	<small ng-show="(formChallengeEdit.subtitle.$dirty || submited) && formChallengeEdit.subtitle.$error.pattern" class="form-error">El texto ingresado no debe superar los 280 caracteres.</small>
+</div>
+
+<div class="form-group">
+	<label>Descripción</label>
+	<div text-angular ng-model="challenge.description"></div>
+</div>
+
+<div class="checkbox">
+	<label>Abierto
+		<input name="open" type="checkbox" ng-model="challenge.open"/>
+	</label>
+</div>
+
+<div class="form-group">
+	<label>Contacto</label>
+	<input name="contact" type="email" ng-model="challenge.contact" class="form-control" />
+	<small ng-show="(formChallengeEdit.contact.$dirty || submited) && formChallengeEdit.contact.$invalid" class="form-error">Debe ingresar un email válido.</small>
+</div>
+
+<div class="form-group">
+	<label>Color de los links</label>
+	<input name="link_color" type="text" ng-model="challenge.link_color" class="form-control" ng-pattern="/^#[0-9A-F]{6}$/"/>
+	<small ng-show="(formChallengeEdit.link_color.$dirty || submited) && formChallengeEdit.link_color.$error.pattern" class="form-error">Debe ingresar un color en formato hexadecimal válido. Ej: #FF0000</small>
+</div>

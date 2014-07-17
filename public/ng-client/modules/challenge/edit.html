@@ -4,119 +4,61 @@
 
 	<div ng-controller="challengeCtrl" ng-init="editInit()" class="container">
 		<h1>Editar Concurso</h1>
-		<a href="/#/challenge/{{challenge._id}}/edit/projects" class="btn btn-info">Modificar postulaciones</a>
-		<form role="form" novalidate class="form-horizontal simple-form">
-			<h2>Options</h2>
-			<p>Slug {{challenge.slug}}</p>
-			<p>Título <input type="text" ng-model="challenge.title" class="form-control" /></p>
-			<p>Subtitle<input type="text" ng-model="challenge.subtitle" class="form-control" /></p>
-			<p>Descripción<div text-angular ng-model="challenge.description"></div></p>
-			<p>Abierto <input type="text" ng-model="challenge.open" class="form-control" /></p>
-			<p>Contacto <input type="text" ng-model="challenge.contact" class="form-control" /></p>
-			<p>Color de los links <input type="text" ng-model="challenge.link_color" class="form-control" /></p>
+	
 
-			<div>
-				<h2>Button</h2>
-			  	<p>label <input type="text" ng-model="challenge.call_to_action.label" class="form-control" /></p>
-			  	<p>help <input type="text" ng-model="challenge.call_to_action.help" class="form-control" /></p>
-			  	<p>color <input type="text" ng-model="challenge.call_to_action.color" class="form-control" /></p>
-			  	<p>bgcolor <input type="text" ng-model="challenge.call_to_action.bgcolor" class="form-control" /></p>
+
+		<form novalidate name="formChallengeEdit" role="form" class="simple-form" ng-submit="update(challenge, formChallengeEdit)">
+			<ul class="nav nav-tabs" role="tablist">
+			  <li class="active"><a data-target="#info-fields" role="tab" data-toggle="tab">Datos básicos</a></li>
+			  <li><a data-target="#call-to-action-fields" role="tab" data-toggle="tab">Botón participar</a></li>
+			  <li><a data-target="#pages" role="tab" data-toggle="tab">Pestañas</a></li>
+			  <li><a data-target="#steps" role="tab" data-toggle="tab">Etapas</a></li>
+			  <li><a data-target="#image-header-fields" role="tab" data-toggle="tab">Encabezado</a></li>
+			  <li><a data-target="#submission-fields" role="tab" data-toggle="tab">Campos de proyecto</a></li>
+			  <li><a data-target="#categories" role="tab" data-toggle="tab">Categorías</a></li>
+			</ul>
+			<!-- Tab content -->
+			<div class="tab-content">
+				<!-- Info -->
+				<fieldset ng-include="'/ng-client/modules/challenge/partials/info-fields.html'" class="tab-pane active" id="info-fields"></fieldset>
+				
+				<!-- Call to action button -->
+				<fieldset ng-include="'/ng-client/modules/challenge/partials/call-to-action-fields.html'" class="tab-pane" id="call-to-action-fields"></fieldset>
+				
+				<!-- Pages -->
+				<fieldset class="tab-pane" id="pages">
+					<legend>Páginas
+						<span>
+						  <a href ng-click="challenge.pages.push({})" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
+						</span>
+					</legend>
+					<div ng-repeat="page in challenge.pages" ng-include="'/ng-client/modules/challenge/partials/page-form.html'"></div>
+				</fieldset>
+
+				<!-- Challenge steps -->
+				<fieldset class="tab-pane" id="steps">
+					<legend>Etapas
+						<span>
+						  <a href ng-click="addStage()" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
+						</span>
+					</legend>
+					<div ng-repeat="stage in challenge.stages" ng-include="'/ng-client/modules/challenge/partials/step-form.html'"></div>
+				</fieldset>
+				
+				<!-- Challenge image header -->
+				<fieldset ng-include="'/ng-client/modules/challenge/partials/image-header-fields.html'" class="tab-pane" id="image-header-fields"></fieldset>
+				
+				<!-- Project submission fields -->
+				<fieldset ng-include="'/ng-client/modules/challenge/partials/submission-fields.html'" class="tab-pane" id="submission-fields"></fieldset>
+				
+				<!-- Project categoríes -->
+				<fieldset ng-include="'/ng-client/modules/challenge/partials/category-fields.html'" class="tab-pane" id="categories"></fieldset>			
 			</div>
 
-			<div>
-				<h2>Pages
-					<span>
-					  <a href ng-click="challenge.pages.push({})" class="btn btn-info">add</a>
-					</span>
-				</h2>
-				<div ng-repeat="page in challenge.pages">
-				  	<p>title <input type="text" ng-model="page.title" class="form-control" /></p>
-				  	<div text-angular ng-model="page.text"></div>
-				  	<select ng-model="page.content_type" ng-options="content for content in $parent.page_contents_type" class="form-control">
-					  <option value="">-- select --</option>
-					</select>
-				    <a href ng-click="challenge.pages.splice($index, 1)" class="btn btn-danger btn-xs">X</a>
-				</div>
+			<div class="form-group">
+				<a href="/#/challenge/{{challenge._id}}/edit/projects" class="btn btn-default">Modificar postulaciones</a>
+				<input type="submit" class="btn btn-primary" value="Grabar">
 			</div>
-
-			<div>
-				<h2>Stages
-					<span>
-					  <a href ng-click="addStage()" class="btn btn-info">add</a>
-					</span>
-				</h2>
-				<div ng-repeat="stage in challenge.stages">
-				  	<p>name <input type="text" ng-model="stage.name" class="form-control" /></p>
-				  	<p>start <input type="text" ng-model="stage.start" class="form-control" /></p>
-				  	<p>end <input type="text" ng-model="stage.end" class="form-control" /></p>
-				  	<p>permisos</p>
-				  	<select ng-show="stage.permissionOptions.length > 0" ng-model="stage.selectedPermission" ng-options="permission for permission in stage.permissionOptions" class="form-control">
-					  <option value="">-- select --</option>
-					</select>
-					<a ng-show="stage.permissionOptions.length > 0" href="javascript:;" ng-click="addPermission(stage)" class="btn btn-default">add permission</a>
-				  	<p ng-repeat="perm in stage.permissions">
-				  		{{perm}} <a href ng-click="removePermission(stage,$index)" class="btn btn-danger btn-xs">X</a>
-				  	</p>
-				  	<a href ng-click="challenge.stages.splice($index, 1)" class="btn btn-danger btn-xs">X</a>
-				</div>
-			</div>
-
-			<div>
-				<h2>Header Images
-					<span>
-					  <a href ng-click="challenge.header_images.push('')" class="btn btn-info">add</a>
-					</span>
-				</h2>	
-				<p>TODO: hacer load file </p>
-				<div ng-repeat="header_image in challenge.header_images track by $index">
-				  	<p>img <input type="text" ng-model="challenge.header_images[$index]" class="form-control" /></p>
-				    <a href ng-click="challenge.header_images.splice($index, 1)" class="btn btn-danger btn-xs">X</a>
-				</div>
-			</div>
-
-			<div>
-				<h2>Submit fields</h2>
-
-				<p> type
-					<select ng-model="challenge.selectedSubmit.type" ng-options="option for option in projectOptions" class="form-control">
-						<option value="">-- select --</option>
-					</select>
-				</p>
-				<p>label <input type="text" ng-model="challenge.selectedSubmit.label" class="form-control" /></p>
-				<p>help <input type="text" ng-model="challenge.selectedSubmit.help" class="form-control" /></p>
-				<p>destacado <input type="checkbox" ng-model="challenge.selectedSubmit.important" ng-true-value="true" ng-false-value="false" /></p>
-				<p> order
-					<select ng-model="challenge.selectedSubmit.order" ng-options="option for option in fieldOrders" class="form-control">
-						<option value="">-- select --</option>
-					</select>
-				</p>
-
-				<span>
-				  <a href ng-click="addSubmitField(challenge.selectedSubmit)" class="btn btn-default">add submit field</a>
-				</span>
-				<div ng-repeat="field in challenge.submit_fields track by $index">
-					{{field.type}} | 
-					{{field.label}} | 
-					{{field.help}} | 
-					{{field.order}} | 
-					{{field.important}} | 
-				    <a href ng-click="removeSubmitField($index)" class="btn btn-danger btn-xs">X</a>
-				</div>
-			</div>
-
-			<div>
-				<h2>Categorías
-					<span>
-					  <a href ng-click="challenge.categories.push('')" class="btn btn-info">add</a>
-					</span>
-				</h2>
-				<div ng-repeat="cat in challenge.categories track by $index">
-				  	<p>cat <input type="text" ng-model="challenge.categories[$index]" class="form-control" /></p>
-				    <a href ng-click="challenge.categories.splice($index, 1)" class="btn btn-danger btn-xs">X</a>
-				</div>
-			</div>
-
-			<button ng-click="update(challenge)" class="btn btn-primary btn-block">grabar</button>
 		</form>
 	</div>
 

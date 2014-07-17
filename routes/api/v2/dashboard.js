@@ -42,7 +42,7 @@ module.exports = function(app, uri, common) {
 var validateSubdomain = function(req, res, next) {
   
   if(!/^[a-z0-9]{5,10}$/.test(req.body.slug)) {
-    return res.json(500, { error: "subdomain_invalid" });
+    return res.json(400, { error: "subdomain_invalid" });
   }
 
   next();

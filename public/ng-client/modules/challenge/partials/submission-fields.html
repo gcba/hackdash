@@ -1,0 +1,49 @@
+<legend>Campos del proyecto</legend>
+
+<div class="form-group">
+	<label>Tipo</label>
+	<select ng-model="challenge.selectedSubmit.type" ng-options="option for option in projectOptions" class="form-control">
+		<option value="">-- select --</option>
+	</select>
+</div>
+<div class="form-group">
+	<label>Etiqueta</label>
+	<input type="text" ng-model="challenge.selectedSubmit.label" class="form-control" />
+</div>
+<div class="form-group">
+	<label>Ayuda</label> 
+	<input type="text" ng-model="challenge.selectedSubmit.help" class="form-control" />
+</div>
+<div class="checkbox">
+	<label>Destacado
+		<input type="checkbox" ng-model="challenge.selectedSubmit.important" ng-true-value="true" ng-false-value="false" />
+	</label>
+</div>
+<div class="form-group">
+	<label>Órden</label>
+	<select ng-model="challenge.selectedSubmit.order" ng-options="option for option in fieldOrders" class="form-control">
+		<option value="">-- select --</option>
+	</select>
+</div>
+
+<div class="form-group">
+  <a href ng-click="addSubmitField(challenge.selectedSubmit)" class="btn btn-default">Agregar campo</a>
+</div>
+<div class="panel panel-default">
+	<div class="panel-heading">Campos agregados</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Tipo</th>
+				<th>Etiqueta</th>
+				<th>Texto de ayuda</th>
+				<th>Órden</th>
+				<th>Destacado</th>
+				<th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="field in challenge.submit_fields track by $index" ng-include="'/ng-client/modules/challenge/partials/submit-fields.html'"></tr>
+		</tbody>
+	</table>
+</div>

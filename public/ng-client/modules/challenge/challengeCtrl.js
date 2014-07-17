@@ -1,4 +1,4 @@
-ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce) {
+ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce, $timeout) {
 
 	$scope.challenge = {
 		pages: [],
@@ -21,6 +21,8 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	$scope.fieldOrders = [1,2,3,4,5,6,7,8,9];
 
 	$scope.isAdmin = false;
+
+	$scope.submited = false;
 
 	//Inits
 	$scope.editProjectsInit = function(){
@@ -207,14 +209,24 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			});
 	};
 
-	$scope.update = function(challenge){
-		angular.forEach(challenge.stages, function(s,k){
-			delete s.permissionOptions;
-		});
+	$scope.update = function(challenge, formChallenge){
+		if(formChallenge.$valid){
+			angular.forEach(challenge.stages, function(s,k){
+				delete s.permissionOptions;
+			});
 
-		challenge.put().then(function(e){
-			$location.path('/challenge/'+e._id);
-		});
+			challenge.put().then(function(e){
+				$location.path('/challenge/'+e._id);
+			});
+		}else{
+			$scope.submited = true;
+			$timeout(function(){
+				document
+				.querySelector('.form-error:not(.ng-hide)')
+				.parentNode
+				.scrollIntoView(true);
+			}, 0);
+		}
 	};
 
 	$scope.updateSubmit = function(submit){

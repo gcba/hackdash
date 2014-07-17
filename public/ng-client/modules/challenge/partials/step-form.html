@@ -1,0 +1,33 @@
+					<ng-form name="stepForm">
+						<div class="form-group remove-fieldset">
+							<a href ng-click="challenge.stages.splice($index, 1)" class="btn btn-danger btn-xs">x</a>
+						</div>
+						<div class="form-group">
+							<label>Nombre</label>
+							<input name="name" type="text" ng-model="stage.name" class="form-control" ng-maxlength="64" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\á\é\í\ó\ú\Á\É\Í\Ó\Ú\ñ\Ñ\s\-]+$/" required/>
+							<small ng-show="(stepForm.name.$dirty || submited) && stepForm.name.$error.pattern" class="form-error">Debe ingresar solo caracteres alfanuméricos.</small>
+							<small ng-show="(stepForm.name.$dirty || submited) && stepForm.name.$error.maxlength" class="form-error">El texto ingresado no debe superar los 64 caracteres.</small>
+							<small ng-show="(stepForm.name.$dirty || submited) && stepForm.name.$error.required" class="form-error">El campo nombre es requerido</small>
+						</div>
+						<div class="form-group">
+							<label>Desde</label>
+							<input type="date" ng-model="stage.start" class="form-control" required/>
+						</div>
+						<div class="form-group">
+							<label>Hasta</label>
+							<input type="date" ng-model="stage.end" class="form-control" required/>
+						</div>
+						
+						<!-- Challenge step perms -->
+						<p>Permisos </p>
+						<div class="form-group">
+							<select ng-show="stage.permissionOptions.length > 0" ng-model="stage.selectedPermission" ng-options="permission for permission in stage.permissionOptions" class="form-control">
+								<option value="">-- select --</option>
+							</select>
+						</div>
+						<a ng-show="stage.permissionOptions.length > 0" href="javascript:;" ng-click="addPermission(stage)" class="btn btn-default">Agregar permiso</a>
+						<p ng-repeat="perm in stage.permissions">
+							{{perm}} <a href ng-click="removePermission(stage,$index)" class="btn btn-danger btn-xs">x</a>
+						</p>
+						
+					</ng-form>
