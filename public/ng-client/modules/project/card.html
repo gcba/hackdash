@@ -2,7 +2,7 @@
 	<div class="thumbnail-content">
 	<p ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</p>
 	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'status' "></div>
-		<field-formatter field-schema="s" field-data="project[s.type]" view-mode="card"></field-formatter>
+		<field-component field-schema="s" field-data="project[s.type]" view-mode="card"></field-component>
 	<div ng-repeat-end></div>
 <!--
 	<p>

@@ -13,7 +13,7 @@
 			<div class="col-md-7">
 
 			<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
-				<field-formatter field-schema="s" field-data="project[s.type]" view-mode="full"></field-formatter>
+				<field-component field-schema="s" field-data="project[s.type]" view-mode="full"></field-formatter>
 			</div>
 
 			</div>

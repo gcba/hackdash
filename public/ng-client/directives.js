@@ -1,5 +1,5 @@
 /*directives*/
-ocApp.directive('fieldFormatter', function($compile, $rootScope, $sce) {
+ocApp.directive('fieldComponent', function($compile, $rootScope, $sce) {
 
 	return {
 		restrict: 'E',
@@ -12,32 +12,54 @@ ocApp.directive('fieldFormatter', function($compile, $rootScope, $sce) {
 		transclude: true,
 		controller: ['$scope', '$http', '$templateCache', '$compile', function($scope, $http, $templateCache, $compile) {
 			
-			$scope.getTemplate = function(contentType, viewMode) {
-				var templateLoader
-					,	templateUrl
-					,	baseUrl = '/ng-client/modules/partials/formatters/'
-					,	typeMap = {
-							title: 'title',
-							description: 'description',
-							cover: 'image',
-							link: 'link',
-							imageurl: 'image',
-							videourl: 'video',
-							text: 'text',
-							fileurl: 'link',
-							tags: 'tags'
-					};
+			var buildTemplateFunc = function(tMap, bUrl){
+				return function tmplFunc(contentType, viewMode){
+					var templateLoader
+						,	templateUrl
+						,	baseUrl = bUrl
+						,	typeMap = tMap;
 
-					templateUrl = baseUrl + typeMap[contentType] + '/' + viewMode + '.html';
-					templateLoader = $http.get(templateUrl, {cache: $templateCache});
-					return templateLoader;
-			};
+						templateUrl = baseUrl + typeMap[contentType] + '/' + viewMode + '.html';
+						templateLoader = $http.get(templateUrl, {cache: $templateCache});
+						return templateLoader;
+					}
+			}
+
+			$scope.getFieldTmpl = buildTemplateFunc({
+				title: 'title',
+				description: 'description',
+				cover: 'image',
+				link: 'link',
+				imageurl: 'image',
+				videourl: 'video',
+				text: 'text',
+				fileurl: 'link',
+				tags: 'tags'
+			}, '/ng-client/modules/partials/formatters/');
+
+			$scope.getWidgetFieldTmpl = buildTemplateFunc({
+				title: 'text',
+				description: 'textarea',
+				cover: 'image',
+				link: 'text',
+				imageurl: 'image',
+				videourl: 'text',
+				text: 'text',
+				fileurl: 'file',
+				tags: 'text'
+			}, '/ng-client/modules/partials/form-widgets/');
+		
 		}],
 		link: function(scope, iElement, iAttrs) {
-			var loader = scope.getTemplate(scope.fieldSchema.type, iAttrs.viewMode);
-			if(scope.fieldSchema.type === 'videourl'){
-				scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
+			if(iAttrs.edit){
+				var loader = scope.getWidgetFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
+			}else{
+				var loader = scope.getFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
+				if(scope.fieldSchema.type === 'videourl'){
+					scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
+				}
 			}
+
 			var promise = loader.success(function(html) {
 				iElement.html(html);
 			}).then(function (response) {
