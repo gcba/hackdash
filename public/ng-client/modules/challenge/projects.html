@@ -59,7 +59,6 @@
 					<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
 
 						<h4>{{s.label}}</h4>
-
 						<div ng-if="(s.type == 'title')">
 							<h2>{{project[s.type]}}</h2>
 						</div>

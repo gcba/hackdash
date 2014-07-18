@@ -147,7 +147,7 @@ ocApp.run(function ($rootScope, $timeout, Restangular) {
 						+'.modal-body label';
 		$timeout(function() {
 			angular.element(selector).css('color',challenge.call_to_action.bgcolor);
-    	}, 500);
+		}, 500);
 	}
 
 });

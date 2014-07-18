@@ -11,11 +11,13 @@
 						</div>
 						<div class="form-group">
 							<label>Desde</label>
-							<input type="date" ng-model="stage.start" class="form-control" required/>
+							<input name="fromDate" type="text" ng-model="stage.start" class="form-control"  app-datetime placeholder="DD-MM-AAAA" required/>
+							<small ng-show="(stepForm.fromDate.$dirty || submited) && stepForm.fromDate.$error.datetime" class="form-error">Debe ingresar una fecha válida con el formato DD-MM-AAAA</small>
 						</div>
 						<div class="form-group">
 							<label>Hasta</label>
-							<input type="date" ng-model="stage.end" class="form-control" required/>
+							<input name="toDate" type="text" ng-model="stage.end" class="form-control"  app-datetime placeholder="DD-MM-AAAA" required/>
+							<small ng-show="(stepForm.toDate.$dirty || submited) && stepForm.toDate.$error.datetime" class="form-error">Debe ingresar una fecha válida con el formato DD-MM-AAAA</small>
 						</div>
 						
 						<!-- Challenge step perms -->
