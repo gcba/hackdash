@@ -48,7 +48,41 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce) {
 				fileurl: 'file',
 				tags: 'text'
 			}, '/ng-client/modules/partials/form-widgets/');
-		
+
+			$scope.initFiledrop = function(name){
+				var $dragdrop = $('#dragdrop');
+				$dragdrop.filedrop({
+					fallback_id: 'cover_fall',
+					url: '/api/v2/projects/cover',
+					paramname: 'cover',
+					allowedfiletypes: ['image/jpeg','image/png','image/gif'],
+					maxfiles: 1,
+					maxfilesize: 3,
+					dragOver: function () {
+						console.log('over');
+						$dragdrop.css('background', 'rgb(226, 255, 226)');
+					},
+					dragLeave: function () {
+						console.log('leave');
+						$dragdrop.css('background', 'rgb(241, 241, 241)');
+					},
+					drop: function () {
+						console.log('drop');
+						$dragdrop.css('background', 'rgb(241, 241, 241)');
+					},
+					uploadFinished: function(i, file, res) {
+						
+						$scope.$parent.project[name] = res.href;
+
+						$dragdrop
+						.css('background', 'url(' + res.href + ')')
+						.css('backgroundSize', 'cover')
+						.addClass("project-image")
+						.children('p').hide();
+					}
+				});
+			};
+
 		}],
 		link: function(scope, iElement, iAttrs) {
 			if(iAttrs.edit){
@@ -59,11 +93,14 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce) {
 					scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
 				}
 			}
-
 			var promise = loader.success(function(html) {
 				iElement.html(html);
 			}).then(function (response) {
 				iElement.replaceWith($compile(iElement.html())(scope));
+				if(scope.fieldSchema.type === 'image' || scope.fieldSchema.type === 'cover'){
+					scope.initFiledrop(scope.fieldSchema.type);
+				}
+
 			});
 		}
 	}

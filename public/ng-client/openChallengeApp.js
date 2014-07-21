@@ -55,7 +55,6 @@ ocApp.config(function($routeProvider) {
 });
 
 ocApp.run(function ($rootScope, $timeout, Restangular) {
-
 	Restangular.setBaseUrl('/api/v2');
 
 	Restangular.setRestangularFields({

@@ -4,7 +4,6 @@
  * 
  */
 
-
 var passport = require('passport')
   , mongoose = require('mongoose')
   , _ = require('underscore')
@@ -33,7 +32,6 @@ module.exports = function(app, uri, common) {
       next();
     }
   };
-
   //GET SCHEMA
   app.get(uri + '/projects/schema', common.isAuth, setSchema, sendSchema);
 
@@ -183,6 +181,7 @@ var createProject = function(req, res, next){
 };
 
 var uploadCover = function(req, res, next) {
+  console.log('SUBIENDO');
   var cover = (req.files && req.files.cover && req.files.cover.type.indexOf('image/') != -1 
     && '/uploads/' + req.files.cover.path.split('/').pop() + '.' + req.files.cover.name.split('.').pop());
 
