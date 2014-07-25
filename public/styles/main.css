@@ -777,7 +777,8 @@ display: inline-block;
 vertical-align: top;
 }
 
-#dragdrop {
+/* DRAG AND DROP IMAGE */
+.dragdrop {
   height: 100px;
   border: dashed 2px #999;
   border-radius: 5px;
@@ -788,7 +789,7 @@ vertical-align: top;
   margin: auto;
 }
 
-#dragdrop p {
+.dragdrop p {
   font-weight: bold;
   font-size: 16px;
   vertical-align: middle;
@@ -796,15 +797,43 @@ vertical-align: top;
   color: silver;
 }
 
-#dragdrop input {
+.dragdrop input {
   margin:25px auto 0 auto;
   display: none;
 }
 
-#dragdrop.success {
+.dragdrop.success {
   background: #669900;
 }
 
+/* DRAG AND DROP FILE*/
+.dragdrop-file {
+  height: 100px;
+  border: dashed 2px #999;
+  border-radius: 5px;
+  text-align: center;
+
+  width: 50%;
+  height: 200px;
+  margin: auto;
+}
+
+.dragdrop-file p {
+  font-weight: bold;
+  font-size: 16px;
+  vertical-align: middle;
+  margin-top: 40px;
+  color: silver;
+}
+
+.dragdrop-file input {
+  margin:25px auto 0 auto;
+  display: none;
+}
+
+.dragdrop-file.success {
+  background: #669900;
+}
 
 footer { 
   padding: 18px 0 17px 0;

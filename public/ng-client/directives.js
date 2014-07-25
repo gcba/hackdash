@@ -1,5 +1,5 @@
 /*directives*/
-ocApp.directive('fieldComponent', function($compile, $rootScope, $sce) {
+ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout) {
 
 	return {
 		restrict: 'E',
@@ -49,21 +49,49 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce) {
 				tags: 'text'
 			}, '/ng-client/modules/partials/form-widgets/');
 
-			$scope.initFiledrop = function(name){
-				var $dragdrop = $('#dragdrop');
+
+			$scope.initFileDrop = function(name){
+				var $dragdrop = $('#' + name);
+
 				$dragdrop.filedrop({
-					fallback_id: 'cover_fall',
-					url: '/api/v2/projects/cover',
-					paramname: 'cover',
+					fallback_id: name + '_fall',
+					url: '/api/v2/projects/upload_file',
+					paramname: name,
 					allowedfiletypes: ['image/jpeg','image/png','image/gif'],
 					maxfiles: 1,
 					maxfilesize: 3,
 					dragOver: function () {
-						console.log('over');
 						$dragdrop.css('background', 'rgb(226, 255, 226)');
 					},
 					dragLeave: function () {
-						console.log('leave');
+						$dragdrop.css('background', 'rgb(241, 241, 241)');
+					},
+					drop: function () {
+						$dragdrop.css('background', 'rgb(241, 241, 241)');
+					},
+					uploadFinished: function(i, file, res) {
+						$scope.$parent.project[name] = res.href;
+						$dragdrop
+						.addClass('file-selected')
+						.children('p').html(res.href);
+					}
+				});
+			};
+
+			$scope.initImageFiledrop = function(name){
+				var $dragdrop = $('#' + name);
+
+				$dragdrop.filedrop({
+					fallback_id: name + '_fall',
+					url: '/api/v2/projects/upload_file',
+					paramname: name,
+					allowedfiletypes: ['image/jpeg','image/png','image/gif'],
+					maxfiles: 1,
+					maxfilesize: 3,
+					dragOver: function () {
+						$dragdrop.css('background', 'rgb(226, 255, 226)');
+					},
+					dragLeave: function () {
 						$dragdrop.css('background', 'rgb(241, 241, 241)');
 					},
 					drop: function () {
@@ -85,21 +113,30 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce) {
 
 		}],
 		link: function(scope, iElement, iAttrs) {
+
 			if(iAttrs.edit){
 				var loader = scope.getWidgetFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
 			}else{
 				var loader = scope.getFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
-				if(scope.fieldSchema.type === 'videourl'){
+				if(scope.fieldSchema.type === 'videourl' && scope.fieldData){
 					scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
 				}
 			}
 			var promise = loader.success(function(html) {
 				iElement.html(html);
 			}).then(function (response) {
+
 				iElement.replaceWith($compile(iElement.html())(scope));
-				if(scope.fieldSchema.type === 'image' || scope.fieldSchema.type === 'cover'){
-					scope.initFiledrop(scope.fieldSchema.type);
-				}
+				
+				//putting off file drop init to next loop
+				$timeout(function(){
+					if(scope.fieldSchema.type === 'image' || scope.fieldSchema.type === 'cover'){
+						scope.initImageFiledrop(scope.fieldSchema.type);
+					} else if(scope.fieldSchema.type === 'fileurl'){
+
+						scope.initFileDrop(scope.fieldSchema.type);
+					}
+				}, 0);
 
 			});
 		}

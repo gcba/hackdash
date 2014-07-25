@@ -3,11 +3,14 @@
  * 
  * 
  */
+var mmm = require('mmmagic'),
+    Magic = mmm.Magic;
 
 var passport = require('passport')
   , mongoose = require('mongoose')
   , _ = require('underscore')
   , fs = require('fs')
+  , Q = require('q')
   , config = require('../../../config.json');
 
 var Project = mongoose.model('Project')
@@ -40,7 +43,7 @@ module.exports = function(app, uri, common) {
 
   //NEW
   app.post(uri + '/projects', common.isAuth, loadCommon(common), canCreateProject, createProject, sendProject);
-  app.post(uri + '/projects/cover', common.isAuth, uploadCover);
+  app.post(uri + '/projects/upload_file', common.isAuth, uploadFile);
 
   //GET ONE  
   app.get(uri + '/projects/:pid', getProject, sendProject);
@@ -180,21 +183,32 @@ var createProject = function(req, res, next){
 
 };
 
-var uploadCover = function(req, res, next) {
-  console.log('SUBIENDO');
-  var cover = (req.files && req.files.cover && req.files.cover.type.indexOf('image/') != -1 
-    && '/uploads/' + req.files.cover.path.split('/').pop() + '.' + req.files.cover.name.split('.').pop());
+var buildImgPath = function(file){
+  return '/uploads/' + file.path.split('/').pop() + '.' + file.name.split('.').pop();
+};
 
-  if(req.files && req.files.cover && req.files.cover.type.indexOf('image/') != -1) {
-    var tmp_path = req.files.cover.path
-      , target_path = './public' + cover;
+var uploadFile = function(req, res, next) {
+  var supportedMimes = ['image/jpeg', 'image/png','audio/mpeg3','image/jpeg', 'application/pdf'];
+  var magic = new Magic(mmm.MAGIC_MIME_TYPE);
 
-    fs.rename(tmp_path, target_path, function(err) {
-      if (err) throw err;
-      fs.unlink(tmp_path, function() {
-        if (err) throw err;
-        res.json({ href: cover });
-      });
+  if(req.files){
+    var fname = _.first(_.keys(req.files));
+    var tmp = req.files[fname].path;
+    var path = buildImgPath(req.files[fname]);
+    var trg = './public/' + path;
+    
+    magic.detectFile(tmp, function(error, result){
+      if(_.contains(supportedMimes, result)){
+        fs.rename(tmp, trg, function(err) {
+          if (err) throw err;
+          fs.unlink(tmp, function() {
+            if (err) throw err;
+            res.json({ href: path });
+          });
+        });
+      }else{
+        res.send(400, { error: 'Archivo no soportado' });
+      }
     });
   }
 };

@@ -1,7 +1,7 @@
-<label ng-style="$root.getCssColor($parent.challenge)">{{fieldSchema.label}}</label>
-<div id="dragdrop" class="project-image" style="height: 200px; border:1px solid red;"> 
+<label ng-style="$root.getCssColor($parent.challenge)" pepe="{{fieldSchema.type}}">{{fieldSchema.label}}</label>
+<div id="{{fieldSchema.type}}" class="project-image dragdrop"> 
   <p>Arrastre la imágen aquí
-   <input type="file" name="cover_fall" id="cover_fall"/>
+   <input type="file" name="{{fieldSchema.type}}_fall" id="{{fieldSchema.type}}_fall"/>
 	</p>
 </div>
 <small>{{fieldSchema.help}}</small>

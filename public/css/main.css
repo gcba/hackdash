@@ -372,3 +372,64 @@ a{
   cursor: pointer;
 }
 
+/* DRAG AND DROP IMAGE */
+.dragdrop {
+  height: 100px;
+  border: dashed 2px #999;
+  border-radius: 5px;
+  text-align: center;
+
+  width: 100%;
+  height: 200px;
+  margin: auto;
+}
+
+.dragdrop p {
+  font-weight: bold;
+  font-size: 16px;
+  vertical-align: middle;
+  margin-top: 85px;
+  color: silver;
+}
+
+.dragdrop input {
+  margin:25px auto 0 auto;
+  display: none;
+}
+
+.dragdrop.success {
+  background: #669900;
+}
+
+/* DRAG AND DROP FILE*/
+.dragdrop-file {
+  height: 100px;
+  border: dashed 2px #999;
+  border-radius: 5px;
+  text-align: center;
+
+  width: 100%;
+  height: 150px;
+  margin: auto;
+}
+
+.dragdrop-file p {
+  font-weight: bold;
+  font-size: 16px;
+  vertical-align: middle;
+  margin-top: 60px;
+  color: silver;
+}
+
+.dragdrop-file input {
+  margin:25px auto 0 auto;
+  display: none;
+}
+
+.dragdrop-file.success {
+  background: #669900;
+}
+
+.dragdrop-file.file-selected p{
+  color: #000;
+}

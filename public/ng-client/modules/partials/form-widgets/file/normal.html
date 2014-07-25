@@ -1,3 +1,7 @@
-<label ng-style="$root.getCssColor($parent.challenge)">{{fieldSchema.label}}</label>
-<input class="form-control" type="text" ng-model="fieldData" />
+<label ng-style="$root.getCssColor($parent.challenge)" pepe="{{fieldSchema.type}}">{{fieldSchema.label}}</label>
+<div id="{{fieldSchema.type}}" class="project-file dragdrop-file"> 
+  <p>Arrastre el archivo aquí
+   <input type="file" name="{{fieldSchema.type}}_fall" id="{{fieldSchema.type}}_fall"/>
+	</p>
+</div>
 <small>{{fieldSchema.help}}</small>
