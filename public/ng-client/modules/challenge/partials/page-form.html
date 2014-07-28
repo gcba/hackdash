@@ -5,7 +5,7 @@
 		
 		<div class="form-group">
 			<label> Título</label>
-			<input name="title" type="text" ng-model="page.title" class="form-control" ng-maxlength="64" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\á\é\í\ó\ú\Á\É\Í\Ó\Ú\ñ\Ñ\s\-]+$/" required/>
+			<input placeholder="Escriba un título" name="title" type="text" ng-model="page.title" class="form-control" ng-maxlength="64" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\á\é\í\ó\ú\Á\É\Í\Ó\Ú\ñ\Ñ\s\-]+$/" required/>
 			<small ng-show="(pageForm.title.$dirty || submited) && pageForm.title.$error.pattern" class="form-error">Debe ingresar solo caracteres alfanuméricos.</small>
 			<small ng-show="(pageForm.title.$dirty || submited) && pageForm.title.$error.maxlength" class="form-error">El texto ingresado no debe superar los 64 caracteres.</small>
 			<small ng-show="(pageForm.title.$dirty || submited) && pageForm.title.$error.required" class="form-error">El campo título es requerido</small>
@@ -18,4 +18,8 @@
 				<option value="">-- select --</option>
 			</select>
 		</div>
+		<div class="form-group">
+			<label>Orden</label>
+			<input placeholder="Escriba el número de orden" ng-model="page.weight" type="text" class="form-control"/>
+		</div>		
 </ng-form>

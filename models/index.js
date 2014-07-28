@@ -56,6 +56,7 @@ module.exports = function(app) {
         "title": { type: String, required: true }
       , "text": { type: String, required: true }
       , "content_type": { type: String, enum: app.get('page_contents_type'), default: app.get('page_contents_type')[0] }
+      , "weight": {type: Number}
     }]
     , "contact": { type: String, validate: /.+@.+\..+/ }
     , "submit_fields":  [{

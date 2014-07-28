@@ -142,6 +142,59 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 		}
 	}
 });
+//TODO
+ocApp.directive('imageDrop', function ($window, $timeout) {
+	return {
+		restrict: 'E',
+		transclude: true,
+		template: '<label ng-style="$root.getCssColor($parent.challenge)">{{fieldSchema.label}}</label><div id="{{fieldSchema.type}}" class="project-image dragdrop"><p>Arrastre la imágen aquí<input type="file" name="{{fieldSchema.type}}_fall" id="{{fieldSchema.type}}_fall"/></p></div><small>{{fieldSchema.help}}</small>',
+		controller: ['$scope', function($scope) {	
+
+			$scope.initImageFiledrop = function(node){
+				var $dragdrop = $(node).find('.dragdrop:first');
+
+				$dragdrop.addClass('dragdrop project-image');
+				$dragdrop.filedrop({
+					fallback_id: 'header_fall',
+					url: '/api/v2/projects/upload_file',
+					paramname: name,
+					allowedfiletypes: ['image/jpeg','image/png','image/gif'],
+					maxfiles: 1,
+					maxfilesize: 3,
+					dragOver: function () {
+						console.log('leave');
+						$dragdrop.css('background', 'rgb(226, 255, 226)');
+					},
+					dragLeave: function () {
+						console.log('leave');
+						$dragdrop.css('background', 'rgb(241, 241, 241)');
+					},
+					drop: function () {
+						console.log('drop');
+						$dragdrop.css('background', 'rgb(241, 241, 241)');
+					},
+					uploadFinished: function(i, file, res) {
+						
+						$scope.$parent.challenge.header_images[0] = res.href;
+
+						$dragdrop
+						.css('background', 'url(' + res.href + ')')
+						.css('backgroundSize', 'cover')
+						.addClass("project-image")
+						.children('p').hide();
+					}
+				});
+			};
+
+		}],
+		link: function(scope, iElement, iAttrs){
+			$timeout(function(){
+				console.log('aca');
+				scope.initImageFiledrop(iElement);
+			}, 0);
+		}
+	}
+});
 
 ocApp.directive('appDatetime', function ($window) {
 		return {

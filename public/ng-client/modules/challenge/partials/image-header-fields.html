@@ -3,11 +3,11 @@
 	  <a href ng-click="challenge.header_images.push('')" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
 	</span>
 </legend>	
-<p>TODO: hacer load file </p>
 <div ng-repeat="header_image in challenge.header_images track by $index">
 	<div class="form-group remove-fieldset">
 		<a href ng-click="challenge.header_images.splice($index, 1)" class="btn btn-danger btn-xs ">X</a>
 	</div>
+	<image-drop ng-model="challenge.header_images[$index]"/>
 	<div class="form-group">
 		<label>Imagen</label>
 		<input type="text" ng-model="challenge.header_images[$index]" class="form-control" />	
