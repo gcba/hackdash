@@ -119,7 +119,11 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 			}else{
 				var loader = scope.getFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
 				if(scope.fieldSchema.type === 'videourl' && scope.fieldData){
-					scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
+					if(iAttrs.viewMode === 'full'){
+						scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
+					}else{
+						scope.fieldData =  $sce.trustAsResourceUrl('http://img.youtube.com/vi/' + scope.fieldData + '/0.jpg');
+					}
 				}
 			}
 			var promise = loader.success(function(html) {

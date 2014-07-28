@@ -5,19 +5,10 @@
 			<h1>{{challenge.title}}</h1>
 			<p>{{challenge.subtitle}}</p>
 			<ul id="myTab" class="nav nav-tabs">
-				<li class="active">
-					<a href="#home" data-toggle="tab">Inicio</a>
+				<li ng-repeat="p in challenge.pages | orderBy: 'weight' " ng-class="{active: p.active}">
+					<a href="#{{slugify(p.title)}}-page" data-toggle="tab">{{p.title}}</a>
 				</li>
-					<li ng-repeat="p in challenge.pages">
-					<a href="#{{p.content_type}}-page" data-toggle="tab">{{p.title}}</a>
-				</li>
-				<li>
-					<a href="#stages" data-toggle="tab">Etapas</a>
-				</li>
-				<li>
-					<a href="#submissions" data-toggle="tab">Propuestas ({{projects.length}})</a>
-				</li>
-			</ul>
+		</ul>
 		</div>
 
 	</div>
@@ -27,54 +18,10 @@
 			<div class="col-md-7">
 
 				<div id="tab-content-container" class="tab-content">
-					
-					<div class="tab-pane active" id="home">
-						<p ta-bind ng-model="challenge.description"></p>
+					<div class="tab-pane" id="{{slugify(p.title)}}-page" ng-repeat="p in challenge.pages | orderBy: 'weight'" ng-class="{active: p.active}">
+						<ng-include src="'/ng-client/modules/challenge/partials/' + p.content_type + '-type.html'"></ng-include>
 					</div>
-
-					<div class="tab-pane" id="stages">
-						<h2>Etapas</h2>
-						<ul>
-							<li ng-repeat="s in challenge.stages">
-								<strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.
-							</li>
-						</ul>
-					</div>
-
-					<div class="tab-pane" id="{{p.content_type}}-page" ng-repeat="p in challenge.pages">
-						<div ng-bind-html="p.text" ng-init="applyCssColor(challenge,'tab-content-container')"></div>
-					</div>
-
-					<div class="tab-pane" id="submissions">
-						<h2>Participaciones: ({{projects.length}})</h2>
-							<div class="row">
-								<div class="col-md-12">
-									<p ng-if="challenge.categories.length > 0">
-										<select ng-model="filter.cat" ng-options="option for option in challenge.categories" ng-change="changeFilter()" class="form-control input-lg">
-											<option value="">Todas las categorías</option>
-										</select>
-									</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<select ng-model="order" ng-change="changeFilter()" class="form-control input-lg">
-										<option value="">Fecha de creación</option>
-										<option value="status">Premio</option>
-										<option value="votes">Votos</option>
-									</select>
-								</div>
-							</div>
-							<div ng-show="projects.length == 0" class="row">
-								<p>No hay participaciones con este filtro</p>
-							</div>
-							<div class="row">
-								<div class="col-md-6" ng-repeat="project in projects" ng-include="'ng-client/modules/project/card.html'"></div>
-							</div>
-					</div>
-
 				</div>
-
 			</div>
 
 			<div class="col-md-4 col-md-offset-1">

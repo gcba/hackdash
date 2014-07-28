@@ -134,6 +134,13 @@ ocApp.run(function ($rootScope, $timeout, Restangular) {
 				};
 		}
 	}
+	
+	$rootScope.slugify = function(text){
+		return text
+			.toLowerCase()
+			.replace(/[^\w ]+/g,'')
+			.replace(/ +/g,'-');
+	}
 
 	$rootScope.applyCssColor = function(challenge, id){
 		var selector = 	 '#'+id+' a:not(.btn),'

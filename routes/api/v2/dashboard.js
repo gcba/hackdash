@@ -142,8 +142,8 @@ var updateDashboard = function(req, res, next) {
   dashboard.header_images = getValue("header_images");
   dashboard.link_color = getValue("link_color");
   dashboard.call_to_action = getValue("call_to_action");
-
   dashboard.save(function(err, dashboard){
+
     if(err) return res.send(500);
     req.dashboard = dashboard;
     next();

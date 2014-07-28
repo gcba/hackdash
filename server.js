@@ -58,7 +58,7 @@ app.configure(function(){
   });
   app.set('statuses',['1-winner', '1-price', '2-price', '3-price', '4-special-mention', '4-finals','5-submitted']);
   app.set('roles',['user','admin','superadmin']);
-  app.set('page_contents_type',['text','faq','rules','jury','prizes']);
+  app.set('page_contents_type',['text','faq','rules','jury','prizes', 'stages', 'submissions']);
   app.set('permissions',[
      'edit-submit'
     ,'submit'

@@ -259,6 +259,7 @@ var updateProject = function(req, res, next) {
   }
   
   project.save(function(err, project){
+    console.log(err);
     if(err) return res.send(500);
     req.project = project;
 

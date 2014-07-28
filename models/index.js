@@ -54,8 +54,9 @@ module.exports = function(app) {
     , "header_images" : [String]
     , "pages" : [{
         "title": { type: String, required: true }
-      , "text": { type: String, required: true }
+      , "text": { type: String}
       , "content_type": { type: String, enum: app.get('page_contents_type'), default: app.get('page_contents_type')[0] }
+      , "active": {type: Boolean}
       , "weight": {type: Number}
     }]
     , "contact": { type: String, validate: /.+@.+\..+/ }

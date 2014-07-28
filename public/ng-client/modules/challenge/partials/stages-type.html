@@ -1,0 +1,7 @@
+<h2>Etapas</h2>
+<div ng-bind-html="p.text" ng-init="applyCssColor(challenge,'tab-content-container')"></div>
+<ul>
+	<li ng-repeat="s in challenge.stages">
+		<strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.
+	</li>
+</ul>
