@@ -162,11 +162,11 @@ h2 {
 
 /* Cards Projects */
 
-#submissions .col-md-12 select {
+.submissions .col-md-12 select {
   margin-bottom:20px;
 }
 
-#submissions .thumbnail {
+.submissions .thumbnail {
   border-top-width:10px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -174,27 +174,27 @@ h2 {
   padding:0;
 }
 
-#submissions .thumbnail .text-muted {
+.submissions .thumbnail .text-muted {
   margin-top: 20px;
   margin-bottom: 5px;
 }
 
-#submissions .thumbnail h4 {
+.submissions .thumbnail h4 {
   text-align: center;
   font-size:24px;
   margin: 0 0 20px 0;
 }
 
-#submissions .thumbnail img {
+.submissions .thumbnail img {
   width:100%;
   height:auto;
 }
 
-#submissions .thumbnail-content {
+.submissions .thumbnail-content {
   padding: 20px;
 }
 
-#submissions .thumbnail-footer {
+.submissions .thumbnail-footer {
   padding: 20px;
   margin-top:20px;
   border-top:solid 1px #ddd;
