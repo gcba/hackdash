@@ -433,3 +433,7 @@ a{
 .dragdrop-file.file-selected p{
   color: #000;
 }
+
+.comments{
+  margin-top: 30px;
+}

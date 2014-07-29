@@ -52,6 +52,7 @@ module.exports = function(app) {
     , "status": [String]
     , "created_at": { type: Date, default: Date.now }
     , "header_images" : [String]
+    , "allow_comments": Boolean
     , "pages" : [{
         "title": { type: String, required: true }
       , "text": { type: String}

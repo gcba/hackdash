@@ -32,7 +32,29 @@
 						  <a href ng-click="challenge.pages.push({})" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
 						</span>
 					</legend>
-					<div ng-repeat="page in challenge.pages" ng-include="'/ng-client/modules/challenge/partials/page-form.html'"></div>
+
+
+
+
+				<div class="panel-group" id="accordion">
+				  <div class="panel panel-default" ng-repeat="page in challenge.pages">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion" data-target="#{{slugify(page.title)}}">
+				          {{page.title}}
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="{{slugify(page.title)}}" class="panel-collapse collapse in">
+				      <div class="panel-body">
+				        <div ng-include="'/ng-client/modules/challenge/partials/page-form.html'"></div>
+				      </div>
+				    </div>
+				  </div> 
+				</div>
+
+
+					
 				</fieldset>
 
 				<!-- Challenge steps -->

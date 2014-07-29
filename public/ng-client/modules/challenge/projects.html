@@ -57,37 +57,7 @@
 					<p>followers {{project.followers.length}}</p>
 
 					<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
-
-						<h4>{{s.label}}</h4>
-						<div ng-if="(s.type == 'title')">
-							<h2>{{project[s.type]}}</h2>
-						</div>
-						<div ng-if="(s.type == 'description')">
-							<p>{{project[s.type]}}</p>
-						</div>
-						<div ng-if="(s.type == 'link')">
-							<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
-						</div>
-						<div ng-if="(s.type == 'imageurl')">
-							<img ng-src="{{project[s.type]}}" />
-						</div>
-						<div ng-if="(s.type == 'cover')">
-							<img ng-src="{{project[s.type]}}" />
-						</div>	
-						<div ng-if="(s.type == 'videourl')">
-							<iframe width="560" height="315" src="//www.youtube.com/embed/VMl0GbiVEyA?rel=0" frameborder="0" allowfullscreen="false"></iframe>
-							{{project[s.type]}}
-						</div>
-						<div ng-if="(s.type == 'text')">
-							<p>{{project[s.type]}}</p>
-						</div>
-						<div ng-if="(s.type == 'fileurl')">
-							<a ng-href="{{project[s.type]}}">{{project[s.type]}}</a>
-						</div>
-						<div ng-if="(s.type == 'tags')">
-							<p>{{project[s.type]}}</p>
-						</div>
-
+						<field-component field-schema="s" field-data="project[s.type]" view-mode="normal" edit="true"/>
 					</div>
 
 			      </div>
