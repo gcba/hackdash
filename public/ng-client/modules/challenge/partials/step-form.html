@@ -4,7 +4,7 @@
 						</div>
 						<div class="form-group">
 							<label>Nombre</label>
-							<input name="name" type="text" ng-model="stage.name" class="form-control" ng-maxlength="64" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\á\é\í\ó\ú\Á\É\Í\Ó\Ú\ñ\Ñ\s\-]+$/" required/>
+							<input placeholder="Ingrese un nombre para la etapa" name="name" type="text" ng-model="stage.name" class="form-control" ng-maxlength="64" ng-minlength="3" ng-pattern="/^[a-zA-Z0-9\á\é\í\ó\ú\Á\É\Í\Ó\Ú\ñ\Ñ\s\-]+$/" required/>
 							<small ng-show="(stepForm.name.$dirty || submited) && stepForm.name.$error.pattern" class="form-error">Debe ingresar solo caracteres alfanuméricos.</small>
 							<small ng-show="(stepForm.name.$dirty || submited) && stepForm.name.$error.maxlength" class="form-error">El texto ingresado no debe superar los 64 caracteres.</small>
 							<small ng-show="(stepForm.name.$dirty || submited) && stepForm.name.$error.required" class="form-error">El campo nombre es requerido</small>
@@ -28,8 +28,24 @@
 							</select>
 						</div>
 						<a ng-show="stage.permissionOptions.length > 0" href="javascript:;" ng-click="addPermission(stage)" class="btn btn-default">Agregar permiso</a>
-						<p ng-repeat="perm in stage.permissions">
-							{{perm}} <a href ng-click="removePermission(stage,$index)" class="btn btn-danger btn-xs">x</a>
-						</p>
+						
+						<div class="panel panel-default panel-permisos">
+							<div class="panel-heading">Permisos</div>
+							<table class="table">
+								<thead>
+									<tr>
+										<th>Permiso</th>
+										<th>Acciones</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr ng-repeat="perm in stage.permissions">
+										<td>{{perm}}</td>
+										<td><a href ng-click="removePermission(stage,$index)" class="btn btn-danger btn-xs">x</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
 						
 					</ng-form>

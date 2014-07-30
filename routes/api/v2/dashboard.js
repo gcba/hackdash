@@ -8,7 +8,8 @@
 var passport = require('passport')
   , mongoose = require('mongoose')
   , _ = require('underscore')
-  , config = require('../../../config.json');
+  , config = require('../../../config.json')
+  , log = require('winston');
 
 var Project = mongoose.model('Project')
   , User = mongoose.model('User')
@@ -144,8 +145,10 @@ var updateDashboard = function(req, res, next) {
   dashboard.call_to_action = getValue("call_to_action");
   dashboard.allow_comments = getValue("allow_comments");
   dashboard.save(function(err, dashboard){
-
-    if(err) return res.send(500);
+    if(err){ 
+      log.error(err);
+      return res.send(500, {err: err.toString()});
+    }
     req.dashboard = dashboard;
     next();
   });

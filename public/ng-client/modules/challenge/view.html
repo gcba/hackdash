@@ -38,7 +38,7 @@
 					<h4 ng-style="getCssColor(challenge)">Etapas actuales:</h4>
 					<ul>
 						<li ng-repeat="s in currentStages.stages">
-							<strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.
+							<p><strong>{{s.name}}</strong> : Desde el {{s.start | date:'dd-MM-yyyy'}} a las {{s.start | date:'HH:mm'}}Hs. hasta el {{s.end | date:'dd-MM-yyyy'}} a las {{s.end | date:'HH:mm'}}Hs.</p>
 						</li>
 					</ul>
 				</div>
@@ -50,11 +50,11 @@
 
 				<div class="sidebar-data">
 					<h4 ng-style="getCssColor(challenge)">Contacto:</h4>
-					<p>{{challenge.contact}}</p>
+					<p><a href="mailto:{{challenge.contact}}">{{challenge.contact}}</a></p>
 				</div>
 
 				<div ng-if="userCanEdit" class="sidebar-data">
-					<h4 ng-style="getCssColor(challenge)">Actions</h4>
+					<h4 ng-style="getCssColor(challenge)">Administración:</h4>
 					<p><a href="/#/challenge/{{challenge._id}}/edit">Editar</a></p>
 				</div>
 

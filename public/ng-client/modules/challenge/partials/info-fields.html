@@ -42,6 +42,6 @@
 
 <div class="form-group">
 	<label>Color de los links</label>
-	<input name="link_color" type="text" ng-model="challenge.link_color" class="form-control" ng-pattern="/^#[0-9A-F]{6}$/"/>
+	<input colorpicker="hex" name="link_color" type="text" ng-model="challenge.link_color" class="form-control" ng-pattern="/^#[0-9A-Fa-f]{6}$/"/>
 	<small ng-show="(formChallengeEdit.link_color.$dirty || submited) && formChallengeEdit.link_color.$error.pattern" class="form-error">Debe ingresar un color en formato hexadecimal válido. Ej: #FF0000</small>
 </div>

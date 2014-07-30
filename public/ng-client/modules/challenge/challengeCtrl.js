@@ -24,6 +24,8 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.submited = false;
 
+	$scope.newTitle = 'sin-titulo-0';
+
 	//Inits
 	$scope.editProjectsInit = function(){
 		$scope.checkCanEdit();
@@ -39,6 +41,14 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			$scope.userCanEdit = ($rootScope.user.admin_in.indexOf($routeParams.challengeId) >= 0);
 		}
 	};
+
+	$scope.applyAccordion = function(){
+		$('.collapse').collapse();
+	}
+
+	$scope.getTitle = function(page){
+		return page.title ? page.title : 'Sin título';
+	}
 
 	$scope.editInit = function(){
 		$scope.checkCanEdit();

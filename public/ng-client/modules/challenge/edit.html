@@ -37,15 +37,15 @@
 
 
 				<div class="panel-group" id="accordion">
-				  <div class="panel panel-default" ng-repeat="page in challenge.pages">
-				    <div class="panel-heading">
+				  <div class="panel panel-default" ng-repeat="page in challenge.pages" on-finish-render="applyAccordion()">
+				    <div class="panel-heading" ng-init="pid = generateUUID()">
 				      <h4 class="panel-title">
-				        <a data-toggle="collapse" data-parent="#accordion" data-target="#{{slugify(page.title)}}">
-				          {{page.title}}
+				        <a data-toggle="collapse" data-parent="#accordion" data-target="#{{pid}}">
+				          {{getTitle(page)}}
 				        </a>
 				      </h4>
 				    </div>
-				    <div id="{{slugify(page.title)}}" class="panel-collapse collapse in">
+				    <div id="{{pid}}" class="panel-collapse collapse in">
 				      <div class="panel-body">
 				        <div ng-include="'/ng-client/modules/challenge/partials/page-form.html'"></div>
 				      </div>
@@ -64,7 +64,26 @@
 						  <a href ng-click="addStage()" class="btn"><span class="glyphicon glyphicon-plus"></span></a>
 						</span>
 					</legend>
-					<div ng-repeat="stage in challenge.stages" ng-include="'/ng-client/modules/challenge/partials/step-form.html'"></div>
+
+
+				<div class="panel-group" id="accordion">
+				  <div class="panel panel-default" ng-repeat="stage in challenge.stages" on-finish-render="applyAccordion()">
+				    <div class="panel-heading" ng-init="pid = generateUUID()">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#accordion" data-target="#{{pid}}">
+				          {{stage.name || 'Sin nombre'}}
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="{{pid}}" class="panel-collapse collapse in">
+				      <div class="panel-body">
+				        <div ng-include="'/ng-client/modules/challenge/partials/step-form.html'"></div>
+				      </div>
+				    </div>
+				  </div> 
+				</div>
+
+					
 				</fieldset>
 				
 				<!-- Challenge image header -->

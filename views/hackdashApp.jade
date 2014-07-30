@@ -2,7 +2,8 @@ doctype html
 html(ng-app="oc-project")
   head
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title= title
+    title(ng-bind="'BA Concursos - ' + $root.title")
+      title
     link(rel="shortcut icon", href="/bastrap/favicon.ico", type="image/x-icon")
     link(rel="icon", href="/favicon.ico", type="image/x-icon")
     
@@ -13,6 +14,7 @@ html(ng-app="oc-project")
     
     link(rel='stylesheet', href='/bastrap/bastrap.css?v=' + version)
     link(rel='stylesheet', href='/css/main.css?v=' + version)
+    link(rel='stylesheet', href='/css/colorpicker.css')
 
   body
     .navbar.navbar-primary.navbar-top(role='navigation')
@@ -70,6 +72,7 @@ html(ng-app="oc-project")
     script(src="/js/libs/angular.min.js")
     script(src="/js/libs/ui-bootstrap-0.11.0.min.js")
     script(src="/js/libs/angular-route.min.js")
+    script(src="/js/libs/bootstrap-colorpicker-module.js")
     script(src="/js/libs/restangular.min.js")
     script(src="/js/libs/textAngular-sanitize.min.js")
     script(src="/js/libs/textAngular.min.js")

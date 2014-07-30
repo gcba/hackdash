@@ -10,11 +10,11 @@
 </div>
 <div class="form-group">
 	<label>Color</label>
-	<input name="call_to_action_color" type="text" ng-model="challenge.call_to_action.color" class="form-control"  ng-pattern="/^#[0-9A-F]{6}$/"/>
+	<input colorpicker="hex" name="call_to_action_color" type="text" ng-model="challenge.call_to_action.color" class="form-control"  ng-pattern="/^#[0-9A-Fa-f]{6}$/"/>
 	<small ng-show="(formChallengeEdit.call_to_action_color.$dirty || submited) && formChallengeEdit.call_to_action_color.$error.pattern" class="form-error">Debe ingresar un color en formato hexadecimal válido. Ej: #FF0000</small>
 </div>
 <div class="form-group">
 	<label>Color de fondo</label>
-	<input name="call_to_action_bgcolor" type="text" ng-model="challenge.call_to_action.bgcolor" class="form-control"  ng-pattern="/^#[0-9A-F]{6}$/"/>
+	<input colorpicker="hex" name="call_to_action_bgcolor" type="text" ng-model="challenge.call_to_action.bgcolor" class="form-control"  ng-pattern="/^#[0-9A-Fa-f]{6}$/"/>
 	<small ng-show="(formChallengeEdit.call_to_action_bgcolor.$dirty || submited) && formChallengeEdit.call_to_action_bgcolor.$error.pattern" class="form-error">Debe ingresar un color hexadecimal válido. Ej: #FF0000</small>
 </div>

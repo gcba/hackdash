@@ -218,20 +218,32 @@ ocApp.directive('appDatetime', function ($window) {
 						function parser(value) {
 								var m = moment(value, 'DD-MM-YYYY', true);
 								var valid = m.isValid();
-								console.log(valid);
 								ngModel.$setValidity('datetime', valid);
 								if (valid) return m.valueOf();
 								else return value;
 						}
 
 						function formatter(value) {
+								if(!value) return '';
 								var m = moment(value);
+								
 								var valid = m.isValid();
 								if (valid) return m.format('DD-MM-YYYY');
 								else return value;
 						}
 
-				} //link
+				}
 		};
-
 });
+
+ocApp.directive('onFinishRender', function ($timeout) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attr) {
+            if (scope.$last) {
+							scope.$evalAsync(attr.onFinishRender);
+						}
+        }
+    }
+});
+
