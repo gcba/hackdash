@@ -11,7 +11,7 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 		},
 		transclude: true,
 		controller: ['$scope', '$http', '$templateCache', '$compile', function($scope, $http, $templateCache, $compile) {
-			
+			console.log('RUN CONTROLLER');
 			var buildTemplateFunc = function(tMap, bUrl){
 				return function tmplFunc(contentType, viewMode){
 					var templateLoader
@@ -109,11 +109,11 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 						.children('p').hide();
 					}
 				});
+
 			};
 
 		}],
 		link: function(scope, iElement, iAttrs) {
-
 			if(iAttrs.edit){
 				var loader = scope.getWidgetFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
 			}else{
@@ -129,19 +129,14 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 			var promise = loader.success(function(html) {
 				iElement.html(html);
 			}).then(function (response) {
-
 				iElement.replaceWith($compile(iElement.html())(scope));
-				
-				//putting off file drop init to next loop
 				$timeout(function(){
-					if(scope.fieldSchema.type === 'image' || scope.fieldSchema.type === 'cover'){
+					if(scope.fieldSchema.type === 'imageurl' || scope.fieldSchema.type === 'cover'){
 						scope.initImageFiledrop(scope.fieldSchema.type);
 					} else if(scope.fieldSchema.type === 'fileurl'){
-
 						scope.initFileDrop(scope.fieldSchema.type);
 					}
-				}, 0);
-
+				});
 			});
 		}
 	}

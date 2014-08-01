@@ -1,4 +1,4 @@
-ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce, $timeout) {
+ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce, $timeout, $route) {
 
 	$scope.challenge = {
 		pages: [],
@@ -73,6 +73,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
+		
 	};
 
 	//Common
@@ -82,6 +83,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 				.then(function(challenge){
 			  		$scope.challenge = challenge;
 			  		$scope.currentStages = $rootScope.getCurrentStages(challenge);
+			  		$rootScope.title = ' - ' + $scope.challenge.title;
 			  		if(isEdit){
 			  			$scope.preprocessCollections();
 			  		}else{

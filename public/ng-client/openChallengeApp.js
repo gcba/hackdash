@@ -69,10 +69,6 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
 
   angular.extend($rootScope,window.openchallenge);
 
-	$rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
-    $rootScope.title = $route.current.title;
-  });
-  
   $rootScope.refreshUser = function(cb){
     Restangular.one('profiles', $rootScope.user._id).get().then(function(user){
       $rootScope.user = user;
@@ -81,6 +77,11 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
       }
     });
   } 
+	
+
+	$rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
+    $rootScope.title = '';
+  });
 
   //Permissions
   $rootScope.isAbleTo = function(permi, challenge){
