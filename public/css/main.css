@@ -266,16 +266,8 @@ h2 {
   height:auto;
 }
 
-.sidebar-data {
-  clear:both;
-}
-
-.sidebar-data img {
-  border-radius: 100px;
-  float:left;
-  margin-right: 20px;
+.adminbar {
   margin-bottom:40px;
-  display: block;
 }
 
 .sidebar-someone p {
@@ -433,6 +425,10 @@ a{
 
 .dragdrop-file.file-selected p{
   color: #000;
+}
+
+.filedrop-component input{
+  visibility: hidden;
 }
 
 .comments{

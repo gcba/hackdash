@@ -1,16 +1,22 @@
-<h1>Admin - Challenges</h1>
-<table class="table">
-	<tr>
-		<th>Título</th>
-		<th>Subtítulo</th>
-		<th>Abierto</th>
-		<th>Submits</th>
-	</tr>
-	<tr ng-repeat="c in challenges">
-		<td>{{c.title}}</td>
-		<td>{{c.subtitle}}</td>
-		<td>{{c.open}}</td>
-		<td>n</td>
-		<td><a href="/#/challenge/{{c._id}}">ver</a> | <a href="/#/challenge/{{c._id}}/edit">edit</a> | <a ng-click="removeChallenge(c)" href="javascript:;">eliminar</a> | <a href="/#/challenge/{{c._id}}/edit/projects">ver submits</a></td>
-	</tr>
-</table>
+<div class="container">
+	<div class="row">
+			<div class="col-md-12">
+				<h2>Admin - Challenges</h2>
+				<table class="table">
+					<tr>
+						<th>Título</th>
+						<th>Subtítulo</th>
+						<th>Abierto</th>
+						<th>Submits</th>
+					</tr>
+					<tr ng-repeat="c in challenges">
+						<td>{{c.title}}</td>
+						<td>{{c.subtitle}}</td>
+						<td>{{c.open}}</td>
+						<td>n</td>
+						<td><a href="/#/challenge/{{c._id}}">ver</a> | <a href="/#/challenge/{{c._id}}/edit">edit</a> | <a ng-click="removeChallenge(c)" href="javascript:;">eliminar</a> | <a href="/#/challenge/{{c._id}}/edit/projects">ver submits</a></td>
+					</tr>
+				</table>
+			</div>
+	</div>
+</div>

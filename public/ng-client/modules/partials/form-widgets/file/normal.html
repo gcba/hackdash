@@ -1,7 +1,9 @@
-<label ng-style="$root.getCssColor($parent.challenge)" pepe="{{fieldSchema.type}}">{{fieldSchema.label}}</label>
-<div id="{{fieldSchema.type}}" class="project-file dragdrop-file"> 
-  <p>Haga click o arrastre el archivo aquí
-   <input type="file" name="{{fieldSchema.type}}_fall" id="{{fieldSchema.type}}_fall"/>
-	</p>
+<div class="filedrop-component">
+	<label ng-style="$root.getCssColor($parent.challenge)" pepe="{{fieldSchema.type}}">{{fieldSchema.label}}</label>
+	<div id="{{fieldSchema.type}}" class="project-file dragdrop-file"> 
+	  <p>Haga click o arrastre el archivo aquí
+		</p>
+	</div>
+	<input type="file" name="{{fieldSchema.type}}_fall" id="{{fieldSchema.type}}_fall"/>
+	<small>{{fieldSchema.help}}</small>
 </div>
-<small>{{fieldSchema.help}}</small>
