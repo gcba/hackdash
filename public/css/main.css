@@ -382,6 +382,7 @@ a{
   width: 100%;
   height: 200px;
   margin: auto;
+  cursor: pointer;
 }
 
 .dragdrop p {
@@ -423,7 +424,7 @@ a{
 
 .dragdrop-file input {
   margin:25px auto 0 auto;
-  display: none;
+  visibility: hidden;
 }
 
 .dragdrop-file.success {

@@ -75,6 +75,9 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 						.addClass('file-selected')
 						.children('p').html(res.href);
 					}
+				}).on('click', function(e){ 
+					e.stopPropagation(); 
+					$('#' + name + '_fall').trigger('click')
 				});
 			};
 
@@ -108,6 +111,9 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 						.addClass("project-image")
 						.children('p').hide();
 					}
+				}).on('click', function(e){ 
+					e.stopPropagation(); 
+					$('#' + name + '_fall').trigger('click')
 				});
 
 			};
@@ -146,7 +152,7 @@ ocApp.directive('imageDrop', function ($window, $timeout) {
 	return {
 		restrict: 'E',
 		transclude: true,
-		template: '<label ng-style="$root.getCssColor($parent.challenge)">{{fieldSchema.label}}</label><div id="{{fieldSchema.type}}" class="project-image dragdrop"><p>Arrastre la imágen aquí<input type="file" name="{{fieldSchema.type}}_fall" id="{{fieldSchema.type}}_fall"/></p></div><small>{{fieldSchema.help}}</small>',
+		template: '<label ng-style="$root.getCssColor($parent.challenge)">{{fieldSchema.label}}</label><div id="{{fieldSchema.type}}" class="project-image dragdrop"><p>Haga click o arrastre la imagen aquí<input type="file" name="{{fieldSchema.type}}_fall" id="{{fieldSchema.type}}_fall"/></p></div><small>{{fieldSchema.help}}</small>',
 		controller: ['$scope', function($scope) {	
 
 			$scope.initImageFiledrop = function(node){
@@ -182,6 +188,9 @@ ocApp.directive('imageDrop', function ($window, $timeout) {
 						.addClass("project-image")
 						.children('p').hide();
 					}
+				}).on('click', function(e){ 
+					e.stopPropagation(); 
+					$('#header_fall').trigger('click')
 				});
 			};
 

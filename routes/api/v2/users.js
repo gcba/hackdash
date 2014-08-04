@@ -97,7 +97,7 @@ var updateUser = function(req, res){
         return res.send(500, { error: "email_invalid" });
       }
 
-      return res.send(500);
+      return res.send(500,{ error: error.toString()});
     }
     
     res.send(200);
@@ -106,12 +106,14 @@ var updateUser = function(req, res){
 
 var updateUserBySuperAdmin = function(req, res){
   var user = req.body;
-  
-console.log(user);
+
+  user.name = req.body.name;
+  user.email = req.body.email;
+  user.bio = req.body.bio || '';
 
   User.findByIdAndUpdate(user._id, { bio: user.bio, admin_in: user.admin_in, role: user.role })
     .exec(function(err, data){
-      if(err) return res.send(500);
+      if(err) return res.send(500, { error: err.toString()});
 
       res.send(data);
     });
