@@ -63,6 +63,7 @@ app.configure(function(){
      'edit-submit'
     ,'submit'
     ,'public-vote'
+    ,'information'
   ]);
 
 

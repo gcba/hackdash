@@ -26,6 +26,9 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.newTitle = 'sin-titulo-0';
 
+	$scope.linkedinshares = 0;
+	$scope.facebookshares = 0;
+
 	//Inits
 	$scope.editProjectsInit = function(){
 		$scope.checkCanEdit();
@@ -82,6 +85,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			Restangular.one('dashboards', $routeParams.challengeId).get()
 				.then(function(challenge){
 			  		$scope.challenge = challenge;
+			  		$('#page a').css('color', $scope.challenge.link_color);
 			  		$scope.currentStages = $rootScope.getCurrentStages(challenge);
 			  		$rootScope.title = ' - ' + $scope.challenge.title;
 			  		if(isEdit){
