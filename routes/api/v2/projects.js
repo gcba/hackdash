@@ -35,6 +35,7 @@ module.exports = function(app, uri, common) {
       next();
     }
   };
+
   //GET SCHEMA
   app.get(uri + '/projects/schema', common.isAuth, setSchema, sendSchema);
 
@@ -56,7 +57,7 @@ module.exports = function(app, uri, common) {
   app.put(uri + '/dashboards/:did/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
   app.put(uri + '/admin_dashboards/:did/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, updateProject, sendProject);
 
-  //app.del(uri + '/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, removeProject);
+  app.del(uri + '/admin_dashboards/:did/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, removeProject);
   
   app.post(uri + '/projects/:pid/followers', common.isAuth, getProject, loadCommon(common), validate, addFollower);
   //app.del(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, removeFollower);
@@ -97,7 +98,6 @@ var getProject = function(req, res, next){
       select: 'name picture _id'
     })
     .exec(function(err, project) {
-
       if (err) return res.send(500);
       if (!project) return res.send(404);
 

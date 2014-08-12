@@ -256,4 +256,9 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		$scope.editProjectsInit();
 	};
 
+	$scope.removeProject = function(project){
+		project.remove().then(function(){
+			$scope.projects = _.without($scope.projects, _.findWhere($scope.projects, {_id: project._id}));
+		});
+	};
 });
