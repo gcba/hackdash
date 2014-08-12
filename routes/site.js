@@ -185,7 +185,8 @@ var loadProviders = function(req, res, next) {
 
 var logout = function(req, res, next) {
   req.logout();
-  next();
+  //remove hardcoding
+  res.redirect('http://id.buenosaires.gob.ar/accounts/logout/?next=http://local.host:3000/');
 };
 
 var dashExists = function(req, res, next) {

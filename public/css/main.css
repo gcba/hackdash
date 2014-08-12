@@ -44,7 +44,6 @@ h2 {
 }
 
 /* Jumbotron */
-
 .jumbotron {
   background-image: url(../images/bg.jpg);
   background-repeat: no-repeat;
@@ -60,11 +59,12 @@ h2 {
   border-bottom-style:solid;
   border-bottom-width:10px;
   text-shadow: 0 1px 4px rgba(0,0,0,1);
-  
+
 }
 .jumbotron h1, .jumbotron h2, .jumbotron h3, .jumbotron h4, .jumbotron h5 {
   color:#fff !important;
 }
+
 .jumbotron .container  {
   padding: 100px 0;
 }
