@@ -1,27 +1,30 @@
-<div class="container">
-	<div class="row">
-			<div class="col-md-12">
-				<h2>Admin - Users</h2>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Nombre</th>
-							<th>Email</th>
-							<th>Role</th>
-							<th>admin in</th>
-							<th>Actions</th>
-						</tr>
-						</thead>
-					<tbody>
-						<tr ng-repeat="u in users">
-							<td>{{u.name}}</td>
-							<td>{{u.email}}</td>
-							<td>{{u.role}}</td>
-							<td>Es admin de {{u.admin_in.length}} concursos</td>
-							<td><a href="/#/admin/users/{{u._id}}">edit</a></td>
-						</tr>
-				</table>
-				</tbody>
-			</div>
+<div id="view-user-container">
+	<div ng-include="'ng-client/modules/partials/header-simple.html'"></div>
+	<div class="container">
+		<div class="row">
+				<div class="col-md-12">
+					<h1>Admin - Users</h1>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Email</th>
+								<th>Role</th>
+								<th>admin in</th>
+								<th>Actions</th>
+							</tr>
+							</thead>
+						<tbody>
+							<tr ng-repeat="u in users">
+								<td>{{u.name}}</td>
+								<td>{{u.email}}</td>
+								<td>{{u.role}}</td>
+								<td>Es admin de {{u.admin_in.length}} concursos</td>
+								<td><a href="/#/admin/users/{{u._id}}">edit</a></td>
+							</tr>
+					</table>
+					</tbody>
+				</div>
+		</div>
 	</div>
 </div>
