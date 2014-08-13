@@ -84,7 +84,7 @@ module.exports = function(app) {
   app.get('/login', hackdashFullStack);
   
   // Logout
-  app.get('/logout', logout, redirect('/'));
+  app.get('/logout', logout(app), redirect('/'));
 
   //keep previous Projects link working
   app.get('/p/:pid', function(req, res){ 
@@ -183,10 +183,16 @@ var loadProviders = function(req, res, next) {
  * Log out current user
  */
 
-var logout = function(req, res, next) {
-  req.logout();
-  //remove hardcoding
-  res.redirect('http://id.buenosaires.gob.ar/accounts/logout/?next=http://local.host:3000/');
+var logout = function(app) {
+  return function(req, res, next){
+    var returnTo = app.get('providers_config')['openid'];
+    req.logout();
+    if(returnTo){
+      res.redirect('http://id.buenosaires.gob.ar/accounts/logout/?next=' + app.get('providers_config')['openid'].logoutUrl);
+    }else{
+      next();
+    }
+  }
 };
 
 var dashExists = function(req, res, next) {

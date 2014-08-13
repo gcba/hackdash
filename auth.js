@@ -40,6 +40,7 @@ var redirectSubdomain = function(req, res) {
 
 
 app.set('providers', Object.keys(keys));
+app.set('providers_config', keys);
 
 for(var strategy in keys) {
 
@@ -48,7 +49,6 @@ for(var strategy in keys) {
     app.get('/auth/' + provider, saveSubdomain, passport.authenticate(provider));
     app.get('/auth/' + provider + '/callback', passport.authenticate(provider, {
       failureRedirect: '/' }), redirectSubdomain);
-    console.log(provider);
     var Strategy = require('passport-' + provider).Strategy;
     passport.use(new Strategy(keys[provider],
     
