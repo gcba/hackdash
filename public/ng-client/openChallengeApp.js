@@ -1,4 +1,4 @@
-var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module']);
+var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module', 'djds4rce.angular-socialshare']);
 
 ocApp.config(function($routeProvider) {
 
@@ -55,9 +55,10 @@ ocApp.config(function($routeProvider) {
     .otherwise({redirectTo:'/'});
 });
 
-ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
-  Restangular.setBaseUrl('/api/v2');
+ocApp.run(function ($rootScope, $timeout, Restangular, $route, $FB) {
+  $FB.init('752101994832114');
 
+  Restangular.setBaseUrl('/api/v2');
   Restangular.setRestangularFields({
     id: "_id"
   });
@@ -157,6 +158,11 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
     });
     return uuid;
   }
+  
+  $rootScope.applyLinkColor = function(){
+    $('#view-user-container a').css('color','black');
+  };
+
   $rootScope.applyCssColor = function(challenge, id){
     var selector =   '#'+id+' a:not(.btn),'
             +'#'+id+' h1,'
