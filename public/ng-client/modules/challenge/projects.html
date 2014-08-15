@@ -26,7 +26,10 @@
 	          <td>{{c.active}}</td>
 	          <td>{{c.status}}</td>
 	          <td>{{c.followers.length}}</td>
-	          <td><a href="javascript:;" ng-click="openProjectPopup(c._id)">ver</a></td>
+	          <td>
+	          	<a href="javascript:;" ng-click="openProjectPopup(c._id)">ver</a>
+	          	<a href="javascript:;" ng-click="removeProject(c)">Eliminar</a>
+	          </td>
 	        </tr>
 	      </tbody>
 	    </table>
