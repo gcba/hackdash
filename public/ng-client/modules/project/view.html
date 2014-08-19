@@ -15,7 +15,6 @@
 					<a twitter  data-lang="en" data-count='horizontal' data-url='http://google.com' data-via='notsosleepy' data-size="medium" data-text='Testing Twitter Share' ></a>
 					<a facebook class="facebookShare" data-url='http://google.com' data-shares='facebookshares'>{{ facebookshares }}</a>
 					<div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://google.com' data-action='share'></div>
-					<div style="width:43px !important; display:inline" pintrest data-href='http://google.com' data-description='testing share' data-img='http://plnkr.co/img/plunker.png' data-pin-do='buttonPin' data-pin-config='beside'></div>
 				</div>
 				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
 					<field-component field-schema="s" field-data="project[s.type]" view-mode="full"></field-formatter>
