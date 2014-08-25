@@ -4,6 +4,7 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 
 	$scope.votes = "gola";
 
+	$scope.location = $location;
 
 	$scope.viewInit = function(){
 		if($routeParams.projectId){

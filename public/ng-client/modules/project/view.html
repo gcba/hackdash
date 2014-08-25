@@ -12,12 +12,30 @@
 		<div class="row">
 			<div class="col-md-7">
 				<div class="socials">
-					<a twitter  data-lang="en" data-count='horizontal' data-url='http://google.com' data-via='notsosleepy' data-size="medium" data-text='Testing Twitter Share' ></a>
-					<a facebook class="facebookShare" data-url='http://google.com' data-shares='facebookshares'>{{ facebookshares }}</a>
-					<div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://google.com' data-action='share'></div>
+					<a twitter  
+						data-lang="es" 
+						data-count='horizontal' 
+						data-href="/#/submit/{{project._id}}" 
+						data-size="medium" 
+						data-text='Conocé y votá mi idea en #BAConcursos' >
+					</a>
+					<a facebook class="facebookShare" 
+						data-url="/#/submit/{{project._id}}" 
+						data-name="{{project.name}}" 
+						data-picture-url='{{location.protocol()}}://{{location.host()}}{{challenge.header_images[0]}}' 
+						data-caption="{{project.description}}" 
+						data-shares='facebookshares'>{{ facebookshares }}
+					</a>
+					<div gplus class="g-plus" 
+						data-size="tall" 
+						data-annotation="bubble" 
+						data-href="/#/submit/{{project._id}}" 
+						data-action='share'>
+					</div>
 				</div>
 				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
-					<field-component field-schema="s" field-data="project[s.type]" view-mode="full"></field-formatter>
+					<field-component field-schema="s" field-data="project[s.type]" view-mode="full">
+					</field-component>
 				</div>
 				<div ng-show="challenge.allow_comments">
 					<div id="disqus_thread" class="comments"></div>
