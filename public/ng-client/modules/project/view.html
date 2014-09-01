@@ -12,10 +12,11 @@
 		<div class="row">
 			<div class="col-md-7">
 				<ul ng-social-buttons
-				     data-url="'{{location()}}'"
-				     data-title="'{{project.name}}'"
-				     data-description="'{{project.description}}'"
-				     data-image="'{{currenturl()}}://{{location.host()}}{{challenge.header_images[0]}}'">
+				     data-url="'{{ location() }}'"
+				     data-title="'{{ project.title }}'"
+				     data-description="'{{ project.description }}'"
+				     data-text="'{{ project.description }}'"
+				     data-image="'{{ currenturl() }}://{{ location.host() }}{{ challenge.header_images[0] }}'">
 				    <li class="ng-social-facebook">Facebook</li>
 				    <li class="ng-social-google-plus">Google+</li>
 				    <li class="ng-social-twitter">Twitter</li>
