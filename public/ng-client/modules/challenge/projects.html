@@ -13,18 +13,18 @@
 	        <tr>
 	          <th>Leader</th>
 	          <th>Creado</th>
-	          <th>Active</th>
-	          <th>Status</th>
-	          <th>Votes</th>
+	          <th>Activo?</th>
+	          <th>Estado</th>
+	          <th>Votos</th>
 	          <th>#</th>
 	        </tr>
 	      </thead>
 	      <tbody>
 	        <tr ng-repeat="c in projects">
 	          <td><a ng-href="/#/profile/{{c.leader._id}}">{{c.leader.name}}</a></td>
-	          <td>{{c.created_at}}</td>
-	          <td>{{c.active}}</td>
-	          <td>{{c.status}}</td>
+	          <td>{{c.created_at  | date:'dd-MM-yyyy'}} a las {{c.created_at | date:'HH:mm'}}Hs.</td>
+	          <td>{{t(c.active)}}</td>
+	          <td>{{t(c.status)}}</td>
 	          <td>{{c.followers.length}}</td>
 	          <td>
 	          	<a href="javascript:;" ng-click="openProjectPopup(c._id)">ver</a>

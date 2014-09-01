@@ -7,32 +7,20 @@
 			<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a></p>
 		</div>
 	</div>
-
+	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
-				<div class="socials">
-					<a twitter  
-						data-lang="es" 
-						data-count='horizontal' 
-						data-href="/#/submit/{{project._id}}" 
-						data-size="medium" 
-						data-text='Conocé y votá mi idea en #BAConcursos' >
-					</a>
-					<a facebook class="facebookShare" 
-						data-url="/#/submit/{{project._id}}" 
-						data-name="{{project.name}}" 
-						data-picture-url='{{location.protocol()}}://{{location.host()}}{{challenge.header_images[0]}}' 
-						data-caption="{{project.description}}" 
-						data-shares='facebookshares'>{{ facebookshares }}
-					</a>
-					<div gplus class="g-plus" 
-						data-size="tall" 
-						data-annotation="bubble" 
-						data-href="/#/submit/{{project._id}}" 
-						data-action='share'>
-					</div>
-				</div>
+				<ul ng-social-buttons
+				     data-url="'{{location()}}'"
+				     data-title="'{{project.name}}'"
+				     data-description="'{{project.description}}'"
+				     data-image="'{{currenturl()}}://{{location.host()}}{{challenge.header_images[0]}}'">
+				    <li class="ng-social-facebook">Facebook</li>
+				    <li class="ng-social-google-plus">Google+</li>
+				    <li class="ng-social-twitter">Twitter</li>
+				</ul>
+
 				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
 					<field-component field-schema="s" field-data="project[s.type]" view-mode="full">
 					</field-component>

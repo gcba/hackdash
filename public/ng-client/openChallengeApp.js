@@ -1,4 +1,4 @@
-var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module', 'djds4rce.angular-socialshare']);
+var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module','ngSocial']);
 
 ocApp.config(function($routeProvider) {
 
@@ -55,8 +55,7 @@ ocApp.config(function($routeProvider) {
     .otherwise({redirectTo:'/'});
 });
 
-ocApp.run(function ($rootScope, $timeout, Restangular, $route, $FB) {
-  $FB.init('752101994832114');
+ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
 
   Restangular.setBaseUrl('/api/v2');
   Restangular.setRestangularFields({
@@ -175,6 +174,38 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route, $FB) {
     $timeout(function() {
       angular.element(selector).css('color',challenge.call_to_action.bgcolor);
     }, 500);
+  }
+  
+  var translatables = { 
+    "es": { 
+      "5-submitted": "Postulada",
+      "4-finals": "Finalistas",
+      "4-special-mention": "Mención especial",
+      "3-price": "3° Puesto",
+      "2-price": "2° Puesto",
+      "1-price": "1° Puesto",
+      "1-winner": "Ganador",
+      "text": "Texto",
+      "faq": "Preguntas frecuentes",
+      "rules": "Reglas",
+      "jury": "Jurado",
+      "prizes": "Premios",
+      "stages": "Etapas",
+      "submissions": "Participaciones",
+      "edit-submit": "Editar - Participar",
+      "submit": "Participar",
+      "public-vote": "Votar",
+      "information": "Información",
+      "user": "Usuario",
+      "admin": "Admistrador",
+      "superadmin": "Super administrador",
+      "true": "si",
+      "false": "no"
+    } 
+  };
+  $rootScope.LANGUANJE = "es";
+  $rootScope.t = function(s){
+    return translatables[$rootScope.LANGUANJE][s];
   }
 
 });
