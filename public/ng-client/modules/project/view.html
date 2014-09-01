@@ -49,7 +49,7 @@
 				<div class="sidebar-data sidebar-someone">
 					<h4 ng-style="getCssColor(challenge)">Votos ({{project.followers.length}})</h4>
 					<a href="/#/profile/{{v._id}}" ng-repeat="v in project.followers">
-						<img ng-src="{{v.picture}}" width="25" height="25" title="NOMBRE" />
+						<img ng-src="{{v.picture}}" width="25" height="25" title="{{project.leader.name}}" />
 					</a>
 				</div>
 
