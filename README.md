@@ -3,12 +3,20 @@ Open Challenge
 
 Open and easy to configure challenge platform
 
-![OpenChallenge Logo](http://i.imgur.com/x.png)
+Requirements
+=============
+* MongoDB
+* NodeJS
+* NPM
 
 Install
 ===========
-
-Work in progress!
+	git clone https://github.com/gcba/open-challenge.git
+	cd open-challenge
+	cp keys.json.sample keys.json
+	cp config.json.sample config.json
+	npm install
+	node server.js
 
 Config
 ======
@@ -26,9 +34,18 @@ In your `config.json`:
 * `live`: Boolean (true, false) that enable/disable the live feed feature in yourdomain.com/live.
 * `mailer`: SMTP mail info to enable email notifications using nodemailer. Check out the [options](https://github.com/andris9/Nodemailer#setting-up-smtp)
 
+
+In your `keys.json`:
+
+* `openid`:
+  + `returnURL`: Url to return after authentication,
+  + `realm`: Indicates the part of URL-space for which authentication is valid,
+  + `providerURL`: Url of any valid openid provider,
+
 Running instances
 =================
 
+* http://concursos.buenosaires.gob.ar
 
 Copyleft
 ========
