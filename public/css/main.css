@@ -8,13 +8,22 @@ footer {
   background-color: #1d1d1b;
   margin-top:150px;
 }
+footer .navbar {
+  padding-top:60px;
+  padding-bottom:60px;
+}
+footer .sub-brand {
+  text-align:right;
+}
 h2 {
   margin-bottom: 20px;
 }
-
 .well .btn {
   margin-top:10px;
   margin-bottom:10px;
+}
+.project-link p {
+  margin-bottom: 5px;
 }
 
 /* Navbar */

@@ -23,8 +23,8 @@
 						<!-- Challenge step perms -->
 						<p>Permisos </p>
 						<div class="form-group">
-							<select ng-show="stage.permissionOptions.length > 0" ng-model="stage.selectedPermission" ng-options="permission for permission in stage.permissionOptions" class="form-control">
-								<option value="">-- select --</option>
+							<select ng-show="stage.permissionOptions.length > 0" ng-model="stage.selectedPermission" ng-options="t(permission) for permission in stage.permissionOptions" class="form-control">
+								<option value="">-- Seleccione una opción --</option>
 							</select>
 						</div>
 						<a ng-show="stage.permissionOptions.length > 0" href="javascript:;" ng-click="addPermission(stage)" class="btn btn-default">Agregar permiso</a>
@@ -40,7 +40,7 @@
 								</thead>
 								<tbody>
 									<tr ng-repeat="perm in stage.permissions">
-										<td>{{perm}}</td>
+										<td>{{t(perm)}}</td>
 										<td><a href ng-click="removePermission(stage,$index)" class="btn btn-danger btn-xs">x</a></td>
 									</tr>
 								</tbody>

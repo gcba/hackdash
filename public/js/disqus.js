@@ -1,7 +1,7 @@
 /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
 var scripts = document.getElementsByTagName( 'script' );
 var thisScriptTag = scripts[ scripts.length - 1 ];
-var disqus_shortname = thisScriptTag.getAttribute('disqus_shortname') ; // required: replace example with your forum shortname
+var disqus_shortname = 'participacion-gcba'; // required: replace example with your forum shortname
 if ( disqus_shortname != '' ) {
   var disqus_config = function () { 
     this.language = "es_ES";

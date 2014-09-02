@@ -7,17 +7,23 @@
 			<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a></p>
 		</div>
 	</div>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-7">
-				<div class="socials">
-					<a twitter  data-lang="en" data-count='horizontal' data-url='http://google.com' data-via='notsosleepy' data-size="medium" data-text='Testing Twitter Share' ></a>
-					<a facebook class="facebookShare" data-url='http://google.com' data-shares='facebookshares'>{{ facebookshares }}</a>
-					<div gplus class="g-plus" data-size="tall" data-annotation="bubble" data-href='http://google.com' data-action='share'></div>
-				</div>
+				<ul ng-social-buttons
+				     data-title="'Conocé mi idea de #BACONCURSOS en éste link'" 
+				     data-url="current_location" 
+				     data-description="'{{project.description}}'"
+				     data-text="'{{project.description}}'"
+				     data-image="'{{location_img}}{{challenge.header_images[0]}}'">
+				    <li class="ng-social-facebook">Facebook</li>
+				    <li class="ng-social-google-plus">Google+</li>
+				    <li class="ng-social-twitter">Twitter</li>
+				</ul>
+
 				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
-					<field-component field-schema="s" field-data="project[s.type]" view-mode="full"></field-formatter>
+					<field-component field-schema="s" field-data="project[s.type]" view-mode="full">
+					</field-component>
 				</div>
 				<div ng-show="challenge.allow_comments">
 					<div id="disqus_thread" class="comments"></div>
@@ -42,7 +48,7 @@
 				<div class="sidebar-data sidebar-someone">
 					<h4 ng-style="getCssColor(challenge)">Votos ({{project.followers.length}})</h4>
 					<a href="/#/profile/{{v._id}}" ng-repeat="v in project.followers">
-						<img ng-src="{{v.picture}}" width="25" height="25" title="NOMBRE" />
+						<img ng-src="{{v.picture}}" width="25" height="25" title="{{project.leader.name}}" />
 					</a>
 				</div>
 
