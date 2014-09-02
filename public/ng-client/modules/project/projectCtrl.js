@@ -6,7 +6,9 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 
 	$scope.location = $location;
 
-	$scope.currenturl = $location.absUrl();;
+	$scope.current_location = $location.absUrl();
+
+	$scope.location_img = $location.protocol() + "://" + $location.host();
 
 	$scope.viewInit = function(){
 		if($routeParams.projectId){
