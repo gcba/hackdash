@@ -77,7 +77,6 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
       }
     });
   } 
-	
 
 	$rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
     $rootScope.title = '';
@@ -202,10 +201,35 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
       "true": "si",
       "false": "no"
     } 
-  };
+  }
+
   $rootScope.LANGUANJE = "es";
+
   $rootScope.t = function(s){
     return translatables[$rootScope.LANGUANJE][s];
+  }
+
+  $rootScope.containsObject = function(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i]["name"] === obj) {
+            return true;
+        }
+    } 
+    return false;
+  }
+  
+  $rootScope.vote = function(projectId){
+    if($rootScope.user){
+      Restangular.one('projects', projectId)
+        .post('followers')
+        .then(function(updatedProject){
+          var projectIndex = _.findIndex($rootScope.$parent.projects, {_id:projectId});
+          $rootScope.$parent.projects[projectIndex].followers = updatedProject.followers;
+        });
+    } else {
+      $location.path('/login');
+    }
   }
 
 });

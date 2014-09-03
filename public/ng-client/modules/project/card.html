@@ -19,10 +19,22 @@
 		<p><strong>Enviado:<strong> {{project.created_at | date:'dd-MM-yyyy'}}</p>
 		<p>
 			<div class="btn-group btn-group-justified">
-				<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
-					Ver más
-				</a>
-				<a ng-if="isAbleTo('public-vote',challenge)" ng-style="getCssButtonColors(challenge)" ng-controller="projectCtrl" class="btn btn-primary" ng-click="vote(projects[$index]._id)">Votar</a>
+				 <div ng-if="containsObject(user.name, project.followers) === true">
+					 <div class="btn-group btn-group-justified">
+					 	<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
+							Ver más
+						</a>
+	    				<a ng-style="getCssButtonColors(challenge)" class="btn btn-primary disabled">Ya votaste</a>
+	    			</div>
+				</div>
+				<div ng-if="containsObject(user.name, project.followers) === false">
+					 <div class="btn-group btn-group-justified">
+					 	<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
+							Ver más
+						</a>
+	    				<a ng-if="isAbleTo('public-vote',challenge)" ng-style="getCssButtonColors(challenge)" ng-controller="projectCtrl" class="btn btn-primary" ng-click="vote(projects[$index]._id)">Votar</a>
+	    			</div>
+				</div>
 			</div>
 		</p>
 	</div>

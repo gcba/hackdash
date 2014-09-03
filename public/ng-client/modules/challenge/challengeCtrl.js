@@ -173,8 +173,6 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.addProject = function(project){
 
-		$('#participate').modal('hide');
-		$('body').removeClass('modal-open');
 
 		project.challenge_id = $scope.challenge._id;
 
@@ -182,6 +180,10 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			.post(project)
 			.then(function(e){
 				$location.path('/submit/'+e._id);
+
+				$('#participate').modal('hide');
+				$('body').removeClass('modal-open');
+				$( "div" ).remove('.modal-backdrop.in');
 			}, function(response) {
 				console.log("Error with status code", response.status);
 			});
