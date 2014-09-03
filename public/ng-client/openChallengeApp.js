@@ -1,4 +1,4 @@
-var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module','ngSocial']);
+var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module','ngSocial','filters']);
 
 ocApp.config(function($routeProvider) {
 
@@ -232,4 +232,25 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
     }
   }
 
+
 });
+
+
+angular.module('filters', []).
+    filter('truncate', function () {
+        return function (text, length, end) {
+            if (isNaN(length))
+                length = 10;
+
+            if (end === undefined)
+                end = "...";
+
+            if (text.length <= length || text.length - end.length <= length) {
+                return text;
+            }
+            else {
+                return String(text).substring(0, length-end.length) + end;
+            }
+
+        };
+    });

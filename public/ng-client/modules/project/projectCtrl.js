@@ -15,7 +15,7 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 			Restangular.one('projects', $routeParams.projectId).get()
 				.then(function(project){
 					$scope.project = project;
-			  	$scope.challenge = Restangular.one('dashboards', project.challenge_id).get().$object;
+			  		$scope.challenge = Restangular.one('dashboards', project.challenge_id).get().$object;
 				});
 		}
 	}
