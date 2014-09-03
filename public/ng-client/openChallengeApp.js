@@ -33,8 +33,9 @@ ocApp.config(function($routeProvider) {
       templateUrl:'/ng-client/modules/user/edit.html'
     })
     .when('/login', {
-      controller:'loginCtrl', 
-      templateUrl:'/ng-client/modules/login/login.html'
+      redirectTo: '/auth/openid/'
+      //controller:'loginCtrl', 
+      //templateUrl:'/ng-client/modules/login/login.html'
     })
     .otherwise({redirectTo:'/'});
 
@@ -228,7 +229,8 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
           $rootScope.$parent.projects[projectIndex].followers = updatedProject.followers;
         });
     } else {
-      $location.path('/login');
+      console.log($location.path('/auth/openid/'));
+      $location.path('/auth/openid/');
     }
   }
 

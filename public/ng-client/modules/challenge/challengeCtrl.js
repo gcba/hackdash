@@ -76,7 +76,6 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		  e.preventDefault();
 		  $(this).tab('show');
 		});
-		
 	};
 
 	//Common
@@ -172,15 +171,11 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.addProject = function(project){
-
-
 		project.challenge_id = $scope.challenge._id;
-
 		Restangular.all("projects")
 			.post(project)
 			.then(function(e){
 				$location.path('/submit/'+e._id);
-
 				$('#participate').modal('hide');
 				$('body').removeClass('modal-open');
 				$( "div" ).remove('.modal-backdrop.in');

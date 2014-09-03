@@ -1,4 +1,4 @@
-ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $rootScope, $location) {
+ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $rootScope, $location, $window) {
 
 	$scope.project = {};
 
@@ -29,7 +29,7 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 					$scope.$parent.projects[projectIndex].followers = updatedProject.followers;
 				});
 		} else {
-			$location.path('/login');
+			$window.location.href = '/auth/openid/';
 		}
 	}
 
