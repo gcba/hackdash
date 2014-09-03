@@ -189,7 +189,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		if($rootScope.user){
 			$('#participate').modal('show');
 		} else {
-			$location.path('/login');
+			$window.location.href = '/auth/openid/';
 		}
 	};
 
