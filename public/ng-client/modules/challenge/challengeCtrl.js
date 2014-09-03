@@ -1,4 +1,4 @@
-ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce, $timeout, $route) {
+ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce, $timeout, $route, $window) {
 
 	$scope.challenge = {
 		pages: [],
