@@ -1,4 +1,4 @@
-Open Challenge
+Open Challenge BA
 ========
 
 **Open and easy to configure challenge platform**
