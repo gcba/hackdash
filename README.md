@@ -3,7 +3,7 @@ Open Challenge
 
 **Open and easy to configure challenge platform**
 
-Buenos Aires City Government release Open Challenge BA, the first open source challenge platform available for cities and organizations.
+Buenos Aires City Government releases Open Challenge BA, the first open source challenge platform available for cities and organizations.
 
 
 **Plataforma de concursos y desafíos abierta para Gobiernos y Organizaciones**
