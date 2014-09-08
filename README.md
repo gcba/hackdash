@@ -1,7 +1,19 @@
 Open Challenge
 ========
 
-Open and easy to configure challenge platform
+**Open and easy to configure challenge platform**
+
+Buenos Aires City Government release Open Challenge BA, the first open source challenge platform available for cities and organizations.
+
+
+**Plataforma de concursos y desafíos abierta para Gobiernos y Organizaciones**
+
+Desde la Dirección de Gobierno Electrónico de la Ciudad de Buenos Aires creamos Open Challenge BA (beta 1), la primera plataforma de concursos open source, disponible para ser reutilizada por cualquier ciudad y organización.
+
+La plataforma nació como un fork (subproyecto) de la plataforma de proyectos para hackatons llamada HackDash, una plataforma de código libre desarrollada por Dan Zajdband para Hack Hackers Media Party.
+
+Open Challenge BA permite a una organización (ciudad, estados, ONGs) crear concursos compartiendo módulos, usuarios y manteniendo una administración descentralizada.
+
 
 Requirements
 =============
@@ -51,4 +63,4 @@ Copyleft
 ========
 
 Based in the [HackDash platform](http://hackdash.org)
-Developed by the Gobierno de la Ciudad de Buenos Aires
+Developed by [Gobierno de la Ciudad de Buenos Aires](http://www.buenosaires.gob.ar)
