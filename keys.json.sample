@@ -2,7 +2,7 @@
     "openid": {
       "returnURL": "http://local.host:3000/auth/openid/callback",
       "realm": "http://local.host:3000/auth/openid/callback",
-      "providerURL":"https://id.buenosaires.gob.ar/openid/",
+      "providerURL":"https://id.local.url/openid/",
       "profile": true,
       "stateless": true
     }
