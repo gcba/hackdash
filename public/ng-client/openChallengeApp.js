@@ -33,9 +33,8 @@ ocApp.config(function($routeProvider) {
       templateUrl:'/ng-client/modules/user/edit.html'
     })
     .when('/login', {
-      redirectTo: '/auth/openid/'
-      //controller:'loginCtrl', 
-      //templateUrl:'/ng-client/modules/login/login.html'
+      controller:'loginCtrl', 
+      templateUrl:'/ng-client/modules/login/login.html'
     })
     .otherwise({redirectTo:'/'});
 

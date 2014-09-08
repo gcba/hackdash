@@ -410,7 +410,7 @@ var setProjects = function(req, res, next){
       path: 'followers',
       select: 'name picture _id'
     })
-    .limit(30)
+    //.limit(30)
     .sort( req.orderBy )
     .exec(function(err, projects) {
       if(err) return res.send(500);
