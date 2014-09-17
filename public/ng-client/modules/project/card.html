@@ -1,17 +1,17 @@
-<div class="thumbnail" ng-style="getCssBorderTop(challenge)">
+<div class="thumbnail" ng-style="getCssBorderTop(challenge)" >
 	<div class="thumbnail-content">
 	<p ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</p>
 	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'status' "></div>
 		<field-component field-schema="s" field-data="project[s.type]" view-mode="card"></field-component>
 	<div ng-repeat-end></div>
-<!--
+	<!--
 	<p>
 		<a class="pull-right" href="/#/profile/{{project.leader._id}}">
 			<img ng-src="{{project.leader.picture}}" width="25" />
 			{{project.leader.name}}
 		</a>
 	</p>
--->
+	-->
 	</div>
 	<div class="thumbnail-footer">
 		<h4 ng-style="getCssColor(challenge)"><strong>Votos:<strong> {{project.followers.length}}</h4>

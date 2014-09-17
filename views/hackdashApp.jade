@@ -31,7 +31,7 @@ html(ng-app="oc-project")
           .navbar-collapse.collapse.navbar-right
             ul.nav.navbar-nav.pull-right
               li
-                a(href="/auth/openid", ng-hide="user") Ingresar con openID
+                a(href="/auth/openid", ng-hide="user") Ingresar
               li.dropdown(ng-show="user")
                 a.dropdown-toggle(href='', data-toggle='dropdown')
                   img.avatar(ng-src="{{user.picture}}")
@@ -92,6 +92,7 @@ html(ng-app="oc-project")
     script(src="/js/libs/03-twitter.js")
     script(src="/js/libs/04-google-plus.js")
 
+
     script(src="/ng-client/openChallengeApp.js")
     script(src="/ng-client/directives.js")
     script(src="/ng-client/modules/home/homeCtrl.js")
@@ -103,6 +104,8 @@ html(ng-app="oc-project")
 
     script(src="/ng-client/modules/admin/adminUsersCtrl.js")
     script(src="/ng-client/modules/admin/adminChallengesCtrl.js")
+    script(src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js")
+    
 
     script.
       window.openchallenge = { 
@@ -123,11 +126,6 @@ html(ng-app="oc-project")
       script.
         window.openchallenge.user = !{JSON.stringify(user)};      
 
-    script.
-      $(function(){
-        
-      });
-
     script().
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -136,4 +134,3 @@ html(ng-app="oc-project")
 
       ga('create', 'UA-17784640-36', 'auto');
       ga('send', 'pageview');
-    

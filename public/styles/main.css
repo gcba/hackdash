@@ -1393,24 +1393,24 @@ a.signup-persona:hover {
 .homepage .brand-why .geeks {
   background-position: -180px 0;
 }
-
 .homepage .partners > div {
   background-size: 130px 130px;
   background-repeat: no-repeat;
   background-position: center;
   height: 100px;
 }
-
 .homepage .partners .hhba {
   background-image: url('/images/landing/hhba.png');
 }
 .homepage .partners .nxtp {
   background-image: url('/images/landing/nxtp.png'); 
 }
-
-
 .homepage .dashboards ul {
   background: #fff;
   height: 200px;
   overflow: scroll;
+}
+#item_masonry {
+  min-height: 520px;
+  min-width: 341px;
 }

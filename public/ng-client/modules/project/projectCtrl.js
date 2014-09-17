@@ -1,14 +1,12 @@
 ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $rootScope, $location, $window) {
-
 	$scope.project = {};
-
 	$scope.votes = "gola";
-
 	$scope.location = $location;
-
 	$scope.current_location = $location.absUrl();
-
 	$scope.location_img = $location.protocol() + "://" + $location.host();
+	
+	$scope.currentPage = 1;
+	$scope.numPerPage = 4;
 
 	$scope.viewInit = function(){
 		if($routeParams.projectId){
@@ -20,6 +18,7 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 		}
 	}
 
+	//vote
 	$scope.vote = function(projectId){
 		if($rootScope.user){
 			Restangular.one('projects', projectId)
@@ -33,4 +32,13 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 		}
 	}
 
+    //pagination
+	$scope.paginate = function(value) {
+		$scope.totalItems = $scope.$parent.projects.length;
+		var begin, end, index;
+		begin = ($scope.currentPage - 1) * $scope.numPerPage;
+		end = begin + $scope.numPerPage;
+		index = $scope.$parent.projects.indexOf(value);
+		return (begin <= index && index < end);
+	};
 });

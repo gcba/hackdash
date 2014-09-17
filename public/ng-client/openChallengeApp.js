@@ -1,5 +1,4 @@
-var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module','ngSocial','filters']);
-
+var ocApp = angular.module('oc-project',['ngRoute','restangular','textAngular','colorpicker.module','ngSocial','filters', 'ui.bootstrap']);
 ocApp.config(function($routeProvider) {
 
   $routeProvider.
