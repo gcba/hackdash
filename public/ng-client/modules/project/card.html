@@ -4,14 +4,14 @@
 	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'status' "></div>
 		<field-component field-schema="s" field-data="project[s.type]" view-mode="card"></field-component>
 	<div ng-repeat-end></div>
-	<!--
+<!--
 	<p>
 		<a class="pull-right" href="/#/profile/{{project.leader._id}}">
 			<img ng-src="{{project.leader.picture}}" width="25" />
 			{{project.leader.name}}
 		</a>
 	</p>
-	-->
+-->
 	</div>
 	<div class="thumbnail-footer">
 		<h4 ng-style="getCssColor(challenge)"><strong>Votos:<strong> {{project.followers.length}}</h4>
