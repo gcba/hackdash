@@ -33,7 +33,7 @@
 
     <div id="project-container" class="col-md-4 col-md-offset-1">
       <h2>Participaciones</h2>
-      <div class="panel panel-default" ng-repeat="c in projects">
+      <div class="panel panel-default" ng-repeat="c in projects | orderBy: 'created_at' : true | limitTo : 10 ">
           <a class="project-link" href="/#/submit/{{c._id}}">
             <div class="media">
               <span class="pull-left img-container">
