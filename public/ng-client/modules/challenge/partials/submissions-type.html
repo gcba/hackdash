@@ -25,7 +25,7 @@
 		</div>
 
 		<div class="row" >
-			<div  class="col-md-6" ng-repeat="project in projects  | filter : paginate | orderBy: 'created_at' : true " ng-include="'ng-client/modules/project/card.html'">
+			<div  class="col-md-6" ng-repeat="project in projects  | filter : paginate | orderBy:'$index':true" ng-include="'ng-client/modules/project/card.html'">
 
 			</div>
 		</div>

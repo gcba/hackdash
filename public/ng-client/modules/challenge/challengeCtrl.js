@@ -205,17 +205,26 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			switch($scope.filter.order) {
 			    case 'date':
 			        $scope.projects = projects.sort(function(a,b){
-						return new Date(a.created_at) < new Date(b.created_at);
+						if ( a.created_at <= b.created_at ) {
+	                	return( 1 );
+		                }
+		                return( -1 );
 					});
 			        break;
 			    case 'status':
 			        $scope.projects = projects.sort(function(a,b){
-						return a.status < b.status;
+						if ( a.status <= b.status ) {
+	                	return( 1 );
+		                }
+		                return( -1 );
 					});
 			        break;
 			    case 'votes':
 			        $scope.projects = projects.sort(function(a,b){
-						return a.followers.length < b.followers.length;
+						if ( a.followers.length <= b.followers.length ) {
+	                	return( 1 );
+		                }
+		                return( -1 );
 					});
 			        break;
 			    default:
