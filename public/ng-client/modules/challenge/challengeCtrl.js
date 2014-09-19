@@ -201,10 +201,11 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
     $scope.projects = [];
       Restangular.one('dashboards', $routeParams.challengeId).getList('projects',{cat:$scope.filter.cat, order:$scope.filter.order})
 		.then(function(projects){
+
 			switch($scope.filter.order) {
 			    case 'date':
 			        $scope.projects = projects.sort(function(a,b){
-						return a.created_at < b.created_at;
+						return new Date(a.created_at) < new Date(b.created_at);
 					});
 			        break;
 			    case 'status':

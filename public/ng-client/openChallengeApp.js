@@ -217,20 +217,7 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
     } 
     return false;
   }
-  
-  $rootScope.vote = function(projectId){
-    if($rootScope.user){
-      Restangular.one('projects', projectId)
-        .post('followers')
-        .then(function(updatedProject){
-          var projectIndex = _.findIndex($rootScope.$parent.projects, {_id:projectId});
-          $rootScope.$parent.projects[projectIndex].followers = updatedProject.followers;
-        });
-    } else {
-      console.log($location.path('/auth/openid/'));
-      $location.path('/auth/openid/');
-    }
-  }
+
 
 
 });
