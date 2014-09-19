@@ -11,8 +11,9 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<select ng-model="order" ng-change="changeFilter()" class="form-control input-lg">
-					<option value="">Fecha de creación</option>
+				<select ng-model="filter.order" ng-change="changeFilter()" class="form-control input-lg">
+					<option value="">-- Filtrar por --</option>
+					<option value="date">Fecha de creación</option>
 					<option value="status">Premio</option>
 					<option value="votes">Votos</option>
 				</select>
