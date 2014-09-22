@@ -127,6 +127,7 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 				if(scope.fieldSchema.type === 'videourl' && scope.fieldData){
 					if(iAttrs.viewMode === 'full'){
 						scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
+						console.log(scope.fieldData);
 					}else{
 						scope.fieldData =  $sce.trustAsResourceUrl('http://img.youtube.com/vi/' + scope.fieldData + '/0.jpg');
 					}
