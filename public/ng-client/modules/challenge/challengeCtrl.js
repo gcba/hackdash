@@ -1,5 +1,4 @@
 ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $location, $rootScope, $sce, $timeout, $route, $window) {
-
 	$scope.challenge = {
 		pages: [],
 		header_images: [],
@@ -280,4 +279,26 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 			$scope.projects = _.without($scope.projects, _.findWhere($scope.projects, {_id: project._id}));
 		});
 	};
+
+	$scope.paginate = function(value) {
+		$scope.totalItems = $scope.projects.length;
+		var begin, end, index;
+		begin = ($scope.currentPage - 1) * $scope.numPerPage;
+		end = begin + $scope.numPerPage;
+		index = $scope.projects.indexOf(value);
+		return (begin <= index && index < end);
+	};	
+
+	$scope.currentPage = 1;
+	$scope.numPerPage = 10;
+    $scope.sort_by = function(predicate) {
+		$scope.predicate = predicate;
+		$scope.reverse = !$scope.reverse;
+	};
+
+	$scope.exportData = function() {
+		$scope.json = angular.toJson($scope.projects);
+		return $scope.json ;
+	};
+
 });

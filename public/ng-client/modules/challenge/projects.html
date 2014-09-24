@@ -4,23 +4,25 @@
 
 	<div ng-controller="challengeCtrl" ng-init="editProjectsInit()" class="container">
 		<h1>{{challenge.title}} <small>{{challenge.subtitle}}</small></h1>
-		<p>Create: {{challenge.created_at}}</p>
-		<p>Abierto: {{challenge.open}}</p>
-		<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a></p>
+		<p>Creado: {{challenge.created_at  | date:'dd-MM-yyyy'}} a las {{challenge.created_at | date:'HH:mm'}}Hs.</p>
+		<p>Abierto: {{t(challenge.open)}}</p>
+		<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a>  
+			<!--<button class="btn btn-default" ng-csv="exportData()" filename="test.csv">Export</button>-->
+		</p>
 
 		<table class="table">
 	      <thead>
 	        <tr>
-	          <th>Leader</th>
-	          <th>Creado</th>
+	          <th>Leader <a ng-click="sort_by('leader.name');"><i class="glyphicon glyphicon-sort"></i></a></th>
+	          <th>Creado <a ng-click="sort_by('created_at');"><i class="glyphicon glyphicon-sort"></i></a></th>
 	          <th>Activo?</th>
 	          <th>Estado</th>
-	          <th>Votos</th>
+	          <th>Votos <a ng-click="sort_by('followers.length');"><i class="glyphicon glyphicon-sort"></i></a></th>
 	          <th>#</th>
 	        </tr>
 	      </thead>
 	      <tbody>
-	        <tr ng-repeat="c in projects">
+	        <tr ng-repeat="c in projects | filter : paginate | orderBy:predicate:reverse">
 	          <td><a ng-href="/#/profile/{{c.leader._id}}">{{c.leader.name}}</a></td>
 	          <td>{{c.created_at  | date:'dd-MM-yyyy'}} a las {{c.created_at | date:'HH:mm'}}Hs.</td>
 	          <td>{{t(c.active)}}</td>
@@ -33,26 +35,28 @@
 	        </tr>
 	      </tbody>
 	    </table>
+	    <pagination total-items="totalItems" ng-model="currentPage" max-size="5" items-per-page="numPerPage" class="pagination-sm" previous-text="Anterior" next-text="Siguiente" first-text="Primera" last-text="Última" boundary-links="true">
+	    </pagination>
 
+        <!--MODAL-->
 		<div ng-repeat="project in projects">
-
 			<div class="modal fade bs-example-modal-lg" id="project-{{project._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  <div class="modal-dialog modal-lg">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			        <h3 class="modal-title" id="myModalLabel">Modal title</h3>
+			        <h3 class="modal-title" id="myModalLabel">Participación</h3>
 			      </div>
 			      <div class="modal-body">
 
 					<p>
 						status
-						<select ng-model="project.status" ng-options="status for status in $parent.statuses" class="form-control">
+						<select ng-model="project.status" ng-options="t(status) for status in $parent.statuses" class="form-control">
 						</select>
 					</p>
 
 					<p>
-						Activo {{project.active}}
+						Activo
 						<select ng-model="project.active" ng-options="status.key as status.label for status in $parent.booleans" class="form-control">
 						</select>
 					</p>
@@ -71,9 +75,7 @@
 			    </div>
 			  </div>
 			</div>
-
 	    </div>
-
 	</div>
 
 </div>

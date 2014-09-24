@@ -5,8 +5,6 @@
 	<div ng-controller="challengeCtrl" ng-init="editInit()" class="container">
 		<h1>Editar Concurso</h1>
 	
-
-
 		<form novalidate name="formChallengeEdit" role="form" class="simple-form" ng-submit="update(challenge, formChallengeEdit)">
 			<ul class="nav nav-tabs" role="tablist">
 			  <li class="active"><a data-target="#info-fields" role="tab" data-toggle="tab">Datos básicos</a></li>
@@ -34,8 +32,6 @@
 					</legend>
 
 
-
-
 				<div class="panel-group" id="accordion">
 				  <div class="panel panel-default" ng-repeat="page in challenge.pages" on-finish-render="applyAccordion()">
 				    <div class="panel-heading" ng-init="pid = generateUUID()">
@@ -52,7 +48,6 @@
 				    </div>
 				  </div> 
 				</div>
-
 
 					
 				</fieldset>

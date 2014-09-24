@@ -3,22 +3,22 @@
 	<div class="container">
 		<div class="row">
 				<div class="col-md-12">
-					<h1>Admin - Users</h1>
+					<h1>Administrador - Usuarios</h1>
 					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>Nombre</th>
 								<th>Email</th>
-								<th>Role</th>
-								<th>admin in</th>
-								<th>Actions</th>
+								<th>Rol</th>
+								<th>admin en</th>
+								<th>Acciones</th>
 							</tr>
 							</thead>
 						<tbody>
 							<tr ng-repeat="u in users">
 								<td>{{u.name}}</td>
 								<td>{{u.email}}</td>
-								<td>{{u.role}}</td>
+								<td>{{t(u.role)}}</td>
 								<td>Es admin de {{u.admin_in.length}} concursos</td>
 								<td><a href="/#/admin/users/{{u._id}}">edit</a></td>
 							</tr>
