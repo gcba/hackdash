@@ -45,6 +45,7 @@ module.exports = function(app, uri, common) {
   //NEW
   app.post(uri + '/projects', common.isAuth, loadCommon(common), canCreateProject, createProject, sendProject);
   app.post(uri + '/projects/upload_file', common.isAuth, uploadFile);
+  app.get(uri + '/projects/export', common.isAuth, exportProjects);
 
   //GET ONE  
   app.get(uri + '/projects/:pid', getProject, sendProject);
@@ -81,6 +82,27 @@ var setSchema = function(req, res, next){
 
 var sendSchema = function(req, res, next){
   res.send(req.schema);
+};
+
+var exportProjects = function(req, res, next){
+  Project.find()
+    .populate({
+      path: 'leader',
+      select: 'name picture _id'
+    })
+    .populate({
+      path: 'contributors',
+      select: 'name picture _id'
+    })
+    .populate({
+      path: 'followers',
+      select: 'name picture _id'
+    })
+    .exec(function(err, projects) {
+      if (err) return res.send(500, err);
+      if (!projects) return res.send(404);
+      res.send(projects);
+  });
 };
 
 var getProject = function(req, res, next){

@@ -7,7 +7,7 @@
 		<p>Creado: {{challenge.created_at  | date:'dd-MM-yyyy'}} a las {{challenge.created_at | date:'HH:mm'}}Hs.</p>
 		<p>Abierto: {{t(challenge.open)}}</p>
 		<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a>  
-			<!--<button class="btn btn-default" ng-csv="exportData()" filename="test.csv">Export</button>-->
+			<!--<button class="btn btn-default" ng-csv="exportData()" filename="test.csv">Exportar listado</button>-->
 		</p>
 
 		<table class="table">
@@ -22,7 +22,7 @@
 	        </tr>
 	      </thead>
 	      <tbody>
-	        <tr ng-repeat="c in projects | filter : paginate | orderBy:predicate:reverse">
+	        <tr ng-repeat="c in projects | orderBy:predicate:reverse">
 	          <td><a ng-href="/#/profile/{{c.leader._id}}">{{c.leader.name}}</a></td>
 	          <td>{{c.created_at  | date:'dd-MM-yyyy'}} a las {{c.created_at | date:'HH:mm'}}Hs.</td>
 	          <td>{{t(c.active)}}</td>
@@ -35,8 +35,8 @@
 	        </tr>
 	      </tbody>
 	    </table>
-	    <pagination total-items="totalItems" ng-model="currentPage" max-size="5" items-per-page="numPerPage" class="pagination-sm" previous-text="Anterior" next-text="Siguiente" first-text="Primera" last-text="Última" boundary-links="true">
-	    </pagination>
+	    <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="5" items-per-page="numPerPage" class="pagination-sm" previous-text="Anterior" next-text="Siguiente" first-text="Primera" last-text="Última" boundary-links="true">
+	    </pagination>-->
 
         <!--MODAL-->
 		<div ng-repeat="project in projects">
