@@ -18,48 +18,50 @@ html(ng-app="oc-project")
     link(rel='stylesheet', href='/css/angular-social.css')
 
   body
-    .navbar.navbar-primary.navbar-top(role='navigation')
-      .container
-          .navbar-header
-            button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
-              span.sr-only Toggle navigation
-              span.icon-bar
-              span.icon-bar
-              span.icon-bar
-            a.navbar-brand(href='#') 
-              img(src="/bastrap/bac-header.png")
-          .navbar-collapse.collapse.navbar-right
-            ul.nav.navbar-nav.pull-right
-              li
-                a(href="/auth/openid", ng-hide="user") Ingresar
-              li.dropdown(ng-show="user")
-                a.dropdown-toggle(href='', data-toggle='dropdown')
-                  img.avatar(ng-src="{{user.picture}}")
-                  span {{user.name}}
-                  b.caret
-                ul.dropdown-menu
-                  li
-                    a {{user.email}}
-                  li
-                    a(href="/#/profile") Editar perfil
-                  li
-                    a(href="/#/profile") Mi Perfil
-                  li.divider(ng-show="user.role=='admin' || user.role=='superadmin'")
-                  li.dropdown-header(ng-show="user.role=='admin' || user.role=='superadmin'") Admin
-                  li
-                    a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/challenge/add") Nuevo concurso
-                  li
-                    a(ng-show="user.role=='superadmin'" href="/#/admin/users") Admin - Usuarios 
-                  li
-                    a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenges") Admin - Mis concursos
-                  li.divider
-                  li
-                    a(href="/logout") Cerrar sesión de concursos
+
+    .wrapper
+      .navbar.navbar-primary.navbar-top(role='navigation')
+        .container
+            .navbar-header
+              button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                span.sr-only Toggle navigation
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+              a.navbar-brand(href='#') 
+                img(src="/bastrap/bac-header.png")
+            .navbar-collapse.collapse.navbar-right
+              ul.nav.navbar-nav.pull-right
+                li
+                  a(href="/auth/openid", ng-hide="user") Ingresar
+                li.dropdown(ng-show="user")
+                  a.dropdown-toggle(href='', data-toggle='dropdown')
+                    img.avatar(ng-src="{{user.picture}}")
+                    span {{user.name}}
+                    b.caret
+                  ul.dropdown-menu
+                    li
+                      a {{user.email}}
+                    li
+                      a(href="/#/profile") Editar perfil
+                    li
+                      a(href="/#/profile") Mi Perfil
+                    li.divider(ng-show="user.role=='admin' || user.role=='superadmin'")
+                    li.dropdown-header(ng-show="user.role=='admin' || user.role=='superadmin'") Admin
+                    li
+                      a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/challenge/add") Nuevo concurso
+                    li
+                      a(ng-show="user.role=='superadmin'" href="/#/admin/users") Admin - Usuarios 
+                    li
+                      a(ng-show="user.role=='admin' || user.role=='superadmin'" href="/#/admin/challenges") Admin - Mis concursos
+                    li.divider
+                    li
+                      a(href="/logout") Cerrar sesión de concursos
 
 
-    header         
+      header         
 
-    #page(ng-view)
+      #page(ng-view)
 
     footer
       .navbar
@@ -107,7 +109,14 @@ html(ng-app="oc-project")
     script(src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js")
     script(src="http://asafdav.github.io/ng-csv/javascripts/ng-csv.js")
     
-    
+    script(src="/js/libs/masonry.pkgd.min.js")
+
+    script.
+      var container = document.querySelector('#project-mason');
+      var msnry = new Masonry( container, {
+        columnWidth: 341,
+        itemSelector: '.project-mason-item'
+      });
 
     script.
       window.openchallenge = { 

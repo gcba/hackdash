@@ -3,10 +3,13 @@
 body {
 
 }
+body > .wrapper {
+  padding-bottom:100px;
+}
 footer {
   height:300px;
   background-color: #1d1d1b;
-  margin-top:150px;
+  /*margin-top:150px;*/
 }
 footer .navbar {
   padding-top:60px;
@@ -118,6 +121,11 @@ h2 {
 .container-home {
   background-color:#eee;
 }
+
+#challenge-container {
+  margin-bottom:50px;
+}
+
 #challenge-container, #project-container {
  margin-top:-20px;
 }
@@ -310,6 +318,11 @@ margin-top:-20px;
 
 .sidebar-someone a:hover {
   text-decoration: none;
+}
+
+.sidebar-someone a.ng-scope {
+  text-decoration:none;
+  margin:0 5px 5px 0;
 }
 
 
