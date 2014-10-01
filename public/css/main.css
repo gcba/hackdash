@@ -3,7 +3,10 @@
 body {
 
 }
-body > .wrapper {
+/*body > .wrapper {
+  padding-bottom:100px;
+}*/
+#page {
   padding-bottom:100px;
 }
 footer {
@@ -186,6 +189,19 @@ h2 {
   background-image: url('../images/bg-project.jpg');
   background-position: center center;
 }
+
+
+
+
+.card-img-container {
+  max-height:400px;
+  overflow:hidden;
+}
+
+
+
+
+
 
 /* Cards Projects */
 
