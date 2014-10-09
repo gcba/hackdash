@@ -85,6 +85,37 @@ var sendSchema = function(req, res, next){
 };
 
 var exportProjects = function(req, res, next){
+
+var exportData = new Array();
+  var translatables = { 
+    "es": { 
+      "5-submitted": "Postulada",
+      "4-finals": "Finalistas",
+      "4-special-mention": "Mención especial",
+      "3-price": "3° Puesto",
+      "2-price": "2° Puesto",
+      "1-price": "1° Puesto",
+      "1-winner": "Ganador",
+      "text": "Texto",
+      "faq": "Preguntas frecuentes",
+      "rules": "Reglas",
+      "jury": "Jurado",
+      "prizes": "Premios",
+      "stages": "Etapas",
+      "submissions": "Participaciones",
+      "edit-submit": "Editar - Participar",
+      "submit": "Participar",
+      "public-vote": "Votar",
+      "information": "Información",
+      "user": "Usuario",
+      "admin": "Admistrador",
+      "superadmin": "Super administrador",
+      "true": "si",
+      "false": "no"
+    } 
+  }
+  var LANGUANJE = "es";
+
   Project.find()
     .populate({
       path: 'leader',
@@ -99,9 +130,21 @@ var exportProjects = function(req, res, next){
       select: 'name picture _id'
     })
     .exec(function(err, projects) {
+
+      for(var k=0;k<projects.length;k++){
+        exportData[k] = {
+          "Nombre del Creador": projects[k].leader.name,
+          "Paricipación": projects[k].title,
+          "Estado": translatables[LANGUANJE][projects[k].status],
+          "Activo?": translatables[LANGUANJE][projects[k].active], 
+          "Votos": projects[k].followers.length
+        };
+
+      }
+
       if (err) return res.send(500, err);
       if (!projects) return res.send(404);
-      res.send(projects);
+      res.send(exportData);
   });
 };
 
