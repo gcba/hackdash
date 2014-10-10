@@ -86,7 +86,7 @@ var sendSchema = function(req, res, next){
 
 var exportProjects = function(req, res, next){
 
-var exportData = new Array();
+  var exportData = new Array();
   var translatables = { 
     "es": { 
       "5-submitted": "Postulada",
