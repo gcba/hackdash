@@ -28,8 +28,9 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	$scope.linkedinshares = 0;
 	$scope.facebookshares = 0;
 
+	$scope.portUrl = $location.port();
+	$scope.urlRoot = $location.protocol() + "://" + $location.host();
 	$scope.currentLocation = $location.absUrl();
-	console.log($scope.urlRoot);
 
 	//Inits
 	$scope.editProjectsInit = function(){
@@ -299,9 +300,12 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	};
 
 	$scope.exportData = function(){
-
+		if ($scope.portUrl){
+			$scope.portUrl = ":"+ $scope.portUrl;
+		}
+		console.log($scope.urlRoot + $scope.portUrl + "/api/v2/projects/export");
 	    //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
-	    $.getJSON( "http://concursos.buenosaires.gob.ar/api/v2/projects/export", function( data ) {
+	    $.getJSON( $scope.urlRoot + $scope.portUrl + "/api/v2/projects/export", function( data ) {
 	    	JSONData = data;
 
 		    ReportTitle = "Participaciones";

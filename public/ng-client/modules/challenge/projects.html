@@ -1,4 +1,4 @@
-<div id="view-user-container">
+ <div id="view-user-container">
 
 	<div ng-include="'ng-client/modules/partials/header-simple.html'"></div>
 
@@ -19,7 +19,7 @@
 	          <th>Estado</th>
 	          <th>Votos <a ng-click="sort_by('followers.length');"><i class="glyphicon glyphicon-sort"></i></a></th>
 	          <th>#</th>
-	        </tr>
+	        </tr> 
 	      </thead>
 	      <tbody>
 	        <tr ng-repeat="c in projects | orderBy:predicate:reverse">
