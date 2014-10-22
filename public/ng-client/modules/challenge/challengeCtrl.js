@@ -200,7 +200,6 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
     $scope.projects = [];
       Restangular.one('dashboards', $routeParams.challengeId).getList('projects',{cat:$scope.filter.cat, order:$scope.filter.order})
 		.then(function(projects){
-
 			switch($scope.filter.order) {
 			    case 'date':
 			        $scope.projects = projects.sort(function(a,b){
@@ -303,8 +302,8 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	    $.getJSON( "http://local.host:3000/api/v2/projects/export", function( data ) {
 	    	JSONData = data;
 
-		    ReportTitle = "";
-		    ShowLabel = false;
+		    ReportTitle = "Participaciones";
+		    ShowLabel = true;
 		    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
 		    
 		    var CSV = '';    

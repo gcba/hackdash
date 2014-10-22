@@ -14,7 +14,8 @@ var passport = require('passport')
   , config = require('../../../config.json');
 
 var Project = mongoose.model('Project')
-  , Dashboard = mongoose.model('Dashboard');
+  , Dashboard = mongoose.model('Dashboard')
+  , User = mongoose.model('User');
 
 var notify;
 
@@ -85,7 +86,6 @@ var sendSchema = function(req, res, next){
 };
 
 var exportProjects = function(req, res, next){
-
   var exportData = new Array();
   var translatables = { 
     "es": { 
@@ -114,16 +114,18 @@ var exportProjects = function(req, res, next){
       "false": "no"
     } 
   }
+
   var LANGUANJE = "es";
 
+  
   Project.find()
     .populate({
       path: 'leader',
-      select: 'name picture _id'
+      select: 'name picture _id email'
     })
     .populate({
       path: 'contributors',
-      select: 'name picture _id'
+      select: 'name picture _id email'
     })
     .populate({
       path: 'followers',
@@ -131,19 +133,18 @@ var exportProjects = function(req, res, next){
     })
     .exec(function(err, projects) {
 
+      if (err) return res.send(500, err);
+      if (!projects) return res.send(404);
       for(var k=0;k<projects.length;k++){
         exportData[k] = {
           "Nombre del Creador": projects[k].leader.name,
           "Paricipación": projects[k].title,
           "Estado": translatables[LANGUANJE][projects[k].status],
           "Activo?": translatables[LANGUANJE][projects[k].active], 
-          "Votos": projects[k].followers.length
+          "Votos": projects[k].followers.length,
+          "Email": projects[k].contributors[0].email
         };
-
       }
-
-      if (err) return res.send(500, err);
-      if (!projects) return res.send(404);
       res.send(exportData);
   });
 };
@@ -177,6 +178,8 @@ var canChangeProject = function(req, res, next){
   var isAdmin = (req.project.challenge_id && req.user.admin_in.indexOf(req.project.challenge_id) >= 0);
 
   if (!isAdmin) {
+
+
     return res.send(403, "Only Leader or Administrators can edit or remove this project.");
   }
 
