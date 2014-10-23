@@ -37,8 +37,16 @@
 					</a>
 					<p class="text-center">{{challenge.call_to_action.help}}</p>
 				</div>
-				<p ng-if="challenge.open"><h5><span class="label label-success">ABIERTO</span></h5></p>
-				<p ng-if="!challenge.open"><span class="label label-danger">CERRADO</span></p>
+				<p ng-if="challenge.open">
+					<h5 style="{{challenge.open === false ? 'display:none;' : ''}}">
+						<span class="label label-success">ABIERTO</span>
+					</h5>
+				</p>
+				<p ng-if="!challenge.open">
+					<h5 style="{{challenge.open === true ? 'display:none;' : ''}}">
+						<span class="label label-danger">CERRADO</span>
+					</h5>
+				</p>
 
 				<div ng-if="challenge.open && currentStages.stages.length>0" class="sidebar-data">
 					<h4 ng-style="getCssColor(challenge)">Etapas actuales:</h4>
