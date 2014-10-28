@@ -1,7 +1,28 @@
+<style type="text/css">
+#loaderDiv {
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   z-index: 1100;
+   background-color: #000;
+   opacity: .6;
+}
+.ajax-loader {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   margin-left: -32px; /* -1 * image width / 2 */
+   margin-top: -32px; /* -1 * image height / 2 */
+   display: block;
+}
+</style>
+<div id="loaderDiv" loader>
+    <img src="/images/loader-spinner.gif" class="ajax-loader"/>
+</div>
  <div id="view-user-container">
-
 	<div ng-include="'ng-client/modules/partials/header-simple.html'"></div>
-
 	<div ng-controller="challengeCtrl" ng-init="editProjectsInit()" class="container">
 		<h1>{{challenge.title}} <small>{{challenge.subtitle}}</small></h1>
 		<p>Creado: {{challenge.created_at  | date:'dd-MM-yyyy'}} a las {{challenge.created_at | date:'HH:mm'}}Hs.</p>
