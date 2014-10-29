@@ -28,7 +28,7 @@
 		<p>Creado: {{challenge.created_at  | date:'dd-MM-yyyy'}} a las {{challenge.created_at | date:'HH:mm'}}Hs.</p>
 		<p>Abierto: {{t(challenge.open)}}</p>
 		<p><a href="/#/challenge/{{challenge._id}}" class="btn btn-default">volver al concurso</a>  
-			<button class="btn btn-default" ng-click="exportData()" >Exportar listado</button>
+			<button class="btn btn-default" ng-click="exportData(challenge._id)" >Exportar listado</button>
 		</p>
 
 		<table class="table">

@@ -299,13 +299,13 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		$scope.reverse = !$scope.reverse;
 	};
 
-	$scope.exportData = function(){
+	$scope.exportData = function(challengeId){
 		if ($scope.portUrl){
 			$scope.portUrl = ":"+ $scope.portUrl;
 		}
-		console.log($scope.urlRoot + $scope.portUrl + "/api/v2/projects/export");
+		console.log(challengeId);
 	    //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
-	    $.getJSON( $scope.urlRoot + $scope.portUrl + "/api/v2/projects/export", function( data ) {
+	    $.getJSON( $scope.urlRoot + $scope.portUrl + "/api/v2/projects/export/" + challengeId, function( data ) {
 	    	JSONData = data;
 
 		    ReportTitle = "Participaciones";

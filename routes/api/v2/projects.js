@@ -46,7 +46,7 @@ module.exports = function(app, uri, common) {
   //NEW
   app.post(uri + '/projects', common.isAuth, loadCommon(common), canCreateProject, createProject, sendProject);
   app.post(uri + '/projects/upload_file', common.isAuth, uploadFile);
-  app.get(uri + '/projects/export', common.isAuth, exportProjects);
+  app.get(uri + '/projects/export/:cid', common.isAuth, exportProjects);
 
   //GET ONE  
   app.get(uri + '/projects/:pid', getProject, sendProject);
@@ -115,10 +115,12 @@ var exportProjects = function(req, res, next){
     } 
   }
 
+  console.log(req);
+
   var LANGUANJE = "es";
 
   
-  Project.find()
+  Project.find({ 'challenge_id': req.params.cid})
     .populate({
       path: 'leader',
       select: 'name picture _id email'
