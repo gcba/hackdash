@@ -141,10 +141,10 @@ var exportProjects = function(req, res, next){
         exportData[k] = {
           "Nombre del Creador": projects[k].leader.name,
           "Paricipación": projects[k].title,
-          "Descripción": projects[k].description,
+          "Descripcion": projects[k].text,
           "Estado": translatables[LANGUANJE][projects[k].status],
           "Activo?": translatables[LANGUANJE][projects[k].active], 
-          "Cantidad de Votos": projects[k].followers.length,
+          "Votos": projects[k].followers.length,
           "Email": projects[k].contributors[0].email
         };
       }
