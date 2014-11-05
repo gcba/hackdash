@@ -135,6 +135,7 @@ var updateDashboard = function(req, res, next) {
   dashboard.description = getValue("description");
   dashboard.link = getValue("link");
   dashboard.open = getValue("open");
+  dashboard.dash_status = getValue("dash_status");
   dashboard.contact = getValue("contact");
   dashboard.pages = getValue("pages");
   dashboard.stages = getValue("stages");

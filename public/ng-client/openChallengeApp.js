@@ -207,6 +207,9 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
   
   var translatables = { 
     "es": { 
+      "close": "Cerrado",
+      "open": "Abierto",
+      "coming_soon": "Proximamente",
       "5-submitted": "Postulada",
       "4-finals": "Finalistas",
       "4-special-mention": "Mención especial",
@@ -248,9 +251,6 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
     } 
     return false;
   }
-
-
-
 });
 
 

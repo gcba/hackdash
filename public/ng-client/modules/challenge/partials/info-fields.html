@@ -22,6 +22,12 @@
 	<div text-angular ng-model="challenge.description"></div>
 </div>
 
+
+<div class="form-group">
+	<select ng-model="challenge.dash_status" ng-options="t(values) for values in $parent.dash_statuses" class="form-control">
+	</select>
+</div>
+
 <div class="checkbox">
 	<label>Abierto
 		<input name="open" type="checkbox" ng-model="challenge.open"/>

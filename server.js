@@ -56,16 +56,12 @@ app.configure(function(){
      res.status(500);
      res.render('500');
   });
+
   app.set('statuses',['1-winner', '1-price', '2-price', '3-price', '4-special-mention', '4-finals','5-submitted']);
   app.set('roles',['user','admin','superadmin']);
   app.set('page_contents_type',['text','faq','rules','jury','prizes', 'stages', 'submissions']);
-  app.set('permissions',[
-     'edit-submit'
-    ,'submit'
-    ,'public-vote'
-    ,'information'
-  ]);
-
+  app.set('permissions',['edit-submit' ,'submit' ,'public-vote' ,'information']);
+  app.set('dash_statuses',['close','open','coming_soon']);
 
 	app.locals.title = config.title;
 });
