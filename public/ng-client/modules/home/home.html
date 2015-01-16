@@ -7,11 +7,10 @@
 </div>
 <div class="container">
   <div class="row">
-    
     <div id="challenge-container" class="col-md-7">
         <h2>Concursos</h2>
         <div class="panel panel-default" ng-repeat="c in challenges">
-        	<a class="challenges-link" href="/#/challenge/{{c._id}}">
+        	<a class="challenges-link" href="/#/challenge/{{c._id}}" ng-if="c.dash_status != 'coming_soon'">
             <div class="media">
               <span class="pull-left img-container">
                 <img class="media-object" ng-src="{{c.header_images[0]}}" height="200" />
@@ -21,25 +20,53 @@
                   <div class="row">
                     <h3 class="media-heading">{{c.title}}</h3>
                     <p>{{c.subtitle}}</p>
-                    <p ng-if="c.open"><span class="label label-success">ABIERTO</span></p>
-                    <p ng-if="!c.open"><span class="label label-danger">CERRADO</span></p>
+                    <p ng-if="c.dash_status === 'open'"><span class="label label-success">ABIERTO</span></p>
+                    <p ng-if="c.dash_status === 'close'"><span class="label label-danger">CERRADO</span></p>
                   </div>
                 </div>
               </div>
             </div>
         	</a>
+
+          <a class="challenges-link" href="/#/challenge/{{c._id}}" ng-if="c.dash_status === 'coming_soon' && canEdit(c._id)">
+            <div class="media">
+              <span class="pull-left img-container">
+                <img class="media-object" ng-src="{{c.header_images[0]}}" height="200" />
+              </span>
+              <div class="media-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <h3 class="media-heading">{{c.title}}</h3>
+                    <p>{{c.subtitle}}</p>
+                    <p ng-if="c.dash_status === 'coming_soon'"><span class="label label-info">PROXIMAMENTE</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
+          <div class="media" ng-if="c.dash_status === 'coming_soon' && !canEdit(c._id)">
+            <span class="pull-left img-container">
+              <img class="media-object" ng-src="{{c.header_images[0]}}" height="200" />
+            </span>
+            <div class="media-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <h3 class="media-heading">{{c.title}}</h3>
+                  <p>{{c.subtitle}}</p>
+                  <p ng-if="c.dash_status === 'coming_soon'"><span class="label label-info">PROXIMAMENTE</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
     </div>
-
     <div id="project-container" class="col-md-4 col-md-offset-1">
       <h2>Participaciones</h2>
       <div class="panel panel-default" ng-repeat="c in projects | orderBy: 'created_at' : true | limitTo : 10 ">
           <a class="project-link" href="/#/submit/{{c._id}}">
             <div class="media">
-<!--               <span class="pull-left img-container">
-                <img class="media-object" ng-src="{{c.leader.picture}}" height="100" />
-              </span>
-              {{vo}} -->
               <div class="media-body">
                 <div class="container-fluid">
                   <div class="row">
@@ -53,7 +80,6 @@
           </a>
       </div>
     </div>
-  
   </div>
 </div>
 

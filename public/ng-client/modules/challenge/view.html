@@ -1,5 +1,4 @@
-<div id="view-challenge-container" ng-controller="challengeCtrl" ng-init="viewInit()">
-	
+<div id="view-challenge-container" ng-controller="challengeCtrl" ng-init="viewInit()">	
 	<div class="jumbotron" ng-style="getCssJumbotron(challenge)">
 		<div class="container">
 			<h1>{{challenge.title}}</h1>
@@ -8,9 +7,8 @@
 				<li ng-repeat="p in challenge.pages | orderBy: 'weight' " ng-class="{active: p.active}">
 					<a href="#{{slugify(p.title)}}-page" data-toggle="tab">{{p.title}}</a>
 				</li>
-		</ul>
+			</ul>
 		</div>
-
 	</div>
 
 	<div class="container">
