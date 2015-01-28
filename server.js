@@ -64,6 +64,8 @@ app.configure(function(){
   app.set('dash_statuses',['close','open','coming_soon']);
 
 	app.locals.title = config.title;
+  //La siguiente linea formatea la salida HTML de JADE
+  app.locals.pretty = true;
 });
 
 app.configure('development', function(){
