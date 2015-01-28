@@ -26,6 +26,7 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 				.then(function(updatedProject){
 					var projectIndex = _.findIndex($scope.$parent.projects, {_id:projectId});
 					$scope.$parent.projects[projectIndex].followers = updatedProject.followers;
+					$('.bs-'+projectId+'-modal-lg').modal('show');
 				});
 		} else {
 			$window.location.href = '/auth/openid/';
