@@ -14,6 +14,7 @@
 			  <li><a data-target="#image-header-fields" role="tab" data-toggle="tab">Encabezado</a></li>
 			  <li><a data-target="#submission-fields" role="tab" data-toggle="tab">Campos de proyecto</a></li>
 			  <li><a data-target="#categories" role="tab" data-toggle="tab">Categorías</a></li>
+			  <li><a data-target="#redes-sociales" role="tab" data-toggle="tab">Redes Sociales</a></li>
 			</ul>
 			<!-- Tab content -->
 			<div class="tab-content">
@@ -89,6 +90,10 @@
 				
 				<!-- Project categoríes -->
 				<fieldset ng-include="'/ng-client/modules/challenge/partials/category-fields.html'" class="tab-pane" id="categories"></fieldset>			
+			
+				<!-- Call to action button -->
+				<fieldset ng-include="'/ng-client/modules/challenge/partials/leyendas-redes-sociales.html'" class="tab-pane" id="redes-sociales"></fieldset>
+				
 			</div>
 
 			<div class="form-group">

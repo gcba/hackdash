@@ -41,13 +41,13 @@ module.exports = function(app) {
   });
   mongoose.model('Project', Project);
 
-  console.log(app.get('dash_statuses'));
   var Dashboard = new Schema({
       "slug": { type: String, index: { unique: true } }
     , "title": { type: String }
     , "subtitle": { type: String }
     , "description": { type: String }
     , "dash_status": { type: String, enum: app.get('dash_statuses'), default: app.get('dash_statuses')[0] }
+    , "socialshare_txt": { type: String }
     , "open": { type: Boolean, default: false }
     , "showcase": [String]
     , "type": [String]

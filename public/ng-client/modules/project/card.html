@@ -1,22 +1,14 @@
 <div class="thumbnail" ng-style="getCssBorderTop(challenge)" >
 	<div class="thumbnail-content">
-	<p ng-show="project.tags.length > 0">Categoría: {{project.tags[0]}}</p>
+	<p ng-show="project.tags.length > 0">Categoría: {{project.tags[6]}}</p>
 	<div ng-repeat-start="s in challenge.submit_fields | filter: filterObj | orderBy:'status' "></div>
 		<field-component field-schema="s" field-data="project[s.type]" view-mode="card"></field-component>
 	<div ng-repeat-end></div>
-<!--
-	<p>
-		<a class="pull-right" href="/#/profile/{{project.leader._id}}">
-			<img ng-src="{{project.leader.picture}}" width="25" />
-			{{project.leader.name}}
-		</a>
-	</p>
--->
 	</div>
 	<div class="thumbnail-footer">
-		<h4 ng-style="getCssColor(challenge)"><strong>Votos:<strong> {{project.followers.length}}</h4>
-		<p><strong>Estado:<strong> {{t(project.status)}}</p>
-		<p><strong>Enviado:<strong> {{project.created_at | date:'dd-MM-yyyy'}}</p>
+		<h4 ng-style="getCssColor(challenge)"><strong>Votos:</strong> {{project.followers.length}}</h4>
+		<p><strong>Estado:</strong> {{t(project.status)}}</p>
+		<p><strong>Enviado:</strong> {{project.created_at | date:'dd-MM-yyyy'}}</p>
 		<p>
 			<div class="btn-group btn-group-justified">
 				 <div ng-if="containsObject(user.name, project.followers) === true">
@@ -32,15 +24,15 @@
 					 	<a class="btn btn-default" ng-href="/#/submit/{{project._id}}">
 							Ver más
 						</a>
-	    				<a ng-if="isAbleTo('public-vote',challenge)" ng-style="getCssButtonColors(challenge)" ng-controller="projectCtrl" class="btn btn-primary" ng-click="vote(projects[$index]._id)">Votar</a>
+	    				<a ng-if="isAbleTo('public-vote',challenge)" ng-style="getCssButtonColors(challenge)" ng-controller="projectCtrl" ng-click="vote($parent.project._id)" class="btn btn-primary">
+	    					Vote 
+	    				</a>
 	    			</div>
 				</div>
 			</div>
 		</p>
 	</div>
 </div>
-
-
 <div class="modal fade bs-{{project._id}}-modal-lg" id="{{project._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
@@ -52,7 +44,7 @@
 			<!-- Modal body -->
 			<div class="modal-body">
 				<ul ng-social-buttons class="text-center" style="margin-bottom:15px;"
-				     data-title="'Conocé mi voto de #BACONCURSOS en éste link'" 
+				     data-title="challenge.socialshare_txt" 
 				     data-url="current_location" 
 				     data-description="'{{project.description}}'"
 				     data-text="'{{project.description}}'"
