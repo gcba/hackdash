@@ -1,7 +1,9 @@
 doctype html
 html(ng-app="oc-project")
   head
+    meta(name="fragment", content="!")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+<<<<<<< HEAD
     title(ng-bind="'BA Concursos' + $root.title")
       title
     link(rel="shortcut icon", href="/bastrap/favicon.ico", type="image/x-icon")
@@ -63,6 +65,41 @@ html(ng-app="oc-project")
 
       #page(ng-view)
 
+=======
+
+    title= meta.title
+    meta(name="description", content= meta.description)
+    link(rel='image_src', type='image/png', href= meta.image)
+
+    meta(property='og:image', content= meta.image)
+    meta(property='og:title', content= meta.title)
+    meta(property='og:description', content= meta.description)
+    meta(property='og:url', content='http://hackdash.org')
+    meta(property='og:site_name', content='HackDash')
+    meta(property='og:type', content='website')
+
+    meta(property='twitter:card', content='summary')
+    meta(property='twitter:title', content= meta.title)
+    meta(property='twitter:description', content= meta.description)
+    meta(property='twitter:image:src', content= meta.image)
+
+    link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+    link(rel="icon", href="/favicon.ico", type="image/x-icon")
+
+    link(rel='stylesheet', href='//fonts.googleapis.com/css?family=Lato:300,400,700')
+
+    link(rel='stylesheet', href='/styles/vendor.css?v=' + version)
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css')
+
+    link(rel='stylesheet', href='/styles/main.css?v=' + version)
+
+  body
+
+    header
+    .container#page
+      #main
+        block content
+>>>>>>> FETCH_HEAD
     footer
       .navbar
         .container
@@ -113,7 +150,11 @@ html(ng-app="oc-project")
 
 
     script.
+<<<<<<< HEAD
       window.openchallenge = { 
+=======
+      window.hackdash = {
+>>>>>>> FETCH_HEAD
         subdomain: "!{subdomain}",
         baseURL: "!{host}",
         disqus_shortname: "!{disqus_shortname}",
@@ -127,10 +168,24 @@ html(ng-app="oc-project")
 
     if ("undefined" == typeof user)
       script.
+<<<<<<< HEAD
         window.openchallenge.user = null;
     else 
       script.
         window.openchallenge.user = !{JSON.stringify(user)};      
+=======
+        window.hackdash.user = null;
+    else
+      script.
+        window.hackdash.user = !{JSON.stringify(user)};
+
+    script(src="/js/hackdashApp.js?v=" + version)
+
+    script.
+      $(function(){
+        window.hackdash.startApp();
+      });
+>>>>>>> FETCH_HEAD
 
     script().
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

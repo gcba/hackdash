@@ -37,10 +37,15 @@ module.exports = function(app, uri, common) {
     }
   };
 
+<<<<<<< HEAD
   //GET SCHEMA
   app.get(uri + '/projects/schema', common.isAuth, setSchema, sendSchema);
 
   //LIST
+=======
+  app.get(uri + '/:domain/projects', setQuery, setProjects, sendProjects);
+
+>>>>>>> FETCH_HEAD
   app.get(uri + '/projects', setQuery, setProjects, sendProjects);
 
   //NEW
@@ -322,6 +327,7 @@ var updateProject = function(req, res, next) {
   if (!project.description){
     return res.json(500, { error: "description_required" });
   }
+<<<<<<< HEAD
 */
   var isAdmin = (req.project.challenge_id && req.user.admin_in.indexOf(req.project.challenge_id) >= 0);
   if (isAdmin){ 
@@ -329,6 +335,9 @@ var updateProject = function(req, res, next) {
     project.active = getValue("active");
   }
   
+=======
+
+>>>>>>> FETCH_HEAD
   project.save(function(err, project){
     console.log(err);
     if(err) return res.send(500);
@@ -447,6 +456,9 @@ var setQuery = function(req, res, next){
       req.query = { challenge_id: req.params.did, active: true };      
     }
   }
+  else if (req.params.domain) {
+    req.query = { domain: req.params.domain };
+  }
 
   if (cat.length === 0 && order.length === 0){
     return next();
@@ -459,8 +471,13 @@ var setQuery = function(req, res, next){
     }
   }
 
+<<<<<<< HEAD
  /* var regex = new RegExp(query, 'i');
   req.query.$or = [ { title: regex }, { description: regex } ];*/
+=======
+  var regex = new RegExp(query, 'i');
+  req.query.$or = [ { title: regex }, { description: regex }, { tags: regex } ];
+>>>>>>> FETCH_HEAD
 
   next();
 };

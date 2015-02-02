@@ -8,7 +8,17 @@
   "port": 3000,
   "session": "lalala654lalal098lalala260",
   "disqus_shortname": null,
+<<<<<<< HEAD
   "title": "Open Challenge BA",
   "live": false,
   "mailer": null
+=======
+  "title": "hackdash",
+  "live": true,
+  "mailer": null,
+  "prerender": {
+    "enabled": false,
+    "db": "mongodb://localhost/prerender"
+  }
+>>>>>>> FETCH_HEAD
 }

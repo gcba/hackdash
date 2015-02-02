@@ -17,8 +17,17 @@ var User = mongoose.model('User')
 
 module.exports = function(app, uri, common) {
 
+<<<<<<< HEAD
   //GET ALL admin users from one dashboard  
   app.get(uri + '/dashboards/:did/admins', getInstanceAdmins, sendUsers);
+=======
+  app.get(uri + '/admins', getInstanceAdmins, sendUsers);
+  app.post(uri + '/admins/:uid', common.isAuth, isDashboardAdmin, getUser, addAdmin, sendUser);
+
+  app.get(uri + '/users', setQuery, getUsers, sendUsers);
+
+  app.get(uri + '/users/:uid', getUser, sendUser);
+>>>>>>> FETCH_HEAD
 
   //app.get(uri + '/admins', getInstanceAdmins, sendUsers);
   app.get(uri + '/users/:uid', common.isAuth, getUser, sendUser);
@@ -52,6 +61,33 @@ var getUsers = function(req, res, next){
     });
 };
 
+var isDashboardAdmin = function(req, res, next){
+  var domain = req.subdomains[0];
+
+  var isAdmin = (req.user.admin_in.indexOf(domain) >= 0);
+
+  if (!isAdmin) {
+    return res.send(403, "Only Administrators are allowed for this action.");
+  }
+
+  next();
+};
+
+var setQuery = function(req, res, next){
+  var query = req.query.q || "";
+
+  req.query = {};
+
+  if (query.length === 0){
+    return next();
+  }
+
+  var regex = new RegExp(query, 'i');
+  req.query.$or = [ { name: regex }, { username: regex } ];
+
+  next();
+};
+
 var getUser = function(req, res, next){
 
   var fields = (req.user.id==req.params.uid || req.user.role == 'superadmin')?null:'_id name picture admin_in created_at';
@@ -64,6 +100,18 @@ var getUser = function(req, res, next){
     });
 };
 
+var getUsers = function(req, res, next){
+  User
+    .find(req.query || {})
+    .limit(10)
+    .sort( { "name" : 1 }, { "username" : 1 } )
+    .exec(function(err, users) {
+      if(err) return res.send(500);
+      req.users = users;
+      next();
+    });
+};
+
 var canUpdate = function(req, res, next){
   var isLogedInUser = req.user.id === req.params.uid;
   
@@ -72,6 +120,16 @@ var canUpdate = function(req, res, next){
   }
 
   next();
+};
+
+var addAdmin = function(req, res, next){
+  var domain = req.subdomains[0];
+
+  User.update({_id: req.user_profile._id }, { $addToSet : { 'admin_in': domain }}, function(err){
+    if(err) return res.send(500);
+    next();
+  });  
+
 };
 
 var updateUser = function(req, res){

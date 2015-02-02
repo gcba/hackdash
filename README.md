@@ -23,12 +23,17 @@ Requirements
 
 Install
 ===========
+<<<<<<< HEAD
 	git clone https://github.com/gcba/open-challenge.git
 	cd open-challenge
 	cp keys.json.sample keys.json
 	cp config.json.sample config.json
 	npm install
 	node server.js
+=======
+
+I wrote a [blog post](http://zajdband.com/installing-hackdash) explaining the installation process.
+>>>>>>> FETCH_HEAD
 
 Config
 ======
@@ -45,6 +50,9 @@ In your `config.json`:
 * `title`: Instance title used in the html title tag and other headings.
 * `live`: Boolean (true, false) that enable/disable the live feed feature in yourdomain.com/live.
 * `mailer`: SMTP mail info to enable email notifications using nodemailer. Check out the [options](https://github.com/andris9/Nodemailer#setting-up-smtp)
+* `prerender`: 
+	+ `enabled`: Boolean (true, false). Where the website would use the SEO Prerender 
+	+ `db`: The Mongo URI of Cached Pages.
 
 
 In your `keys.json`:
@@ -62,5 +70,35 @@ Running instances
 Copyleft
 ========
 
+<<<<<<< HEAD
 Based in the [HackDash platform](http://hackdash.org)
 Developed by [Gobierno de la Ciudad de Buenos Aires](http://www.buenosaires.gob.ar)
+=======
+Add your own Dashboard!
+
+
+Contribute
+==========
+
+### Install GruntJS
+[GruntJS](http://gruntjs.com/) is required.
+
+```bash
+npm install -g grunt-cli
+```
+
+### Create a configuration file
+Create a `config.test.json` file using the config.json.sample with the configuration of your local for test. (i.e. mongoDB url for tests)
+
+### Running Tests
+```bash
+npm install
+npm test
+```
+
+or 
+
+```bash
+grunt test
+```
+>>>>>>> FETCH_HEAD

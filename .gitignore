@@ -2,8 +2,13 @@ node_modules
 .DS_Store
 .sublime-project
 .sublime-workspace
-src/
 keys.json
 config.json
+config.test.json
 public/uploads/*
+<<<<<<< HEAD
+=======
+npm-debug.log
+
+>>>>>>> FETCH_HEAD
 *.sample

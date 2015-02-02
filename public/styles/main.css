@@ -26,17 +26,17 @@ font-style: normal;
 }
 
 body>header { 
-  padding: 40px 0 60px 0; 
+  padding: 30px 0 10px 0;
   background: #1e1d22;
-  margin:0 0 50px 0;
+  margin: 0 0 30px 0;
   text-align: center;
 }
 
 body>header h1 {
   margin: 0;
   color: #FFF;
-  font-size: 70px;
-  line-height: 1.3em;
+  font-size: 40px;
+  line-height: 1em;
 }
 
 body>header  a.logo {
@@ -48,11 +48,11 @@ body>header  a.logo {
 }
 
 body>header p.lead {
-  margin-bottom: 0;
   font-size: 20px;
   font-weight: regular;
   color: rgba(255,255,255,0.4);
-  margin-top:-5px; margin-bottom: 30px
+  margin-top:-5px; 
+  margin-bottom: 10px
 }
 
 body>header .createProject {
@@ -60,8 +60,9 @@ body>header .createProject {
 }
 
 body>header div.createProject .logout {
-  height: 20px;
-  padding: 13px;
+  height: 26px;
+  padding: 12px;
+  line-height: 1.8em;
   margin-left: 10px;
 }
 
@@ -72,16 +73,21 @@ body>header .btn {
   font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-body>header .btn:hover {
-  background: #FFF; color:#000; 
+body>header .btn.sort {
+  padding: 0.8em 0.8em;
 }
 
-body>header .btn.export {
+body>header .btn:hover {
+  background: #FFF; 
+  color:#000; 
+}
+
+body>header .btn-new-project {
   position: absolute;
   right: 0;
-  padding: 10px;
-  bottom: 0;
-  font-size: 20px;
+  top: 60px;
+  font-size: 16px;
+  padding: 10px 20px;
 }
 
 .kindafixed-top {
@@ -164,20 +170,23 @@ body>header .btn.export {
   background-size: cover!important;
 }
 
-#projects .well:hover {
+#projects .well:hover,
+#dashboards .well:hover,
+#collections .well:hover {
   box-shadow: 0 2px 3px rgba(0,0,0,0.3);
   cursor: pointer;
-    top:-2px;
-
+  top:-2px;
 }
 
 .well .avatar {
   width:32px;
   height: 32px;
-
 }
 
-
+.well.full-project .avatar {
+  width:48px;
+  height: 48px; 
+}
 
 .modal .well {
   margin: 0
@@ -341,15 +350,21 @@ line-height:                     0;
     width: 90%;
   }
 
-
-	header div.createProject a.logout {
+  header div.createProject a.logout {
     display: none;
-	}
-	
-  header .showcase-switcher-ctn,
-  header .dashboard-switcher {
-    position: static;
-    margin-top: 20px;
+  }
+
+  body>header .btn-showcase-mode {
+    clear: left;
+    margin-right: 0;
+    display: inline-block;
+    float: none;
+  }
+
+  header .btn-new-project {
+    position: static!important;
+    padding: 0.8em 1.2em!important;
+    font-size: 26px!important;
   }
 
   header .btn.export {
@@ -359,7 +374,7 @@ line-height:                     0;
 
   .isotope .project,
   .isotope .dashboard {
-    position: static ! important;
+    /*position: static ! important;*/
     -webkit-transform: translate(0px, 0px) ! important;
        -moz-transform: translate(0px, 0px) ! important;
             transform: translate(0px, 0px) ! important;
@@ -422,6 +437,7 @@ line-height:                     0;
   box-shadow: none;
   font-weight: bolder;
   margin-left: 5px;
+  position: relative;
       /* Firefox */
   -moz-transition: all 0.2s ease-in-out;
   /* WebKit */
@@ -436,6 +452,7 @@ line-height:                     0;
 .btn-profile img {
   width: 50px;
   height: 50px;
+  border: 2px solid white;
 }
 
 .profile-ctn ul {
@@ -455,6 +472,18 @@ line-height:                     0;
   text-decoration: none;
 }
 
+.admin-label {
+  color: white;
+  font-size: 12px;
+  font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  position: absolute;
+  left: 1px;
+  top: 6px;
+  background: rgba(0,0,0,0.5);
+  width: 50px;
+  border: 1px solid white;
+}
+
 .projects.showcase .project .well {
   border-bottom: 1px dashed;
   border-left: 1px dashed;
@@ -470,6 +499,19 @@ line-height:                     0;
 .project.wireframing .well { border-top-color:#55c5ff;}
 .project.researching .well { border-top-color:red;}
 .project.brainstorming .well { border-top-color:#ff5a00;}
+
+
+.inactive-ctn {
+  padding-top: 25px;
+  border-top: 5px dashed silver;
+}
+
+.inactive-ctn .projects .project .well {
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent !important;
+}
 
 .profile-ctn li .well {
   border-left:10px solid #000;
@@ -590,8 +632,7 @@ h1,h2,h3,h4,h5,h6,p {
   color: rgba(255,255,255,0.4)!important;
 }
 
-.showcase-switcher-ctn,
-.dashboard-switcher {
+.showcase-switcher-ctn {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -616,20 +657,16 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 .showcase-switcher .has-switch span.switch-left,
-.dashboard-switcher .has-switch span.switch-left,
 .switcher .has-switch span.switch-left {
   background-color: #5bb75b;
 } 
 
 .showcase-switcher .has-switch span.switch-right,
-.dashboard-switcher .has-switch span.switch-right,
 .switcher .has-switch span.switch-right {
   background-color: #bd362f;
 } 
 
 .showcase-switcher .has-switch span.switch-left,
-.dashboard-switcher .has-switch span.switch-left,
-.dashboard-switcher .has-switch span.switch-right,
 .switcher .has-switch span.switch-left,
 .switcher .has-switch span.switch-right {
   background-image: none;
@@ -715,11 +752,11 @@ header .orderby {
 
 #page {
   min-height: 600px;
+  overflow: hidden;
 }
 
 #newProject {
   font-family: 'Lato', sans-serif;
-  /*margin: -250px 0 0 -158px;*/
 }
 
 #newProject legend {
@@ -728,6 +765,10 @@ header .orderby {
   line-height: 60px;
   margin: 0px 0px 0px 10px;
   border: none;
+}
+
+#ghImportBtn {
+  cursor: pointer;
 }
 
 .well-header {
@@ -838,12 +879,26 @@ vertical-align: top;
 footer { 
   padding: 18px 0 17px 0;
   background: #000;
-  margin: 100px 0 0 0;
 }
 
 footer h4 {
   color: white;
   float: left;
+}
+
+footer .dashboard-btn,
+footer .embed-btn {
+  margin: 0 10px;
+}
+
+footer .dashboard-btn.dash-open { 
+  color: rgb(255, 92, 92);
+  border-color: red;
+}
+
+footer .dashboard-btn.dash-close { 
+  color: rgb(144, 255, 92);
+  border-color: rgb(20, 255, 0);
 }
 
 .admins-ctn {
@@ -853,11 +908,50 @@ footer h4 {
 
 .admins-ctn ul {
   list-style: none;
+  float: left;
 }
 
 .admins-ctn ul>li {
   float: left;
   margin-left: 15px;
+}
+
+.add-admins {
+  font-size: 35px;
+  border: 3px solid white;
+  border-radius: 50%;
+  padding: 6px 10px 4px 10px;
+  color: white;
+  float: left;
+  margin-left: 10px;
+}
+
+.add-admins:hover {
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.add-admins-modal img {
+  width: 50px;
+  height: 50px;
+}
+
+.add-admins-modal .add-on {
+  background: black;
+  border-color: black;
+}
+
+.add-admins-modal .add-on .icon-user {
+  color: white;
+}
+
+.add-admins-modal .add-on img {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  margin-top: -7px;
 }
 
 .my-collections-modal {
@@ -901,6 +995,25 @@ footer h4 {
 
 .my-collections-modal ul>li label {
   font-size: 22px;
+}
+
+.my-collections-modal ul.events {
+  height: 15px;
+}
+
+.my-collections-modal ul.events>li {
+  background: none;
+  border: none;
+  margin: 0;
+  font-size: 16px;
+  cursor: default;
+  padding: 5px 0;
+  color: rgb(122, 122, 122);
+  float: right;
+}
+
+.my-collections-modal ul.events>li span {
+  font-weight: bold;
 }
 
 .my-collections-modal .btn-add {
@@ -1012,6 +1125,10 @@ h3.header {
   padding: 15px;
   margin:0;
   border-bottom: 1px solid #EEE
+}
+
+h3.header .avatar {
+  margin-right: 10px;
 }
 
 .span-center {
@@ -1211,7 +1328,19 @@ a.signup-persona:hover {
   outline: 0;
 }
 
+.btn-showcase-mode.on {
+  color: rgb(144, 255, 92);
+  border-color: rgb(20, 255, 0);
+}
 
+.btn-showcase-mode.on:hover {
+  background: rgb(144, 255, 92);
+  color: #000;
+}
+
+footer .btn:hover {
+  color:#000;
+}
 
 /* HOMEPAGE STYLES */
 
@@ -1248,7 +1377,7 @@ a.signup-persona:hover {
 }
 
 .homepage .search-btn {
-  margin-top: -10px;
+  margin-top: -20px;
   margin-left: 5px;
 }
 

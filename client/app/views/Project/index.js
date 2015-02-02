@@ -43,9 +43,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
     isAdminOrLeader: function(){
       var user = hackdash.user;
       return user._id === this.leader._id || user.admin_in.indexOf(this.domain) >= 0;
-    },
-    isDashboardAdmin: function(){
-      return hackdash.user && hackdash.user.admin_in.indexOf(this.domain) >= 0;
     }
   },
 
@@ -68,6 +65,13 @@ module.exports = Backbone.Marionette.ItemView.extend({
       })
       .tooltip({});
 
+    if (this.model.get("active")){
+      this.$el.addClass('filter-active');
+    }
+    else {
+      this.$el.removeClass('filter-active');
+    }
+
     $('.tooltips', this.$el).tooltip({});
 
     var url = "http://" + this.model.get("domain") + "." + hackdash.baseURL + 
@@ -84,6 +88,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   serializeData: function(){
     return _.extend({
+      isShowcaseMode: hackdash.app.dashboard && hackdash.app.dashboard.isShowcaseMode,
       contributing: this.isContributor(),
       following: this.isFollower()
     }, this.model.toJSON());
@@ -142,7 +147,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
       .bootstrapSwitch()
       .on('switch-change', function (e, data) {
         self.model.set("active", data.value);
-        self.model.save({ silent: true });
       });
   },
 
