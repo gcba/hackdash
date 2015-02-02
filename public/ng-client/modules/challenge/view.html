@@ -27,6 +27,9 @@
 					<p><a href="/#/challenge/{{challenge._id}}/edit">Editar</a></p>
 					<p><a href="/#/challenge/{{challenge._id}}/edit/projects">Ver postulaciones</a></p>
 				</div>
+				<div ng-if="challenge.stages[0].permissions.indexOf('edit-vote')>0 && !userCanEdit" class="adminbar">
+					<p><a href="/#/challenge/{{challenge._id}}/edit/myprojects">Ver mis postulaciones</a></p>
+				</div>
 
 				<div class="well" ng-if="isAbleTo('submit',challenge)">
 					<a 	ng-click="openParticipatePopup()" ng-style="getCssButtonColors(challenge)" href="javascript:;" class="btn btn-lg btn-block btn-primary">

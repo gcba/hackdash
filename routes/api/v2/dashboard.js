@@ -219,13 +219,13 @@ var updateDashboard = function(req, res, next) {
   function getValue(prop){
     return req.body.hasOwnProperty(prop) ? req.body[prop] : dashboard[prop];    
   }
-
   dashboard.title = getValue("title");
   dashboard.subtitle = getValue("subtitle");
   dashboard.description = getValue("description");
   dashboard.link = getValue("link");
   dashboard.open = getValue("open");
   dashboard.dash_status = getValue("dash_status");
+  dashboard.socialshare_txt = getValue("socialshare_txt");
   dashboard.contact = getValue("contact");
   dashboard.pages = getValue("pages");
   dashboard.stages = getValue("stages");

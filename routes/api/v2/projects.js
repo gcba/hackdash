@@ -109,6 +109,7 @@ var exportProjects = function(req, res, next){
       "stages": "Etapas",
       "submissions": "Participaciones",
       "edit-submit": "Editar - Participar",
+      "edit-vote": "Editar - Votos",
       "submit": "Participar",
       "public-vote": "Votar",
       "information": "Información",

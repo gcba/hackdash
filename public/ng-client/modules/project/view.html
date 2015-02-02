@@ -11,7 +11,7 @@
 		<div class="row">
 			<div class="col-md-7">
 				<ul ng-social-buttons
-				     data-title="'Conocé mi idea de #BACONCURSOS en éste link'" 
+				     data-title="challenge.socialshare_txt"
 				     data-url="current_location" 
 				     data-description="'{{project.description}}'"
 				     data-text="'{{project.description}}'"
@@ -20,7 +20,6 @@
 				    <li class="ng-social-google-plus">Google+</li>
 				    <li class="ng-social-twitter">Twitter</li>
 				</ul>
-
 				<div ng-repeat="s in challenge.submit_fields | orderBy:'order'">
 					<field-component field-schema="s" field-data="project[s.type]" view-mode="full">
 					</field-component>
@@ -36,7 +35,6 @@
 					{{containsObject(user.name, project.followers) === true ? 'Ya votaste' : 'Votar'}}
 					</a>
 				</div>
-
 				<div class="sidebar-data sidebar-someone">
 					<h4 ng-style="getCssColor(challenge)">Enviado por:</h4>
 					<a href="/#/profile/{{project.leader._id}}">
@@ -44,19 +42,16 @@
 						<p class="lead">{{project.leader.name}}</p>
 					</a>
 				</div>
-
 				<div class="sidebar-data sidebar-someone">
 					<h4 ng-style="getCssColor(challenge)">Votos ({{project.followers.length}})</h4>
 					<a href="/#/profile/{{v._id}}" ng-repeat="v in project.followers">
 						<img ng-src="{{v.picture}}" width="25" height="25" title="{{v.name}}" />
 					</a>
 				</div>
-
 				<div class="sidebar-data">
 					<h4 ng-style="getCssColor(challenge)">Creado:</h4>
 					<p>{{project.created_at | date:'dd-MM-yyyy'}}  a las {{project.created_at | date:'HH:mm'}}Hs.</p>
 				</div>
-
 				<div ng-show="userCanEdit" class="sidebar-data">
 					<h4 ng-style="getCssColor(challenge)">Administración:</h4>
 					<a href="/#/challenge/{{challenge._id}}/edit">Editar</a>
@@ -77,7 +72,7 @@
 			<!-- Modal body -->
 			<div class="modal-body">
 				<ul ng-social-buttons class="text-center" style="margin-bottom:15px;"
-				     data-title="'Conocé mi voto de #BACONCURSOS en éste link'" 
+				     data-title="challenge.socialshare_txt" 
 				     data-url="current_location" 
 				     data-description="'{{project.description}}'"
 				     data-text="'{{project.description}}'"
@@ -93,4 +88,3 @@
 		</div>
 	</div>
 </div>
- 

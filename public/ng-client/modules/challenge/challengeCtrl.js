@@ -35,6 +35,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	//Inits
 	$scope.editProjectsInit = function(){
 		$scope.checkCanEdit();
+		$scope.checkCanPubEdit();
 		if(!$rootScope.user || !$scope.userCanEdit){
 			$location.path('/challenge/'+$routeParams.challengeId);
 		}
@@ -48,6 +49,10 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 		}
 	};
 
+	$scope.checkCanPubEdit = function(){
+		//console.log("checkCanPubEdit");
+	};
+	
 	$scope.applyAccordion = function(){
 		$('.collapse').collapse();
 	}
@@ -73,6 +78,7 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 
 	$scope.viewInit = function(){
 		$scope.checkCanEdit();
+		$scope.checkCanPubEdit();
 		$scope.loadChallenge(false);
 		$scope.project = {}; //NEW
 		$('#myTab').on('click', 'a', function (e) {

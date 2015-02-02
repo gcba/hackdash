@@ -225,6 +225,7 @@ ocApp.run(function ($rootScope, $timeout, Restangular, $route) {
       "stages": "Etapas",
       "submissions": "Participaciones",
       "edit-submit": "Editar - Participar",
+      "edit-vote": "Editar - Votos",
       "submit": "Participar",
       "public-vote": "Votar",
       "information": "Información",
