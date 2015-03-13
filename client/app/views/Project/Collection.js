@@ -22,30 +22,21 @@ module.exports = Backbone.Marionette.CollectionView.extend({
     "sort:showcase": "sortByShowcase"
   },
 
-  gridSize: {
-    columnWidth: 300,
-    rowHeight: 220
+  modelEvents:{
+    "edit:showcase": "onStartEditShowcase",
+    "end:showcase": "onEndEditShowcase"
   },
 
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
   
-  initialize: function(options){
-    this.showcaseMode = (options && options.showcaseMode) || false;
-    this.showcaseSort = (options && options.showcaseSort) || false;
-  },
+  showcaseMode: false,
 
   onRender: function(){
-
     var self = this;
     _.defer(function(){
-      if (self.showcaseSort) {
-        self.updateIsotope("showcase", ".filter-active");
-      }
-      else {
-        self.updateIsotope();
-      }
+      self.updateIsotope();
 
       if (self.showcaseMode){
         self.startSortable();
@@ -57,57 +48,46 @@ module.exports = Backbone.Marionette.CollectionView.extend({
   //+ PUBLIC METHODS / GETTERS / SETTERS
   //--------------------------------------
 
-  updateShowcaseOrder: function(){
-    var itemElems = this.pckry.getItemElements();
-    var showcase = [];
-
-    for ( var i=0, len = itemElems.length; i < len; i++ ) {
-      var elem = itemElems[i];
-      $(elem).data('showcase', i);
-
-      var found = this.collection.where({ _id: elem.id, active: true });
-      if (found.length > 0){
-        found[0].set({ 
-          "showcase": i
-        }, { silent: true });
-      }
-
-      showcase.push(elem.id);
-    }
-
-    this.pckry.destroy();
-
-    return showcase;
-  },
-
   //--------------------------------------
   //+ EVENT HANDLERS
   //--------------------------------------
 
-  sortByName: function(){
-    this.$el
-      .isotope({"filter": ""})
-      .isotope({"sortBy": "name"});
+  onStartEditShowcase: function(){
+    this.collection = hackdash.app.projects.getOnlyActives();
+    this.showcaseMode = true;
+    this.render();
   },
 
-  sortByDate: function(){
-    this.$el
-      .isotope({"filter": ""})
-      .isotope({"sortBy": "date"});
-  },
-
-  sortByShowcase: function(){
-    this.$el
-      .isotope({"filter": ".filter-active"})
-      .isotope({"sortBy": "showcase"});
+  onEndEditShowcase: function(){
+    this.saveShowcase();
+    this.collection = hackdash.app.projects;
+    this.showcaseMode = false;
+    this.render();
   },
 
   //--------------------------------------
   //+ PRIVATE AND PROTECTED METHODS
   //--------------------------------------
 
+  sortByName: function(){
+    this.$el.isotope({"sortBy": "name"});
+  },
+
+  sortByDate: function(){
+    this.$el.isotope({"sortBy": "date"});
+  },
+
+  sortByShowcase: function(){
+    this.$el.isotope({"sortBy": "showcase"});
+  },
+
+  gridSize: {
+    columnWidth: 300,
+    rowHeight: 220
+  },
+
   isotopeInitialized: false,
-  updateIsotope: function(sortType, filterType){
+  updateIsotope: function(sortType){
     var $projects = this.$el;
 
     if (this.isotopeInitialized){
@@ -134,7 +114,6 @@ module.exports = Backbone.Marionette.CollectionView.extend({
           },
         }
       , sortBy: sortType || "name"
-      , filter: filterType || ""
     });
     
     this.isotopeInitialized = true;
@@ -159,11 +138,40 @@ module.exports = Backbone.Marionette.CollectionView.extend({
       var draggie = new Draggabilly( elem );
       this.pckry.bindDraggabillyEvents( draggie );
     }
+  },
+/*
+  endSortable: function(){
+    var $projects = this.$el;
 
-    var self = this;
-    this.pckry.on( 'dragItemPositioned', function() { 
-      self.model.isDirty = true;
-    });
+    this.saveShowcase();
+
+    this.pckry.destroy();
+    $projects.removeClass("showcase");
+
+    this.updateIsotope("showcase");
+  },
+*/
+  saveShowcase: function(){
+    var itemElems = this.pckry.getItemElements();
+    var showcase = [];
+
+    for ( var i=0, len = itemElems.length; i < len; i++ ) {
+      var elem = itemElems[i];
+      $(elem).data('showcase', i);
+
+      var found = this.collection.where({ _id: elem.id });
+      if (found.length > 0){
+        found[0].set({ "showcase": i}, { silent: true });
+      }
+
+      showcase.push(elem.id);
+    }
+
+    this.model.save({ "showcase": showcase });
+
+    this.pckry.destroy();
+    this.$el.removeClass("showcase");
+    this.updateIsotope("showcase");
   }
 
 });

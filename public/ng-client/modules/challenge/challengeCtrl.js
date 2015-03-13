@@ -255,10 +255,11 @@ ocApp.controller('challengeCtrl', function($scope, $routeParams, Restangular, $l
 	$scope.update = function(challenge, formChallenge){
 		if(formChallenge.$valid){
 			angular.forEach(challenge.stages, function(s,k){
-				delete s.permissionOptions;
+                delete s.permissionOptions;
 			});
 
 			challenge.put().then(function(e){
+                //console.log(e);
 				$location.path('/challenge/'+e._id);
 			});
 		}else{

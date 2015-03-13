@@ -30,7 +30,6 @@ module.exports = Backbone.Marionette.ItemView.extend({
   initialize: function(options){
     this.showSort = (options && options.showSort) || false;
     this.collection = options && options.collection;
-    this.placeholder = (options && options.placeholder) || "Type here";
   },
 
   onRender: function(){
@@ -43,8 +42,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
 
   serializeData: function(){
     return {
-      showSort: this.showSort,
-      placeholder: this.placeholder
+      showSort: this.showSort
     };
   },
 

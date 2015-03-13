@@ -9,11 +9,7 @@ var passport = require('passport')
   , mongoose = require('mongoose')
   , _ = require('underscore')
   , config = require('../../../config.json')
-<<<<<<< HEAD
   , log = require('winston');
-=======
-  , async = require('async');
->>>>>>> FETCH_HEAD
 
 var Project = mongoose.model('Project')
   , User = mongoose.model('User')
@@ -24,7 +20,6 @@ module.exports = function(app, uri, common) {
   //LIST
   app.get(uri + '/dashboards', setQuery, setDashboards, sendDashboards);
   
-<<<<<<< HEAD
   //NEW
   app.post(uri + '/dashboards', common.isAuth, validateSubdomain, createDashboard(app), sendDashboard);
 
@@ -33,14 +28,6 @@ module.exports = function(app, uri, common) {
 
   //UPDATE
   app.put(uri + '/dashboards/:did', common.isAuth, getDashboard, common.isAdminDashboard, updateDashboard, sendDashboard);
-=======
-  app.get(uri + '/dashboards/:domain.jsonp', setFullOption, getDashboard, sendDashboard);
-  app.get(uri + '/dashboards/:domain', getDashboard, sendDashboard);
-  app.get(uri + '/', getDashboard, sendDashboard);
-
-  app.put(uri + '/dashboards/:domain', common.isAuth, getDashboard, isAdminDashboard, updateDashboard, sendDashboard);
-  app.put(uri + '/', common.isAuth, getDashboard, isAdminDashboard, updateDashboard, sendDashboard);
->>>>>>> FETCH_HEAD
 
   //GET MY dashboards
   app.get(uri + '/admin_dashboards', common.isAuth, setMyDashboards, sendDashboards);
@@ -109,7 +96,7 @@ var setDashboards = function(req, res, next){
       req.dashboards = dashboards || [];
       next();
     });
-};
+}
 
 
 var setMyDashboards = function(req, res, next){
@@ -123,91 +110,14 @@ var setMyDashboards = function(req, res, next){
 }
 
 var getDashboard = function(req, res, next){
-<<<<<<< HEAD
     Dashboard.findById(req.params.did)
       .exec(function(err, dashboard) {
-=======
-  var domain;
-
-  if (req.subdomains.length > 0) {
-    domain = req.subdomains[0];
-  }
-  else if (req.params.domain) {
-    domain = req.params.domain;
-  }
-  else {
-    return res.send(400, "Expected a dashboard name");
-  }
-
-  if (req.isFull){
-
-      async.parallel({
-        dashboard: function(done){
-          Dashboard
-            .findOne({ domain: domain })
-            .select('-__v')
-            .lean()
-            .exec(done);
-        },
-        admins: function(done){
-          User
-            .find({ "admin_in": domain })
-            .select('_id name picture bio')
-            .lean()
-            .exec(done);
-        },
-        projects: function(done){
-          Project
-            .find({ domain: domain })
-            .select('-__v -tags')
-            .populate('leader', '_id name picture bio')
-            .sort('title')
-            .lean()
-            .exec(done);
-        }
-      }, function(err, data){
-
->>>>>>> FETCH_HEAD
         if(err) return res.send(500);
-        if(!data.dashboard) return res.send(404);
-
-        data.projects = data.projects || [];
-
-        data.projects.forEach(function(p) { 
-          p.cover = p.cover || '';
-          p.contributors = p.contributors.length;
-          p.followers = p.followers.length;
-        });
-
-        req.dashboard = data.dashboard;
-        req.dashboard.projects = data.projects;
-        req.dashboard.admins = data.admins;
-
+        if(!dashboard) return res.send(404);
+        req.dashboard = dashboard;
         next();
       });
-<<<<<<< HEAD
 }
-=======
-
-    return;
-  }
-
-  Dashboard
-    .findOne({ domain: domain })
-    .exec(function(err, dashboard) {
-      if(err) return res.send(500);
-      if(!dashboard) return res.send(404);
-      req.dashboard = dashboard;
-      next();
-    });
-};
-
-var setFullOption = function(req, res, next){
-  // Access support by script tag to get a Dashboard as JSONP
-  req.isFull = true;
-  next();
-};
->>>>>>> FETCH_HEAD
 
 var updateDashboard = function(req, res, next) {
   var dashboard = req.dashboard;
@@ -219,6 +129,7 @@ var updateDashboard = function(req, res, next) {
   function getValue(prop){
     return req.body.hasOwnProperty(prop) ? req.body[prop] : dashboard[prop];    
   }
+
   dashboard.title = getValue("title");
   dashboard.subtitle = getValue("subtitle");
   dashboard.description = getValue("description");
@@ -246,12 +157,7 @@ var updateDashboard = function(req, res, next) {
 };
 
 var sendDashboard = function(req, res){
-  if (req.isFull){
-    res.jsonp(req.dashboard);
-  }
-  else {
-    res.send(req.dashboard);
-  }
+  res.send(req.dashboard);
 };
 
 var sendDashboards = function(req, res){

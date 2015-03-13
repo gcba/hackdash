@@ -11,7 +11,7 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 		},
 		transclude: true,
 		controller: ['$scope', '$http', '$templateCache', '$compile', function($scope, $http, $templateCache, $compile) {
-			console.log('RUN CONTROLLER');
+			//console.log('RUN CONTROLLER');
 			var buildTemplateFunc = function(tMap, bUrl){
 				return function tmplFunc(contentType, viewMode){
 					var templateLoader
@@ -98,7 +98,7 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 						$dragdrop.css('background', 'rgb(241, 241, 241)');
 					},
 					drop: function () {
-						console.log('drop');
+						//console.log('drop');
 						$dragdrop.css('background', 'rgb(241, 241, 241)');
 					},
 					uploadFinished: function(i, file, res) {
@@ -120,15 +120,16 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 
 		}],
 		link: function(scope, iElement, iAttrs) {
-			if(iAttrs.edit){
+        if(iAttrs.edit){
 				var loader = scope.getWidgetFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
-			}else{
+			}
+            else{
 				var loader = scope.getFieldTmpl(scope.fieldSchema.type, iAttrs.viewMode);
 				if(scope.fieldSchema.type === 'videourl' && scope.fieldData){
 					if(iAttrs.viewMode === 'full'){
 						scope.fieldData =  $sce.trustAsResourceUrl('//www.youtube.com/embed/' + scope.fieldData);
-						console.log(scope.fieldData);
-					}else{
+					}
+                    else{
 						scope.fieldData =  $sce.trustAsResourceUrl('http://img.youtube.com/vi/' + scope.fieldData + '/0.jpg');
 					}
 				}
@@ -140,7 +141,8 @@ ocApp.directive('fieldComponent', function($compile, $rootScope, $sce, $timeout)
 				$timeout(function(){
 					if(scope.fieldSchema.type === 'imageurl' || scope.fieldSchema.type === 'cover'){
 						scope.initImageFiledrop(scope.fieldSchema.type);
-					} else if(scope.fieldSchema.type === 'fileurl'){
+					}
+                    else if(scope.fieldSchema.type === 'fileurl'){
 						scope.initFileDrop(scope.fieldSchema.type);
 					}
 				});
@@ -168,15 +170,15 @@ ocApp.directive('imageDrop', function ($window, $timeout) {
 					maxfiles: 1,
 					maxfilesize: 3,
 					dragOver: function () {
-						console.log('leave');
+						//console.log('leave');
 						$dragdrop.css('background', 'rgb(226, 255, 226)');
 					},
 					dragLeave: function () {
-						console.log('leave');
+						//console.log('leave');
 						$dragdrop.css('background', 'rgb(241, 241, 241)');
 					},
 					drop: function () {
-						console.log('drop');
+						//console.log('drop');
 						$dragdrop.css('background', 'rgb(241, 241, 241)');
 					},
 					uploadFinished: function(i, file, res) {
@@ -198,7 +200,6 @@ ocApp.directive('imageDrop', function ($window, $timeout) {
 		}],
 		link: function(scope, iElement, iAttrs){
 			$timeout(function(){
-				console.log('aca');
 				scope.initImageFiledrop(iElement);
 			}, 0);
 		}

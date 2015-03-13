@@ -17,7 +17,9 @@ module.exports = Backbone.Marionette.ItemView.extend({
   ui: {
     "title": "#dashboard-title",
     "description": "#dashboard-description",
-    "link": "#dashboard-link"
+    "link": "#dashboard-link",
+    "switcher": ".dashboard-switcher input",
+    "showcase": ".showcase-switcher input"
   },
 
   templateHelpers: {
@@ -47,6 +49,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       
       if (isAdmin){
         this.initEditables();
+        this.initSwitcher();
       }
     }
 
@@ -112,5 +115,27 @@ module.exports = Backbone.Marionette.ItemView.extend({
       }
     });
   },
+
+  initSwitcher: function(){
+    var self = this;
+
+    this.ui.switcher
+      .bootstrapSwitch()
+      .on('switch-change', function (e, data) {
+        self.model.set({ "open": data.value}, { trigger: false });
+        self.model.save({ wait: true });
+      });
+
+    this.ui.showcase
+      .bootstrapSwitch()
+      .on('switch-change', function (e, data) {
+        if (data.value){
+          self.model.trigger("edit:showcase");
+        }
+        else {
+          self.model.trigger("end:showcase"); 
+        }
+      });
+  }
 
 });

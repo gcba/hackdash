@@ -1,4 +1,4 @@
-<ng-form name="pageForm">
+<ng-form name="pageForm" xmlns="http://www.w3.org/1999/html">
 		<div class="form-group remove-fieldset">
 			<a href ng-click="challenge.pages.splice($index, 1)" class="btn btn-danger btn-xs">x</a>
 		</div>
@@ -11,7 +11,7 @@
 			<small ng-show="(pageForm.title.$dirty || submited) && pageForm.title.$error.required" class="form-error">El campo título es requerido</small>
 			</div>
 			<div class="form-group">
-			<div text-angular ng-model="page.text"></div>
+			    <div text-angular ng-model="page.text"></div>
 		</div>
 		<div class="form-group">
 			<select ng-model="page.content_type" ng-options="t(content) for content in $parent.page_contents_type" class="form-control">

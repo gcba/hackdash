@@ -37,35 +37,35 @@ module.exports = function(app, uri, common) {
     }
   };
 
-<<<<<<< HEAD
   //GET SCHEMA
   app.get(uri + '/projects/schema', common.isAuth, setSchema, sendSchema);
 
   //LIST
-=======
-  app.get(uri + '/:domain/projects', setQuery, setProjects, sendProjects);
-
->>>>>>> FETCH_HEAD
   app.get(uri + '/projects', setQuery, setProjects, sendProjects);
 
   //NEW
   app.post(uri + '/projects', common.isAuth, loadCommon(common), canCreateProject, createProject, sendProject);
   app.post(uri + '/projects/upload_file', common.isAuth, uploadFile);
   app.get(uri + '/projects/export/:cid', common.isAuth, exportProjects);
+  app.get(uri + '/myprojects/export/:cid/:uid', common.isAuth, exportMyProjects);
 
   //GET ONE  
   app.get(uri + '/projects/:pid', getProject, sendProject);
 
   //GET ALL from one dashboard
   app.get(uri + '/dashboards/:did/projects', setQuery, setProjects, sendProjects);
+  app.get(uri + '/dashboards/:did/:uid/myprojects', setQuery2, setProjects, sendProjects);
   app.get(uri + '/admin_dashboards/:did/projects', common.isAuth, common.isAdminDashboard, ignoreActive, setQuery, setProjects, sendProjects);
 
   //PUT SAVE SUMBIT FROM PROJECT
   app.put(uri + '/dashboards/:did/projects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
   app.put(uri + '/admin_dashboards/:did/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, updateProject, sendProject);
+  app.put(uri + '/dashboards/:did/:uid/myprojects/:pid', common.isAuth, getProject, canChangeProject, updateProject, sendProject);
+
 
   app.del(uri + '/admin_dashboards/:did/projects/:pid', common.isAuth, common.isAdminDashboard, getProject, canChangeProject, removeProject);
-  
+  app.del(uri + '/dashboards/:did/:uid/myprojects/:pid', common.isAuth, getProject, canChangeProject, removeProject);
+
   app.post(uri + '/projects/:pid/followers', common.isAuth, getProject, loadCommon(common), validate, addFollower);
   //app.del(uri + '/projects/:pid/followers', common.isAuth, getProject, validate, removeFollower);
 
@@ -118,10 +118,10 @@ var exportProjects = function(req, res, next){
       "superadmin": "Super administrador",
       "true": "si",
       "false": "no"
-    } 
+    }
   }
 
-  console.log(req);
+  //console.log(req);
 
   var LANGUANJE = "es";
 
@@ -143,23 +143,159 @@ var exportProjects = function(req, res, next){
 
       if (err) return res.send(500, err);
       if (!projects) return res.send(404);
+
+          //console.log(projects);
+
+
+      //Seteo Variables
+      var _link, _description, _cover, _imageurl, _videourl, _fileurl, _tags;
+
+
       for(var k=0;k<projects.length;k++){
+
+        /* Campos de Formulario:
+         - title: 'title',
+         description: 'description',
+         cover: 'image',
+         - link: 'link',
+         imageurl: 'image',
+         videourl: 'video',
+         - text: 'text',
+         fileurl: 'link',
+         tags: 'tags'
+        */
+
+
+        //Seteo para Elemento de Formulario link
+        _link = projects[k].link;
+        if(_link == undefined || _link == null){_link = '';}
+
+        //Seteo para Elemento de Formulario description
+        _description = projects[k].description;
+        if(_description == undefined || _description == null){_description = '';}
+
+        //Seteo para Elemento de Formulario cover
+        _cover = projects[k].cover;
+        if(_cover == undefined || _cover == null){_cover = '';}
+
+        //Seteo para Elemento de Formulario imageurl
+        _imageurl = projects[k].imageurl;
+        if(_imageurl == undefined || _imageurl == null){_imageurl = '';}
+
+        //Seteo para Elemento de Formulario videourl
+        _videourl = projects[k].videourl;
+        if(_videourl == undefined || _videourl == null){_videourl = '';}
+
+        //Seteo para Elemento de Formulario fileurl
+        _fileurl = projects[k].fileurl;
+        if(_fileurl == undefined || _fileurl == null){_fileurl = '';}
+
+        //Seteo para Elemento de Formulario tags
+        _tags = projects[k].tags;
+        if(_tags == undefined || _tags == null){_tags = '';}
+
+
+
+
         exportData[k] = {
+
+
           "Nombre del Creador": projects[k].leader.name,
-          "Paricipación": projects[k].title,
-          "Descripcion": projects[k].text,
+          "Paricipacion": projects[k].title,
+          "Descripcion": _description,
           "Estado": translatables[LANGUANJE][projects[k].status],
           "Activo?": translatables[LANGUANJE][projects[k].active], 
           "Votos": projects[k].followers.length,
-          "Email": projects[k].contributors[0].email
+          "Email": projects[k].contributors[0].email,
+          "Link": _link,
+          "Cover": _cover,
+          "Texto": projects[k].text,
+          "Imagen Url": _imageurl,
+          "Video Url": _videourl,
+          "File Url": _fileurl,
+          "Tags": _tags
+
+
         };
       }
       res.send(exportData);
   });
 };
 
+
+
+var exportMyProjects = function(req, res, next){
+    var exportData = new Array();
+    var translatables = {
+        "es": {
+            "5-submitted": "Postulada",
+            "4-finals": "Finalistas",
+            "4-special-mention": "Mención especial",
+            "3-price": "3° Puesto",
+            "2-price": "2° Puesto",
+            "1-price": "1° Puesto",
+            "1-winner": "Ganador",
+            "text": "Texto",
+            "faq": "Preguntas frecuentes",
+            "rules": "Reglas",
+            "jury": "Jurado",
+            "prizes": "Premios",
+            "stages": "Etapas",
+            "submissions": "Participaciones",
+            "edit-submit": "Editar - Participar",
+            "edit-vote": "Editar - Votos",
+            "submit": "Participar",
+            "public-vote": "Votar",
+            "information": "Información",
+            "user": "Usuario",
+            "admin": "Admistrador",
+            "superadmin": "Super administrador",
+            "true": "si",
+            "false": "no"
+        }
+    }
+
+    //console.log(req);
+
+    var LANGUANJE = "es";
+
+
+    Project.find({ 'challenge_id': req.params.cid, 'leader':req.params.uid})
+        .populate({
+            path: 'leader',
+            select: 'name picture _id email'
+        })
+        .populate({
+            path: 'contributors',
+            select: 'name picture _id email'
+        })
+        .populate({
+            path: 'followers',
+            select: 'name picture _id'
+        })
+        .exec(function(err, projects) {
+
+            if (err) return res.send(500, err);
+            if (!projects) return res.send(404);
+            for(var k=0;k<projects.length;k++){
+                exportData[k] = {
+                    "Nombre del Creador": projects[k].leader.name,
+                    "Paricipación": projects[k].title,
+                    "Descripcion": projects[k].text,
+                    "Estado": translatables[LANGUANJE][projects[k].status],
+                    "Activo?": translatables[LANGUANJE][projects[k].active],
+                    "Votos": projects[k].followers.length,
+                    "Email": projects[k].contributors[0].email
+                };
+            }
+            res.send(exportData);
+        });
+};
+
+
 var getProject = function(req, res, next){
-  Project.findById(req.params.pid)
+
+    Project.findById(req.params.pid)
     .populate({
       path: 'leader',
       select: 'name picture _id'
@@ -183,12 +319,10 @@ var getProject = function(req, res, next){
 
 var canChangeProject = function(req, res, next){
 
-  //var isLeader = req.user.id === req.project.leader.id;
+  var isLeader = req.user.id === req.project.leader.id;
   var isAdmin = (req.project.challenge_id && req.user.admin_in.indexOf(req.project.challenge_id) >= 0);
 
-  if (!isAdmin) {
-
-
+  if (!isAdmin && !isLeader) {
     return res.send(403, "Only Leader or Administrators can edit or remove this project.");
   }
 
@@ -291,6 +425,7 @@ var uploadFile = function(req, res, next) {
 };
 
 var updateProject = function(req, res, next) {
+
   var project = req.project;
 
   function getValue(prop){
@@ -328,19 +463,15 @@ var updateProject = function(req, res, next) {
   if (!project.description){
     return res.json(500, { error: "description_required" });
   }
-<<<<<<< HEAD
 */
   var isAdmin = (req.project.challenge_id && req.user.admin_in.indexOf(req.project.challenge_id) >= 0);
-  if (isAdmin){ 
+  if (isAdmin){
     //only update active state if is the dashboard admin
     project.active = getValue("active");
   }
   
-=======
-
->>>>>>> FETCH_HEAD
   project.save(function(err, project){
-    console.log(err);
+    //console.log(err);
     if(err) return res.send(500);
     req.project = project;
 
@@ -443,6 +574,7 @@ var ignoreActive = function(req, res, next){
 };
 
 var setQuery = function(req, res, next){
+
   var cat = req.query.cat || "";
   var order = req.query.order || "";
 
@@ -457,9 +589,6 @@ var setQuery = function(req, res, next){
       req.query = { challenge_id: req.params.did, active: true };      
     }
   }
-  else if (req.params.domain) {
-    req.query = { domain: req.params.domain };
-  }
 
   if (cat.length === 0 && order.length === 0){
     return next();
@@ -472,24 +601,60 @@ var setQuery = function(req, res, next){
     }
   }
 
-<<<<<<< HEAD
  /* var regex = new RegExp(query, 'i');
   req.query.$or = [ { title: regex }, { description: regex } ];*/
-=======
-  var regex = new RegExp(query, 'i');
-  req.query.$or = [ { title: regex }, { description: regex }, { tags: regex } ];
->>>>>>> FETCH_HEAD
 
   next();
 };
 
-var setProjects = function(req, res, next){
-  req.orderBy = req.orderBy || { "created_at" : -1 }; 
 
+
+var setQuery2 = function(req, res, next){
+
+    var cat = req.query.cat || "";
+    var order = req.query.order || "";
+
+    req.query = {};
+    req.orderBy = {};
+
+    if (req.params.did) {
+        var ignoreActive = req.ignoreActive || false;
+        if(ignoreActive){
+            req.query = { challenge_id: req.params.did, leader: req.params.uid};
+        } else {
+            req.query = { challenge_id: req.params.did, active: true, leader: req.params.uid };
+        }
+    }
+
+
+    if (cat.length === 0 && order.length === 0){
+        return next();
+    } else {
+        if(cat!=""){
+            req.query['tags'] = cat;
+        }
+        if(order!=""){
+            req.orderBy[order] = 1;
+        }
+    }
+
+
+
+    /* var regex = new RegExp(query, 'i');
+     req.query.$or = [ { title: regex }, { description: regex } ];*/
+
+    next();
+};
+
+
+
+
+var setProjects = function(req, res, next){
+  req.orderBy = req.orderBy || { "created_at" : -1 };
   Project.find(req.query || {})
     .populate({
       path: 'leader',
-      select: 'name picture _id'
+      select: '_id name picture '
     })
     .populate({
       path: 'contributors',
@@ -501,6 +666,7 @@ var setProjects = function(req, res, next){
     })
     //.limit(30)
     .sort( req.orderBy )
+
     .exec(function(err, projects) {
       if(err) return res.send(500);
       req.projects = projects;
@@ -509,6 +675,7 @@ var setProjects = function(req, res, next){
 }
 
 var sendProject = function(req, res){
+
   res.send(req.project);
 };
 

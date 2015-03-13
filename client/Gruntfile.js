@@ -42,15 +42,24 @@ module.exports = function(grunt) {
       } 
     },
 
-    browserify: {
+    handlebars: {
+      dev: {
+        files: [
+          {
+            expand: true,
+            cwd: 'app/views/',
+            src: ['**/*.hbs'],
+            dest: 'app/views/',
+            ext: '.hbs.js',
+          },
+        ]
+      }
+    },
+
+    builder: {
       app: {
-        options:{
-          extension: [ '.js', '.hbs' ],
-          transform: [ 'hbsfy' ],
-          //debug: true
-        },
-        src: ['<%= paths.app.root %>index.js'],
-        dest: '<%= paths.dist.root %><%= paths.dist.appName %>'
+        src: "<%= paths.app.root %>index.js",
+        dest: "<%= paths.dist.root %><%= paths.dist.appName %>"
       }
     },
 
@@ -164,16 +173,19 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-commonjs-handlebars');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-browserify');
+
+  require('./builder.grunt.js')(grunt);
 
   grunt.registerTask("default", [
     "clean:before", 
     "jshint:all", 
-    "browserify",
+    "handlebars", 
+    "builder:app:local", 
     "concat", 
     "clean:after",
     "copy"

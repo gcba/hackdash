@@ -20,7 +20,7 @@ ocApp.controller('projectCtrl', function($scope, $routeParams, Restangular, $roo
 
 	//vote
 	$scope.vote = function(projectId){
-		console.log("projectId: "+projectId);
+		//console.log("projectId: "+projectId);
 		if($rootScope.user){
 			Restangular.one('projects', projectId)
 				.post('followers')

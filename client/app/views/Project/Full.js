@@ -15,7 +15,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
     return this.model.get("_id");
   },
 
-  className: "project",
+  className: "project tooltips",
   template: template,
 
   modelEvents: {
@@ -27,7 +27,11 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //--------------------------------------
 
   onRender: function(){
-    this.$el.addClass(this.model.get("status"));
+    this.$el
+      .addClass(this.model.get("status"))
+      .attr({ "title": this.model.get("status") })
+      .tooltip({});
+
     $('.tooltips', this.$el).tooltip({});
   }
 

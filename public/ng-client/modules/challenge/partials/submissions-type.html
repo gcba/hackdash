@@ -35,7 +35,7 @@
 				</p>
 			</div>
 		</div>
-		<div class="row">
+		<!--<div class="row">
 			<div class="col-md-12">
 				<select ng-model="filter.order" ng-change="changeFilter()" class="form-control input-lg">
 					<option value="">-- Filtrar por --</option>
@@ -44,7 +44,43 @@
 					<option value="votes">Votos</option>
 				</select>
 			</div>
-		</div>
+		</div>-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control input-lg ng-pristine ng-valid" placeholder="Buscar participaciones">
+	    <span class="input-group-btn">
+		    <button class="btn btn-default btn-lg">&nbsp;&nbsp;&nbsp;Buscar&nbsp;&nbsp;&nbsp;</button>
+		  </span>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Filtrar por</h4>
+                <select ng-model="filter.order" ng-change="changeFilter()" class="form-control ng-pristine ng-valid">
+                    <option value="0">Ver todos</option>
+                    <option value="1">Mis participaciones</option>
+                    <option value="1">Categoría 1</option>
+                    <option value="2">Categoría 2</option>
+                    <option value="3">Categoría 3</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <h4>Ordernar por</h4>
+                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label href="#" class="btn btn-default active">
+                        <input type="radio" name="orden" value="F" checked> Fecha
+                    </label>
+                    <label href="#" class="btn btn-default">
+                        <input type="radio" name="orden" value="M"> Votos
+                    </label>
+                </div>
+            </div>
+        </div><br><br>
+
+
 
 		<div ng-show="projects.length == 0" class="row">
 			<p>No hay participaciones con este filtro</p>

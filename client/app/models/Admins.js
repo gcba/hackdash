@@ -16,15 +16,5 @@ module.exports = Users.extend({
     return hackdash.apiURL + '/admins'; 
   },
 
-  addAdmin: function(userId){
-    $.ajax({
-      url: this.url() + '/' + userId,
-      type: "POST",
-      context: this
-    }).done(function(user){
-      this.add(user);
-    });
-  },
-
 });
 

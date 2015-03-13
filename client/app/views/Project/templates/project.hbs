@@ -14,7 +14,8 @@
     <div id="contributors">
     {{#each contributors}}
       <a href="/users/{{_id}}">
-        {{getProfileImage .}}
+        <img class="avatar tooltips" rel="tooltip" 
+          src="{{picture}}" data-id="{{_id}}" title="{{name}}">
       </a>
     {{/each}}
     </div>
@@ -70,7 +71,7 @@
 
   {{#isLoggedIn}}
     {{#isDashboardView}}
-      {{#if isShowcaseMode}}
+      {{#if isDashboardAdmin}}
 
         <div class="switcher tooltips" data-placement="top" data-original-title="Toggle visibility">
           <input type="checkbox" {{#if active}}checked{{/if}} class="switch-small">

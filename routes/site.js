@@ -3,14 +3,15 @@ var passport = require('passport')
   , config = require('../config.json')
   , mongoose = require('mongoose');
 
-var Dashboard = mongoose.model('Dashboard');
+var User = mongoose.model('User')
+  , Project = mongoose.model('Project')
+  , Dashboard = mongoose.model('Dashboard');
 
 module.exports = function(app) {
-  var metas = require('../utils/metas')(app);
 
   var liveStack = [
     isLive(app),
-    loadUser,
+    loadUser, 
     loadProviders,
     dashExists,
     setViewVar('statuses', app.get('statuses')),
@@ -23,85 +24,72 @@ module.exports = function(app) {
   var appHost = app.get('config').host + (appPort && appPort !== 80 ? ':' + appPort : '');
 
   var hackdashFullStack = [
-    loadUser,
+    loadUser, 
     loadProviders,
     setSubdomain,
     checkProfile,
     setViewVar('host', appHost),
     setViewVar('version', app.get('clientVersion')),
     setViewVar('statuses', app.get('statuses')),
-<<<<<<< HEAD
     setViewVar('permissions', app.get('permissions')),
     setViewVar('page_contents_type', app.get('page_contents_type')),
     setViewVar('roles', app.get('roles')),
     setViewVar('disqus_shortname', app.get('disqus_shortname')),
     setViewVar('dash_statuses', app.get('dash_statuses')),
-=======
-    setViewVar('disqus_shortname', config.disqus_shortname),
-    metas.check(),
->>>>>>> FETCH_HEAD
     render('hackdashApp')
   ];
 
-  //TODO: hack to remove "checkProfile" and avoid redirect loop
-  // when user has no email set
-  var hackdashProfileStack = hackdashFullStack.slice(0);
-  hackdashProfileStack.splice(3, 1);
-
   // home page if no subdomain
   // dashboard if subdomain
-  app.get('/', metas.dashboard, hackdashFullStack);
+  app.get('/', hackdashFullStack);
 
   // Search all projects if no subdomain
   // Search projects inside dashboard if subdomain
   // ?q=[query]
-  app.get('/projects', metas.projects, hackdashFullStack);
+  app.get('/projects', hackdashFullStack);
 
   // Project Create Form for a dashboard - ONLY with a subdomain
   app.get('/projects/create', hackdashFullStack);
 
   // Project View - Always Read Only
-  app.get('/projects/:pid', metas.project, hackdashFullStack);
+  app.get('/projects/:pid', hackdashFullStack);
 
   // Project Edit Form - ONLY with a domain - redirects if not
   app.get('/projects/:pid/edit', hackdashFullStack);
 
   // Dashboards search - ONLY without subdomain - redirects if any
   // ?q=[query]
-  app.get('/dashboards', metas.dashboards, hackdashFullStack);
-
-  // Dashboards by domain
-  app.get('/dashboards/:dashboard', metas.dashboard, hackdashFullStack);
+  app.get('/dashboards', hackdashFullStack);
 
   // Project View - Always Read Only
   app.get('/dashboards/:did', hackdashFullStack);
 
   // Collections search - ONLY without subdomain - redirects if any
   // ?q=[query]
-  app.get('/collections', metas.collections, hackdashFullStack);
+  app.get('/collections', hackdashFullStack);
 
   // Collection View - ONLY without subdomain - redirects if any
   // Shows a list of dashboards - NO SEARCH
-  app.get('/collections/:cid', metas.collection, hackdashFullStack);
+  app.get('/collections/:cid', hackdashFullStack);
 
   // User Profile's View
-  app.get('/users/profile', hackdashProfileStack);
+  app.get('/users/profile', hackdashFullStack);
 
   // Users Profile's card and entities
-  app.get('/users/:user_id', metas.user, hackdashFullStack);
+  app.get('/users/:user_id', hackdashFullStack);
 
   // Live view of a Dashboard - ONLY with a subomain
-  app.get('/live', metas.dashboard, liveStack);
+  app.get('/live', liveStack);
 
   // Login view
   app.get('/login', hackdashFullStack);
-
+  
   // Logout
   app.get('/logout', logout(app), redirect('/'));
 
   //keep previous Projects link working
-  app.get('/p/:pid', function(req, res){
-    res.redirect(301, '/projects/' + req.params.pid);
+  app.get('/p/:pid', function(req, res){ 
+    res.redirect('/projects/' + req.params.pid);
   });
 
 };
@@ -129,7 +117,7 @@ var setSubdomain = function(req, res, next){
   res.locals.subdomain = null;
 
   if (req.subdomains.length){
-    res.locals.subdomain = req.subdomains[0];
+    res.locals.subdomain = req.subdomains[0]; 
   }
 
   next();
@@ -181,7 +169,7 @@ var setViewVar = function(key, value) {
     res.locals[key] = value;
     next();
   };
-};
+};  
 
 /*
  * Load app providers

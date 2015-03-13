@@ -11,14 +11,18 @@ ocApp.config(function($routeProvider) {
       templateUrl:'/ng-client/modules/challenge/add.html'
     })
     .when('/challenge/:challengeId', {
-      templateUrl:'/ng-client/modules/challenge/view.html',
+      templateUrl:'/ng-client/modules/challenge/view.html'
     })
     .when('/challenge/:challengeId/edit', {
-      templateUrl:'/ng-client/modules/challenge/edit.html',
+      templateUrl:'/ng-client/modules/challenge/edit.html'
     })
     .when('/challenge/:challengeId/edit/projects', {
       controller:'challengeCtrl', 
-      templateUrl:'/ng-client/modules/challenge/projects.html',
+      templateUrl:'/ng-client/modules/challenge/projects.html'
+    })
+    .when('/challenge/:challengeId/:userId/edit/myprojects', {
+      controller:'challengeCtrlPub', 
+      templateUrl:'/ng-client/modules/challenge/myprojects.html'
     })
    .when('/submit/:projectId', {
       templateUrl:'/ng-client/modules/project/view.html'

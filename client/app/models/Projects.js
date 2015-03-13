@@ -13,46 +13,34 @@ var Projects = module.exports = Backbone.Collection.extend({
   idAttribute: "_id",
   
   url: function(){
-    if (this.domain){
-      return hackdash.apiURL + '/' + this.domain + '/projects';   
-    }
     return hackdash.apiURL + '/projects'; 
   },
 
   parse: function(response){
+    var projects = [];
 
-    if (hackdash.app.type !== "dashboard"){
-      //it is not a dashboard so all projects active
-      return response;
-    }
-
-    var dashboard = hackdash.app.dashboard;
-
-    var showcase = (dashboard && dashboard.get("showcase")) || [];
-    if (showcase.length === 0){
-      //no showcase defined: all projects are active
-      return response;
-    }
-
-    // set active property of a project from showcase mode 
-    // (only projects at showcase array are active ones)
+    // only parse projects actives if no user or user not admin of dash
     _.each(response, function(project){
-      
-      if (showcase.indexOf(project._id) >= 0){
-        project.active = true;
+
+      if (hackdash.app.type === "dashboard"){
+        var user = hackdash.user;
+        var isAdmin = user && (user._id === project.leader._id || user.admin_in.indexOf(this.domain) >= 0);
+        if (isAdmin || project.active){
+          projects.push(project);
+        }
       }
-      else {
-        project.active = false; 
+      else if (project.active) {
+        projects.push(project);
       }
 
     });
 
-    return response;
+    return projects;
   },
 
   buildShowcase: function(showcase){
     _.each(showcase, function(id, i){
-      var found = this.where({ _id: id, active: true });
+      var found = this.where({ _id: id });
       if (found.length > 0){
         found[0].set("showcase", i);
       }
@@ -61,18 +49,10 @@ var Projects = module.exports = Backbone.Collection.extend({
     this.trigger("reset");
   },
 
-  getActives: function(){
+  getOnlyActives: function(){
     return new Projects(
       this.filter(function(project){
         return project.get("active");
-      })
-    );
-  },
-
-  getInactives: function(){
-    return new Projects(
-      this.filter(function(project){
-        return !project.get("active");
       })
     );
   }

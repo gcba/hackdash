@@ -14,6 +14,10 @@ module.exports = Backbone.Marionette.ItemView.extend({
   tagName: "li",
   template: template,
 
+  events: {
+    "click .view-collection": "viewCollection"
+  },
+
   //--------------------------------------
   //+ INHERITED / OVERRIDES
   //--------------------------------------
@@ -30,7 +34,7 @@ module.exports = Backbone.Marionette.ItemView.extend({
       this.$el.removeClass('active'); 
     }
 
-    this.$el.off("click").on("click", this.toggleDashboard.bind(this));
+    this.$el.on("click", this.toggleDashboard.bind(this));
   },
 
   serializeData: function(){
@@ -47,24 +51,17 @@ module.exports = Backbone.Marionette.ItemView.extend({
   //+ EVENT HANDLERS
   //--------------------------------------
 
-  viewCollection: function(){
-    this.$el.off("click");
+  viewCollection: function(e){
+    e.stopPropagation();
     hackdash.app.modals.close();
   },
 
-  toggleDashboard: function(e){
-    if ($(e.target).hasClass("view-collection")){
-      this.viewCollection();
-      return;
-    }
-
+  toggleDashboard: function(){
     if (this.hasDashboard()){
       this.model.removeDashboard(this.dashboardId);
-      hackdash.app.modals.currentView.removedCollection(this.model.get("title"));
     }
     else {
       this.model.addDashboard(this.dashboardId);
-      hackdash.app.modals.currentView.addedCollection(this.model.get("title"));
     }
 
     this.render();

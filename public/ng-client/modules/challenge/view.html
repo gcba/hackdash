@@ -28,7 +28,7 @@
 					<p><a href="/#/challenge/{{challenge._id}}/edit/projects">Ver postulaciones</a></p>
 				</div>
 				<div ng-if="challenge.stages[0].permissions.indexOf('edit-vote')>0 && !userCanEdit" class="adminbar">
-					<p><a href="/#/challenge/{{challenge._id}}/edit/myprojects">Ver mis postulaciones</a></p>
+					<p><a href="/#/challenge/{{challenge._id}}/{{user._id}}/edit/myprojects">Ver mis postulaciones</a></p>
 				</div>
 
 				<div class="well" ng-if="isAbleTo('submit',challenge)">

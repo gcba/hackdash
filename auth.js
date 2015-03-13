@@ -22,15 +22,14 @@ passport.deserializeUser(function(id, done) {
 
 module.exports = function(app) {
 
-  // Helpers
+// Helpers
 
-  var saveSubdomain = function(req, res, next) {
-    if(!req.session) req.session = {};
-    req.session.subdomain = (req.subdomains.length && req.subdomains[0]) || '';
-    next();
-  };
+var saveSubdomain = function(req, res, next) {
+  if(!req.session) req.session = {};
+  req.session.subdomain = (req.subdomains.length && req.subdomains[0]) || '';
+  next();
+};
 
-<<<<<<< HEAD
 var redirectSubdomain = function(req, res) {
   var domain = app.get('config').host;
   if (req.session.subdomain !== '') {
@@ -38,28 +37,15 @@ var redirectSubdomain = function(req, res) {
   }
   res.redirect("/");
 };
-=======
-  var redirectSubdomain = function(req, res) {
-    var domain = app.get('config').host;
->>>>>>> FETCH_HEAD
 
-    if (req.session.subdomain !== '') {
-      domain = req.session.subdomain + '.' + domain;
-    }
 
-<<<<<<< HEAD
 app.set('providers', Object.keys(keys));
 app.set('providers_config', keys);
-=======
-    res.redirect('http://' + domain + ':' + app.get('config').port);
-  };
->>>>>>> FETCH_HEAD
 
-  app.set('providers', Object.keys(keys));
+for(var strategy in keys) {
 
-  for(var strategy in keys) {
+  (function(provider){
 
-<<<<<<< HEAD
     app.get('/auth/' + provider, saveSubdomain, passport.authenticate(provider));
     app.get('/auth/' + provider + '/callback', passport.authenticate(provider, {
       failureRedirect: '/' }), redirectSubdomain);
@@ -69,36 +55,17 @@ app.set('providers_config', keys);
   function(identifier, profile, done) {
       User.findOne({provider_id: profile.emails[0].value, provider: provider}, function(err,
 user){
-=======
-    (function(provider){
 
-      app.get('/auth/' + provider, saveSubdomain, passport.authenticate(provider));
-      app.get('/auth/' + provider + '/callback',
-        passport.authenticate(provider, { failureRedirect: '/' }), redirectSubdomain);
->>>>>>> FETCH_HEAD
-
-      var Strategy = require('passport-' + provider).Strategy;
-
-      passport.use(new Strategy(keys[provider], function(token, tokenSecret, profile, done) {
-
-        User.findOne({provider_id: profile.id, provider: provider}, function(err, user){
-
-          function setPicture(){
-            if(profile.photos && profile.photos.length && profile.photos[0].value) {
-              user.picture =  profile.photos[0].value.replace('_normal', '_bigger');
-            }
-            else if(profile.provider == 'facebook') {
-              user.picture = "https://graph.facebook.com/" + profile.id + "/picture";
-              user.picture += "?width=73&height=73";
-            }
-            else {
-              user.picture = gravatar.url(user.email || '', {s: '73'});
-            }
-
-            user.picture = user.picture || '/default_avatar.png';
+        function setPicture(){
+          if(profile.photos && profile.photos.length && profile.photos[0].value) {
+            user.picture =  profile.photos[0].value.replace('_normal', '_bigger');
+          } else if(profile.provider == 'facebook') {
+            user.picture = "https://graph.facebook.com/" + profile.id + "/picture";
+            user.picture += "?width=73&height=73";
+          } else {
+            user.picture = gravatar.url(user.email || '', {s: '73'});
           }
 
-<<<<<<< HEAD
           user.picture = user.picture || '/default_avatar.png';
         }
 
@@ -133,70 +100,43 @@ user){
           
           if (user.picture !== picBefore){
             user.save(function(err, user){  
-=======
-          if(!user) {
-            var user = new User();
-            user.provider = provider;
-            user.provider_id = profile.id;
-
-            if(profile.emails && profile.emails.length && profile.emails[0].value)
-              user.email = profile.emails[0].value;
-
-            setPicture();
-
-            user.name = profile.displayName || '';
-            user.username = profile.username || profile.displayName;
-            user.save(function(err, user){
->>>>>>> FETCH_HEAD
               done(null, user);
             });
-          } else {
+          }
+          else {
+            done(null, user);
+          }
 
-<<<<<<< HEAD
         }
       });
     }
 
 
     ));
-=======
-            //Update user picture provider if url changed
-            var picBefore = user.picture;
-            setPicture();
->>>>>>> FETCH_HEAD
 
-            if (user.picture !== picBefore){
-              user.save(function(err, user){
-                done(null, user);
-              });
-            }
-            else {
-              done(null, user);
-            }
+  })(strategy);
 
-          }
-        });
-      }));
+}
 
-    })(strategy);
+// Anonymous auth for test porpouses 
 
-  }
+if(process.env.NODE_ENV == "test") {
 
-  // Anonymous auth for test porpouses
-  if(process.env.NODE_ENV == "test") {
+  var BasicStrategy = require('passport-http').BasicStrategy;
 
-    var BasicStrategy = require('passport-http').BasicStrategy;
+  var u;
+  var user = new User({provider: 'basic', provider_id: 1, username: 'test'});
+  user.save(function(err, usr){ u = usr; });
 
-    passport.use(new BasicStrategy({}, function(username, password, done) {
+  passport.use(new BasicStrategy({}, function(username, password, done) {
+    process.nextTick(function () {
+      return done(null, u);
+    });
+  }));
 
-      User.findOne({ username: username }, function(err, usr){
-        return done(null, usr);
-      });
+  app.all('*', passport.authenticate('basic'));
 
-    }));
-
-    app.all('*', passport.authenticate('basic'));
-  }
+}
 
 };
 
